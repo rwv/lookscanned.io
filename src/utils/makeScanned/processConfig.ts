@@ -19,7 +19,7 @@ export function getProcessCommand(
   args.push(inputFilename);
 
   if (thresholdFunc(rotate)) {
-    args.push(`-rotate ${rotate.toFixed(2)} +repage`);
+    args.push(`-distort SRT ${rotate.toFixed(2)} +repage`);
   }
 
   args.push(`-colorspace ${colorspace}`);
