@@ -7,6 +7,7 @@
 
     <!-- Scan Settings -->
     <ColorspaceSetting v-model:colorspace="config.colorspace" />
+    <BorderSetting v-model:border="config.border" />
     <RotateSetting v-model:rotate="config.rotate" />
     <BlurSetting v-model:blur="config.blur" />
     <AttenuateSetting v-model:attenuate="config.attenuate" />
@@ -30,6 +31,7 @@ import PDFSelection from "./PDFSelection.vue";
 
 import RotateSetting from "./Settings/RotateSetting.vue";
 import ColorspaceSetting from "./Settings/ColorspaceSetting.vue";
+import BorderSetting from "./Settings/BorderSetting.vue";
 import BlurSetting from "./Settings/BlurSetting.vue";
 import AttenuateSetting from "./Settings/AttenuateSetting.vue";
 
