@@ -27,9 +27,9 @@ npm run build:all
 
 ## Credits
 
-* [baicunko/scanyourpdf](https://github.com/baicunko/scanyourpdf)
-* [cancerberoSgx/magica](https://github.com/cancerberoSgx/magica)
-* [mozilla/pdf.js](https://mozilla.github.io/pdf.js/)
+* [baicunko/scanyourpdf: Repository for the Scan Your Pdf community](https://github.com/baicunko/scanyourpdf)
+* [cancerberoSgx/magica: ImageMagick for browser and Node.js, easy setup, high level API and Command Line Interface](https://github.com/cancerberoSgx/magica)
+* [mozilla/pdf.js: PDF Reader in JavaScript](https://github.com/mozilla/pdf.js)
 * [Scanner icons created by Freepik - Flaticon](https://www.flaticon.com/free-icons/scanner)
 
 ## License
