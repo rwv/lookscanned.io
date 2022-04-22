@@ -5,6 +5,7 @@ export interface ProcessConfig {
   blur: number;
   attenuate: number;
   noise: string;
+  border: boolean;
 }
 
 export function getProcessCommand(
@@ -12,11 +13,15 @@ export function getProcessCommand(
   inputFilename: string,
   outputFilename: string
 ): string {
-  const { rotate, colorspace, blur, attenuate, noise } = config;
+  const { rotate, colorspace, blur, attenuate, noise, border } = config;
   const thresholdFunc = (value: number) => !(value > -0.1 && value < 0.1);
   const args: string[] = [];
   args.push("convert");
   args.push(inputFilename);
+
+  if (thresholdFunc(border) == true) {
+    args.push("-bordercolor black -border 1 -bordercolor white -border 1");
+  }
 
   if (thresholdFunc(rotate)) {
     args.push(`-distort SRT ${rotate.toFixed(2)} +repage`);
