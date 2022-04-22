@@ -19,7 +19,7 @@ export function getProcessCommand(
   args.push("convert");
   args.push(inputFilename);
 
-  if (thresholdFunc(border) == true) {
+  if (border) {
     args.push("-bordercolor black -border 1 -bordercolor white -border 1");
   }
 
