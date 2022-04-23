@@ -1,6 +1,7 @@
 export const colorspaces = ["gray", "sRGB"] as const;
 export interface ProcessConfig {
   rotate: number;
+  rotate_var: number;
   colorspace: typeof colorspaces[number];
   blur: number;
   attenuate: number;
@@ -13,8 +14,9 @@ export function getProcessCommand(
   inputFilename: string,
   outputFilename: string
 ): string {
-  const { rotate, colorspace, blur, attenuate, noise, border } = config;
-  const thresholdFunc = (value: number) => !(value > -0.1 && value < 0.1);
+  const { rotate, rotate_var, colorspace, blur, attenuate, noise, border } =
+    config;
+  const thresholdFunc = (value: number) => !(value > -0.05 && value < 0.05);
   const args: string[] = [];
   args.push("convert");
   args.push(inputFilename);
@@ -23,8 +25,12 @@ export function getProcessCommand(
     args.push("-bordercolor black -border 1");
   }
 
-  if (thresholdFunc(rotate)) {
-    args.push(`-background white -virtual-pixel background -distort SRT ${rotate.toFixed(2)} +repage`);
+  const randomRotate = (Math.random() * 2 - 1) * rotate_var + rotate;
+
+  if (thresholdFunc(randomRotate)) {
+    args.push("-background white -virtual-pixel background");
+    args.push(`-distort SRT ${randomRotate.toFixed(2)}`);
+    args.push("+repage");
   }
 
   args.push(`-colorspace ${colorspace}`);

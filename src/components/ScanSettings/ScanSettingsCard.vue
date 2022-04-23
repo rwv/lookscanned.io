@@ -9,6 +9,7 @@
     <ColorspaceSetting v-model:colorspace="config.colorspace" />
     <BorderSetting v-model:border="config.border" />
     <RotateSetting v-model:rotate="config.rotate" />
+    <RotateVarianceSetting v-model:rotate_var="config.rotate_var" />
     <BlurSetting v-model:blur="config.blur" />
     <AttenuateSetting v-model:attenuate="config.attenuate" />
 
@@ -29,9 +30,10 @@
 <script lang="ts" setup>
 import PDFSelection from "./PDFSelection.vue";
 
-import RotateSetting from "./Settings/RotateSetting.vue";
-import ColorspaceSetting from "./Settings/ColorspaceSetting.vue";
 import BorderSetting from "./Settings/BorderSetting.vue";
+import RotateSetting from "./Settings/RotateSetting.vue";
+import RotateVarianceSetting from "./Settings/RotateVarianceSetting.vue";
+import ColorspaceSetting from "./Settings/ColorspaceSetting.vue";
 import BlurSetting from "./Settings/BlurSetting.vue";
 import AttenuateSetting from "./Settings/AttenuateSetting.vue";
 
