@@ -20,11 +20,11 @@ export function getProcessCommand(
   args.push(inputFilename);
 
   if (border) {
-    args.push("-bordercolor black -border 1 -bordercolor white -border 1");
+    args.push("-bordercolor black -border 1");
   }
 
   if (thresholdFunc(rotate)) {
-    args.push(`-distort SRT ${rotate.toFixed(2)} +repage`);
+    args.push(`-background white -virtual-pixel background -distort SRT ${rotate.toFixed(2)} +repage`);
   }
 
   args.push(`-colorspace ${colorspace}`);
