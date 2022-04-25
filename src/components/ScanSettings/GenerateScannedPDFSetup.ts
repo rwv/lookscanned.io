@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import { makeScannedPdf } from "@/utils/makeScanned";
+import { fileSave } from "browser-fs-access";
 import type { ProcessConfig } from "@/utils/makeScanned";
 
 export function GenerateScannedPDFSetup() {
@@ -37,21 +38,23 @@ export function GenerateScannedPDFSetup() {
 
     const config_ = JSON.parse(JSON.stringify(config)) as ProcessConfig;
     try {
-      const blob = await makeScannedPdf(
+      const blobPromise = makeScannedPdf(
         pdfSource,
         config_,
         pdfCallback,
         processCallback
       );
-      const pdfUrl = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = pdfUrl;
-      a.download = "scanned.pdf";
-      a.click();
-      URL.revokeObjectURL(pdfUrl);
+      await fileSave(blobPromise, {
+        fileName: "scanned.pdf",
+        extensions: [".pdf"],
+      });
       status.value = "finished";
       return;
     } catch (e) {
+      if ((e as Error).name === "AbortError") {
+        status.value = "finished";
+        return;
+      }
       console.error(e);
       error_message.value = JSON.stringify(e);
       status.value = "error";

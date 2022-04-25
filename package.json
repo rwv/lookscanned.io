@@ -21,6 +21,7 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "assert": "^1.5.0",
+    "browser-fs-access": "^0.29.1",
     "magica": "^0.2.17",
     "p-map": "^4.0.0",
     "path-browserify": "^1.0.1",
