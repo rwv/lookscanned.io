@@ -38,13 +38,13 @@ export function GenerateScannedPDFSetup() {
 
     const config_ = JSON.parse(JSON.stringify(config)) as ProcessConfig;
     try {
-      const blobPromise = makeScannedPdf(
+      const blob = await makeScannedPdf(
         pdfSource,
         config_,
         pdfCallback,
         processCallback
       );
-      await fileSave(blobPromise, {
+      await fileSave(blob, {
         fileName: "scanned.pdf",
         extensions: [".pdf"],
       });
