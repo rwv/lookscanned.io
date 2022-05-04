@@ -3,7 +3,10 @@
     <v-list-item-header>
       <v-list-item-title>Background</v-list-item-title>
        <v-radio-group
-       v-model="backgroundButtons" row>
+       v-model="backgroundButtons"
+       inline="true"
+       hide-details="true"
+       >
          <v-radio
            label="White"
            value="White"
@@ -45,20 +48,5 @@ const backgroundButtons = computed({
 .v-select > div.v-input__control > div > div.v-field__overlay {
   background-color: inherit;
 }
-
-.v-radio-group .v-input__details {
-    display: none;
- }
-
- .v-radio-group .v-selection-control {
-    display: inline-block;
-    white-space: nowrap;
-    width:auto;
-    padding-right: 3%;
- }
-
- .v-radio-group .v-selection-control .v-label {
-    vertical-align: text-bottom;
- }
 
 </style>
