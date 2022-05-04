@@ -8,4 +8,5 @@ export const defaultConfig: ProcessConfig = {
   attenuate: 0.25,
   noise: "Gaussian",
   border: false,
+  punchHoles: "None",
 };
