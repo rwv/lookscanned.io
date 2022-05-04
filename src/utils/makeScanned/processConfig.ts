@@ -6,7 +6,7 @@ export interface ProcessConfig {
   blur: number;
   attenuate: number;
   noise: string;
-  border: boolean;
+  background: boolean;
   punchHoles: string;
 }
 
@@ -15,14 +15,14 @@ export function getProcessCommand(
   inputFilename: string,
   outputFilename: string
 ): string {
-  const { rotate, rotate_var, colorspace, blur, attenuate, noise, border, punchHoles } =
+  const { rotate, rotate_var, colorspace, blur, attenuate, noise, background, punchHoles } =
     config;
   const thresholdFunc = (value: number) => !(value > -0.05 && value < 0.05);
   const args: string[] = [];
   args.push("convert");
   args.push(inputFilename);
 
-  if (border) {
+  if (background) {
     args.push("-bordercolor black -border 1");
   }
 

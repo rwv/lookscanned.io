@@ -1,11 +1,11 @@
 <template>
   <v-list-item two-line>
     <v-list-item-header>
-      <v-list-item-title>Border</v-list-item-title>
+      <v-list-item-title>Background</v-list-item-title>
       <v-switch
-        v-model="borderSwitch"
+        v-model="backgroundSwitch"
         color="success"
-        :label="borderSwitch ? 'Yes' : 'No'"
+        :label="backgroundSwitch ? 'Yes' : 'No'"
         hide-details
         density="compact"
       ></v-switch>
@@ -17,19 +17,19 @@
 import type { ProcessConfig } from "@/utils/makeScanned";
 import { computed } from "vue";
 
-type borderType = ProcessConfig["border"];
+type backgroundType = ProcessConfig["background"];
 
 const props = defineProps<{
-  border: borderType;
+  background: backgroundType;
 }>();
 
 const emit = defineEmits<{
-  (e: "update:border", value: borderType): void;
+  (e: "update:background", value: backgroundType): void;
 }>();
 
-const borderSwitch = computed({
-  get: () => props.border == true,
-  set: (border) => emit("update:border", border ? true : false),
+const backgroundSwitch = computed({
+  get: () => props.background == true,
+  set: (background) => emit("update:background", background ? true : false),
 });
 </script>
 

@@ -7,7 +7,7 @@
 
     <!-- Scan Settings -->
     <ColorspaceSetting v-model:colorspace="config.colorspace" />
-    <BorderSetting v-model:border="config.border" />
+    <BackgroundSetting v-model:background="config.background" />
     <PunchHoleSetting v-model:punchHoles="config.punchHoles" />
     <RotateSetting v-model:rotate="config.rotate" />
     <RotateVarianceSetting v-model:rotate_var="config.rotate_var" />
@@ -31,7 +31,7 @@
 <script lang="ts" setup>
 import PDFSelection from "./PDFSelection.vue";
 
-import BorderSetting from "./Settings/BorderSetting.vue";
+import BackgroundSetting from "./Settings/BackgroundSetting.vue";
 import PunchHoleSetting from "./Settings/PunchHoleSetting.vue";
 import RotateSetting from "./Settings/RotateSetting.vue";
 import RotateVarianceSetting from "./Settings/RotateVarianceSetting.vue";
