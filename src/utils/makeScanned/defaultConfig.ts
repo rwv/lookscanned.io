@@ -7,6 +7,6 @@ export const defaultConfig: ProcessConfig = {
   blur: 0.5,
   attenuate: 0.25,
   noise: "Gaussian",
-  background: false,
+  background: "White",
   punchHoles: "None",
 };

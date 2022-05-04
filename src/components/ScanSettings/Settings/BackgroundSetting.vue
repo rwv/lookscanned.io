@@ -2,13 +2,21 @@
   <v-list-item two-line>
     <v-list-item-header>
       <v-list-item-title>Background</v-list-item-title>
-      <v-switch
-        v-model="backgroundSwitch"
-        color="success"
-        :label="backgroundSwitch ? 'Yes' : 'No'"
-        hide-details
-        density="compact"
-      ></v-switch>
+       <v-radio-group
+       v-model="backgroundButtons" row>
+         <v-radio
+           label="White"
+           value="White"
+         ></v-radio>
+         <v-radio
+           label="Black Border"
+           value="Black Border"
+         ></v-radio>
+         <v-radio
+           label="Black"
+           value="Black"
+         ></v-radio>
+       </v-radio-group>
     </v-list-item-header>
   </v-list-item>
 </template>
@@ -27,9 +35,9 @@ const emit = defineEmits<{
   (e: "update:background", value: backgroundType): void;
 }>();
 
-const backgroundSwitch = computed({
-  get: () => props.background == true,
-  set: (background) => emit("update:background", background ? true : false),
+const backgroundButtons = computed({
+  get: () => props.background,
+  set: (background) => emit("update:background", background),
 });
 </script>
 
@@ -37,4 +45,20 @@ const backgroundSwitch = computed({
 .v-select > div.v-input__control > div > div.v-field__overlay {
   background-color: inherit;
 }
+
+.v-radio-group .v-input__details {
+    display: none;
+ }
+
+ .v-radio-group .v-selection-control {
+    display: inline-block;
+    white-space: nowrap;
+    width:auto;
+    padding-right: 3%;
+ }
+
+ .v-radio-group .v-selection-control .v-label {
+    vertical-align: text-bottom;
+ }
+
 </style>

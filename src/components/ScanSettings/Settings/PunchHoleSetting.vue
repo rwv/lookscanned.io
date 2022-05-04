@@ -9,7 +9,7 @@
           value="None"
         ></v-radio>
         <v-radio
-          label="A4"                          
+          label="A4"
           value="A4"
         ></v-radio>
         <v-radio
