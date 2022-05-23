@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import FeatureHolder from "@/components/Features/FeatureHolder.vue";
 
-import IconUrl from "@/assets/scanner.png";
+import IconUrl from "@/assets/scanner.svg";
 </script>
 
 <style scoped>
