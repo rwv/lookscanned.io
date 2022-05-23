@@ -1,5 +1,7 @@
 # [📚 Look Scanned](https://lookscanned.io)
 
+[💸 Sponsor Me](https://zczc.cz/sponsor)
+
 https://lookscanned.io
 
 Look Scanned is a pure frontend site that makes your PDFs look scanned! No need for printers and scanners anymore - everything you need to do is just a few clicks. Inspired by [baicunko/scanyourpdf](https://github.com/baicunko/scanyourpdf).
