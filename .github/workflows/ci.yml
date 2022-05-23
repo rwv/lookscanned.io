@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+ 
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Lint
+      run: npm run lint
+    
+    - name: Run typecheck
+      run: npm run typecheck
+      
+    - name: Run build:worker
+      run: npm run build:worker
+      
+    - name: Run build:all
+      run: npm run build:all
