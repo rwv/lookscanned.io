@@ -2,9 +2,13 @@ import { main } from "./magicaImporter";
 
 import { generateIFile } from "./utils";
 
-export async function combineImagesToPdf(
+export type combineImagesToPdfFuncType = (
   imageArrayBufferViews: ArrayBufferView[]
-): Promise<Blob> {
+) => Promise<Blob>;
+
+export const combineImagesToPdf: combineImagesToPdfFuncType = async function (
+  imageArrayBufferViews
+) {
   const files = imageArrayBufferViews.map((abv, idx) =>
     generateIFile(abv, `${idx}.png`)
   );
@@ -24,4 +28,4 @@ export async function combineImagesToPdf(
   });
 
   return outputFileBlob;
-}
+};

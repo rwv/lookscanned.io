@@ -1,8 +1,8 @@
-import { combineImagesToPdf } from "./combineImagesToPdf";
+import type { combineImagesToPdfFuncType } from "./combineImagesToPdf";
 
 const workerPath = "/vendors/makeScanned/worker/combineImagesToPdf.worker.js";
 
-export const combineImagesToPdfWithWorker: typeof combineImagesToPdf =
+export const combineImagesToPdfWithWorker: combineImagesToPdfFuncType =
   async function (imageArrayBufferViews) {
     if (window.Worker) {
       return await new Promise((resolve) => {
@@ -17,6 +17,9 @@ export const combineImagesToPdfWithWorker: typeof combineImagesToPdf =
         });
       });
     } else {
+      const combineImagesToPdf = (await import(
+        "./combineImagesToPdf"
+      )) as unknown as combineImagesToPdfFuncType;
       return await combineImagesToPdf(imageArrayBufferViews);
     }
   };

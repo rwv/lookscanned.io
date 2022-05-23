@@ -1,8 +1,8 @@
-import { processImage } from "./processImage";
+import type { processImageFuncType } from "./processImage";
 
 const workerPath = "/vendors/makeScanned/worker/processImage.worker.js";
 
-export const processImageWithWorker: typeof processImage = async function (
+export const processImageWithWorker: processImageFuncType = async function (
   imageArrayBufferView,
   config
 ) {
@@ -24,6 +24,9 @@ export const processImageWithWorker: typeof processImage = async function (
       );
     });
   } else {
+    const processImage = (await import(
+      "./processImage"
+    )) as unknown as processImageFuncType;
     return await processImage(imageArrayBufferView, config);
   }
 };

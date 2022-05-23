@@ -5,9 +5,14 @@ import { generateIFile } from "./utils";
 import type { ProcessConfig } from "./processConfig";
 import { getProcessCommand } from "./processConfig";
 
-export async function processImage(
+export type processImageFuncType = (
   imageArrayBufferView: ArrayBufferView,
   config: ProcessConfig
+) => Promise<ArrayBufferView>;
+
+export const processImage: processImageFuncType = async function (
+  imageArrayBufferView,
+  config
 ) {
   const inputFilename = "image.png";
   const outputFilename = "foo.png";
@@ -23,4 +28,4 @@ export async function processImage(
   const outputFile = result.outputFiles[0];
   const outputFileContent = outputFile.content;
   return outputFileContent;
-}
+};
