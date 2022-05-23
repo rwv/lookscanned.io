@@ -21,7 +21,7 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "assert": "^1.5.0",
-    "browser-fs-access": "^0.29.1",
+    "browser-fs-access": "^0.29.5",
     "magica": "^0.2.17",
     "p-map": "^4.0.0",
     "path-browserify": "^1.0.1",
@@ -31,10 +31,11 @@
     "vue-meta": "^3.0.0-alpha.10",
     "vue-pdf-embed": "^1.1.1",
     "vue-router": "^4.0.14",
-    "vuetify": "^3.0.0-beta.0",
+    "vuetify": "^3.0.0-beta.1",
     "webfontloader": "^1.0.0"
   },
   "devDependencies": {
+    "@mdi/js": "^6.6.96",
     "@rushstack/eslint-patch": "^1.1.0",
     "@types/jsdom": "^16.2.14",
     "@types/node": "^16.11.26",
@@ -53,9 +54,10 @@
     "sass-loader": "^10.0.0",
     "typescript": "~4.6.3",
     "vite": "^2.9.1",
+    "vite-plugin-pwa": "^0.12.0",
     "vitest": "^0.8.1",
     "vue-cli-plugin-vuetify": "~2.4.8",
-    "vue-tsc": "^0.33.9",
+    "vue-tsc": "^0.34.7",
     "vuetify-loader": "^2.0.0-alpha.0"
   }
 }
