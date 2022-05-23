@@ -13,7 +13,12 @@
           need to do is just a few clicks.
         </p>
 
-        <v-btn :to="{ name: 'scan' }">Start Scanning</v-btn>
+        <div>
+          <v-btn class="mr-2" :to="{ name: 'scan' }">Start Scanning</v-btn>
+          <v-btn class="ml-2" :href="GITHUB_URL" @click.prevent="openGitHub"
+            >GitHub</v-btn
+          >
+        </div>
       </v-col>
 
       <v-col cols="12" class="text-center mt-10">
@@ -34,7 +39,19 @@
           </FeatureHolder>
 
           <FeatureHolder title="💡 Open Source">
-            Look Scanned is open source and available on GitHub.
+            Look Scanned is open source and available on
+            <a
+              href="https://github.com/rwv/lookscanned.io"
+              class="plain-link"
+              target="_blank"
+              >GitHub</a
+            >. Also, this site is inspired by another open source project
+            <a
+              href="https://github.com/baicunko/scanyourpdf"
+              class="plain-link"
+              target="_blank"
+              >baicunko/scanyourpdf</a
+            >
           </FeatureHolder>
 
           <FeatureHolder title="📱 Mobile Friendly">
@@ -56,6 +73,10 @@
 import FeatureHolder from "@/components/Features/FeatureHolder.vue";
 
 import IconUrl from "@/assets/scanner.svg";
+
+const GITHUB_URL = "https://github.com/rwv/lookscanned.io";
+
+const openGitHub = () => window.open(GITHUB_URL, "_blank");
 </script>
 
 <style scoped>
@@ -67,5 +88,16 @@ import IconUrl from "@/assets/scanner.svg";
 
 .advantage-icon {
   font-size: 8em;
+}
+</style>
+
+<style lang="scss" scoped>
+.plain-link {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 </style>
