@@ -7,12 +7,14 @@
     </v-app-bar-title>
 
     <template v-slot:append>
-      <v-btn :href="GITHUB_URL" @click.prevent="openGitHub" icon="mdi-github" />
+      <v-btn :href="GITHUB_URL" @click.prevent="openGitHub" :icon="mdiGithub" />
     </template>
   </v-app-bar>
 </template>
 
 <script setup lang="ts">
+import { mdiGithub } from "@mdi/js";
+
 const GITHUB_URL = "https://github.com/rwv/lookscanned.io";
 
 const openGitHub = () => window.open(GITHUB_URL, "_blank");
