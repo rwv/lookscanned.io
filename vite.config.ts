@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vuetify from "@vuetify/vite-plugin";
 import path from "path";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,6 +11,43 @@ export default defineConfig({
     // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
     vuetify({
       autoImport: true,
+    }),
+    VitePWA({
+      injectRegister: "script",
+      includeAssets: [
+        "favicon.ico",
+        "robots.txt",
+        "icons/*.png",
+        "icons/*.svg",
+        "icons/favicon.ico",
+        "vendors/magica/magick.wasm",
+        "vendors/makeScanned/worker/combineImagesToPdf.worker.js",
+        "vendors/makeScanned/worker/processImage.worker.js",
+        "vendors/pdf.js/pdf.worker.min.js",
+        "examples/pdfs/test.pdf",
+      ],
+      workbox: {
+        globPatterns: ["assets/*", "**/*.{js,css,html}"],
+      },
+      manifest: {
+        name: "Look Scanned",
+        short_name: "Look Scanned",
+        description:
+          "Look Scanned is a pure frontend site that makes your PDFs look scanned! No need for printers and scanners anymore - everything you need to do is just a few clicks.",
+        theme_color: "#ffffff",
+        icons: [
+          {
+            src: "icons/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "icons/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      },
     }),
   ],
   define: { "process.env": {} },
