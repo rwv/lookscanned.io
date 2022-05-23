@@ -27,7 +27,7 @@ export default defineConfig({
         "examples/pdfs/test.pdf",
       ],
       workbox: {
-        globPatterns: ["assets/*", "**/*.{js,css,html}"],
+        globPatterns: ["assets/*"],
       },
       manifest: {
         name: "Look Scanned",
