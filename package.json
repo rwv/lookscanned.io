@@ -53,7 +53,7 @@
     "jsdom": "^19.0.0",
     "prettier": "^2.5.1",
     "sass": "^1.52.1",
-    "sass-loader": "^10.0.0",
+    "sass-loader": "^13.0.0",
     "typescript": "~4.6.4",
     "vite": "^2.9.1",
     "vite-plugin-pwa": "^0.12.0",
