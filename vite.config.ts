@@ -23,6 +23,7 @@ export default defineConfig({
       ],
       workbox: {
         globPatterns: ["assets/*"],
+        maximumFileSizeToCacheInBytes: 10000000,
       },
       manifest: {
         name: "Look Scanned",
