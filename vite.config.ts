@@ -20,10 +20,6 @@ export default defineConfig({
         "icons/*.png",
         "icons/*.svg",
         "icons/favicon.ico",
-        "vendors/magica/magick.wasm",
-        "vendors/makeScanned/worker/combineImagesToPdf.worker.js",
-        "vendors/makeScanned/worker/processImage.worker.js",
-        "vendors/pdf.js/pdf.worker.min.js",
         "examples/pdfs/test.pdf",
       ],
       workbox: {
