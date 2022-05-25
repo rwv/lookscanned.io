@@ -6,10 +6,7 @@
     "build": "vite build",
     "test:unit": "vitest --environment jsdom",
     "lint": "eslint src --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "build:all": "npm run build:worker && npm run build",
-    "build:worker": "npm run build:processImage && npm run build:combineImagesToPdf",
-    "build:processImage": "esbuild ./src/utils/makeScanned/worker/processImage.worker.js --bundle --minify --sourcemap --target=chrome58 --outfile=./public/vendors/makeScanned/worker/processImage.worker.js",
-    "build:combineImagesToPdf": "esbuild ./src/utils/makeScanned/worker/combineImagesToPdf.worker.js --bundle --minify --sourcemap --target=chrome58 --outfile=./public/vendors/makeScanned/worker/combineImagesToPdf.worker.js",
+    "build:all": "npm run build",
     "dev": "vite",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false"
