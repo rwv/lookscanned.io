@@ -7,6 +7,8 @@ export type ToWorkerMessage = {
   config: ProcessConfig;
 };
 
+export type FromWorkerMessge = ArrayBufferView;
+
 export const processImageWithWorker: processImageFuncType = async function (
   imageArrayBufferView,
   config
@@ -21,7 +23,7 @@ export const processImageWithWorker: processImageFuncType = async function (
       );
       console.log("start Worker");
       magicaWorker.onmessage = (e) => {
-        const abv: ArrayBufferView = e.data;
+        const abv = e.data as FromWorkerMessge;
         magicaWorker.terminate();
         resolve(abv);
       };

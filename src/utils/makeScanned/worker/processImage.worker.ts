@@ -1,6 +1,9 @@
 import { processImage } from "../processImage";
 
-import type { ToWorkerMessage } from "../processImageWithWorker";
+import type {
+  ToWorkerMessage,
+  FromWorkerMessge,
+} from "../processImageWithWorker";
 
 onmessage = function (e) {
   console.log("Message received from main script");
@@ -9,6 +12,6 @@ onmessage = function (e) {
   const config = data.config;
   (async () => {
     const result = await processImage(imageArrayBufferView, config);
-    postMessage(result, [result.buffer]);
+    postMessage(result as FromWorkerMessge, [result.buffer]);
   })();
 };

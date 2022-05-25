@@ -4,6 +4,8 @@ export type ToWorkerMessage = {
   imageArrayBufferViews: ArrayBufferView[];
 };
 
+export type FromWorkerMessge = Blob;
+
 export const combineImagesToPdfWithWorker: combineImagesToPdfFuncType =
   async function (imageArrayBufferViews) {
     if (window.Worker) {
@@ -17,9 +19,9 @@ export const combineImagesToPdfWithWorker: combineImagesToPdfFuncType =
 
         // Receive message
         magicaWorker.onmessage = (e) => {
-          const abv: Blob = e.data;
+          const blob = e.data as FromWorkerMessge;
           magicaWorker.terminate();
-          resolve(abv);
+          resolve(blob);
         };
 
         // Send message
