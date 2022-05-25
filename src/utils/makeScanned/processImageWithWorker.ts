@@ -1,14 +1,17 @@
 import type { processImageFuncType } from "./processImage";
 
-const workerPath = "/vendors/makeScanned/worker/processImage.worker.js";
-
 export const processImageWithWorker: processImageFuncType = async function (
   imageArrayBufferView,
   config
 ) {
   if (window.Worker) {
     return await new Promise((resolve) => {
-      const magicaWorker = new Worker(workerPath);
+      const magicaWorker = new Worker(
+        new URL("./worker/processImage.worker.js", import.meta.url),
+        {
+          type: "module",
+        }
+      );
       console.log("start Worker");
       magicaWorker.onmessage = (e) => {
         const abv: ArrayBufferView = e.data;

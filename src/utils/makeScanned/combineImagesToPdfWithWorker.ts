@@ -1,12 +1,15 @@
 import type { combineImagesToPdfFuncType } from "./combineImagesToPdf";
 
-const workerPath = "/vendors/makeScanned/worker/combineImagesToPdf.worker.js";
-
 export const combineImagesToPdfWithWorker: combineImagesToPdfFuncType =
   async function (imageArrayBufferViews) {
     if (window.Worker) {
       return await new Promise((resolve) => {
-        const magicaWorker = new Worker(workerPath);
+        const magicaWorker = new Worker(
+          new URL("./worker/combineImagesToPdf.worker.js", import.meta.url),
+          {
+            type: "module",
+          }
+        );
         magicaWorker.onmessage = (e) => {
           const abv: Blob = e.data;
           magicaWorker.terminate();
