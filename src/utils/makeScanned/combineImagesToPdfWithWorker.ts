@@ -1,5 +1,9 @@
 import type { combineImagesToPdfFuncType } from "./combineImagesToPdf";
 
+export type ToWorkerMessage = {
+  imageArrayBufferViews: ArrayBufferView[];
+};
+
 export const combineImagesToPdfWithWorker: combineImagesToPdfFuncType =
   async function (imageArrayBufferViews) {
     if (window.Worker) {
@@ -10,14 +14,19 @@ export const combineImagesToPdfWithWorker: combineImagesToPdfFuncType =
             type: "module",
           }
         );
+
+        // Receive message
         magicaWorker.onmessage = (e) => {
           const abv: Blob = e.data;
           magicaWorker.terminate();
           resolve(abv);
         };
-        magicaWorker.postMessage({
+
+        // Send message
+        const message = {
           imageArrayBufferViews,
-        });
+        } as ToWorkerMessage;
+        magicaWorker.postMessage(message);
       });
     } else {
       const combineImagesToPdf = (await import(

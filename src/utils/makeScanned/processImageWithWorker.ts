@@ -1,5 +1,12 @@
 import type { processImageFuncType } from "./processImage";
 
+import type { ProcessConfig } from "./processConfig";
+
+export type ToWorkerMessage = {
+  imageArrayBufferView: ArrayBufferView;
+  config: ProcessConfig;
+};
+
 export const processImageWithWorker: processImageFuncType = async function (
   imageArrayBufferView,
   config
@@ -22,7 +29,7 @@ export const processImageWithWorker: processImageFuncType = async function (
         {
           imageArrayBufferView,
           config,
-        },
+        } as ToWorkerMessage,
         [imageArrayBufferView.buffer]
       );
     });
