@@ -20,7 +20,6 @@ export default defineConfig({
         "icons/*.png",
         "icons/*.svg",
         "icons/favicon.ico",
-        "examples/pdfs/test.pdf",
       ],
       workbox: {
         globPatterns: ["assets/*"],
