@@ -27,8 +27,9 @@ import { defaultConfig } from "@/utils/makeScanned";
 import SideBySidePreview from "@/components/preview/SideBySidePreview.vue";
 import ScanSettingsCard from "@/components/ScanSettings/ScanSettingsCard.vue";
 import { ref } from "vue";
+import PDFURL from "@/assets/examples/pdfs/test.pdf";
 
-const pdfSource = ref("/examples/pdfs/test.pdf");
+const pdfSource = ref(PDFURL);
 const config = ref(defaultConfig);
 const previewConfig = ref(
   JSON.parse(JSON.stringify(config.value)) as ProcessConfig
