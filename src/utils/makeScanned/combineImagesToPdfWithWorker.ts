@@ -5,7 +5,7 @@ export const combineImagesToPdfWithWorker: combineImagesToPdfFuncType =
     if (window.Worker) {
       return await new Promise((resolve) => {
         const magicaWorker = new Worker(
-          new URL("./worker/combineImagesToPdf.worker.js", import.meta.url),
+          new URL("./worker/combineImagesToPdf.worker.ts", import.meta.url),
           {
             type: "module",
           }

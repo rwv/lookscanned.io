@@ -7,7 +7,7 @@ export const processImageWithWorker: processImageFuncType = async function (
   if (window.Worker) {
     return await new Promise((resolve) => {
       const magicaWorker = new Worker(
-        new URL("./worker/processImage.worker.js", import.meta.url),
+        new URL("./worker/processImage.worker.ts", import.meta.url),
         {
           type: "module",
         }
