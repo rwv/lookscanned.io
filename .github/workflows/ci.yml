@@ -21,18 +21,15 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
- 
+
     - name: Install dependencies
       run: npm install
-      
+
     - name: Lint
       run: npm run lint
-    
+
     - name: Run typecheck
       run: npm run typecheck
-      
-    - name: Run build:worker
-      run: npm run build:worker
-      
+
     - name: Run build:all
       run: npm run build:all

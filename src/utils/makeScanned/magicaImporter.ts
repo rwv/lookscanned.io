@@ -1,8 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const global = self as any;
 
-global.tempDouble = undefined;
-global.tempI64 = undefined;
-global.MAGICA_WASM_LOCATION = "/vendors/magica/magick.wasm";
+import wasmURL from "magica/dist/src/imageMagick/compiled/magick.wasm?url";
 
-export { main } from "magica";
+global.MAGICA_WASM_LOCATION = wasmURL;
+
+export { main } from "magica-re-export";
