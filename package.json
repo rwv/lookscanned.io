@@ -17,7 +17,7 @@
     "child_process": false
   },
   "dependencies": {
-    "assert": "^1.5.0",
+    "assert": "^2.0.0",
     "browser-fs-access": "^0.29.5",
     "magica": "^0.2.17",
     "magica-re-export": "^1.0.4",
