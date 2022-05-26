@@ -1,5 +1,10 @@
 # [📚 Look Scanned](https://lookscanned.io)
 
+![GitHub Workflow Status (main)](https://img.shields.io/github/workflow/status/rwv/lookscanned.io/CI/main)
+![License](https://img.shields.io/github/license/rwv/lookscanned.io)
+![vue version](https://img.shields.io/github/package-json/dependency-version/rwv/lookscanned.io/vue)
+![vuetify version](https://img.shields.io/github/package-json/dependency-version/rwv/lookscanned.io/vuetify)
+
 [💸 Sponsor Me](https://zczc.cz/sponsor)
 
 https://lookscanned.io
