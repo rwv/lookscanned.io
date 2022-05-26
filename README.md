@@ -15,6 +15,12 @@ Look Scanned is a pure frontend site that makes your PDFs look scanned! No need 
 * All files are static. No backend servers needed.
 * Tweak the settings to make your PDF look better.
 
+## Screenshots
+
+| Origin | Processed |
+|---|---|
+| <img src="https://raw.githubusercontent.com/rwv/lookscanned.io/main/.github/images/ScreenshotOrigin.png" width="300px"> | <img src="https://raw.githubusercontent.com/rwv/lookscanned.io/main/.github/images/ScreenshotProcessed.png" width="300px"> |
+
 ## Develop
 
 ```sh
