@@ -10,8 +10,8 @@ onmessage = function (e) {
   const data = e.data as ToWorkerMessage;
   const imageArrayBufferViews = data.imageArrayBufferViews;
 
-  async () => {
+  (async () => {
     const blob = await combineImagesToPdf(imageArrayBufferViews);
     postMessage(blob as FromWorkerMessge);
-  };
+  })();
 };
