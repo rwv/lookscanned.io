@@ -1,4 +1,4 @@
-import type { IFile } from "magica";
+import type { IFile } from "magica-re-export";
 
 export const generateIFile = (abv: ArrayBufferView, filename: string) => {
   const file: IFile = {
