@@ -20,7 +20,7 @@
     "assert": "^1.5.0",
     "browser-fs-access": "^0.29.5",
     "magica": "^0.2.17",
-    "magica-re-export": "^1.0.7",
+    "magica-re-export": "^1.0.4",
     "p-map": "^4.0.0",
     "path-browserify": "^1.0.1",
     "pdfjs-dist": "^2.14.305",
