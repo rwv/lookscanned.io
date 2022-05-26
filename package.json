@@ -25,7 +25,7 @@
     "path-browserify": "^1.0.1",
     "pdfjs-dist": "^2.14.305",
     "roboto-fontface": "*",
-    "vue": "^3.2.31",
+    "vue": "^3.2.36",
     "vue-meta": "^3.0.0-alpha.10",
     "vue-pdf-embed": "^1.1.1",
     "vue-router": "^4.0.15",
