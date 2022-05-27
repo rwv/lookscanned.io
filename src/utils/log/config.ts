@@ -19,6 +19,11 @@ export const logConfig = {
     color: "#222",
     text: "🖨️ Scan",
   },
+  processImage: {
+    background: "#A2E4B8",
+    color: "#333",
+    text: "🖼️ Process Image",
+  }
 };
 
 export type logType = keyof typeof logConfig;
