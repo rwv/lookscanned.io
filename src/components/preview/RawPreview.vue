@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, toRefs } from "vue";
-import { renderPage, getPdfDocument } from "@/utils/pdf";
+import { PDF } from "@/utils/pdf";
 
 import PreviewHolder from "./PreviewHolder.vue";
 
@@ -17,10 +17,8 @@ const { page, pdfSource } = toRefs(props);
 
 const imageSrc = ref("");
 
-type PDFDocumentProxy = Awaited<ReturnType<typeof getPdfDocument>>;
-
 // Define Cache Map for PDF Document and Pagfes
-const PDFDocumentCache = new Map<string, PDFDocumentProxy>();
+const PDFCache = new Map<string, PDF>();
 const PDFPageCache = new Map<string, string>();
 
 const setToRawPDFImage = async () => {
@@ -37,13 +35,12 @@ const setToRawPDFImage = async () => {
   imageSrc.value = "";
 
   // Read pdf Document from Cache
-  const pdfDocument =
-    PDFDocumentCache.get(pdfSource) ?? (await getPdfDocument(pdfSource));
-  if (!PDFDocumentCache.has(pdfSource)) {
-    PDFDocumentCache.set(pdfSource, pdfDocument);
+  const pdfInstance = PDFCache.get(pdfSource) ?? new PDF(pdfSource);
+  if (!PDFCache.has(pdfSource)) {
+    PDFCache.set(pdfSource, pdfInstance);
   }
 
-  const imgBlob = await renderPage(pdfDocument, page);
+  const imgBlob = await pdfInstance.renderPage(page);
   const imgSrc = URL.createObjectURL(imgBlob);
   imageSrc.value = imgSrc;
   PDFPageCache.set(cachePageKey, imgSrc);

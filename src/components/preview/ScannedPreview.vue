@@ -4,7 +4,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, toRefs } from "vue";
-import { renderPage, getPdfDocument } from "@/utils/pdf";
+import { PDF } from "@/utils/pdf";
 
 import { processImage } from "@/utils/makeScanned";
 import type { ProcessConfig } from "@/utils/makeScanned";
@@ -21,10 +21,8 @@ const { page, pdfSource, config } = toRefs(props);
 
 const imageSrc = ref("");
 
-type PDFDocumentProxy = Awaited<ReturnType<typeof getPdfDocument>>;
-
 // Define Cache Map for PDF Document and Pagfes
-const PDFDocumentCache = new Map<string, PDFDocumentProxy>();
+const PDFCache = new Map<string, PDF>();
 const PDFPageCache = new Map<string, string>();
 
 const setToProcessPDFImage = async () => {
@@ -42,14 +40,12 @@ const setToProcessPDFImage = async () => {
   // Set to Empty First
   imageSrc.value = "";
 
-  // Read pdf Document from Cache
-  const pdfDocument =
-    PDFDocumentCache.get(pdfSource) ?? (await getPdfDocument(pdfSource));
-  if (!PDFDocumentCache.has(pdfSource)) {
-    PDFDocumentCache.set(pdfSource, pdfDocument);
+  const pdfInstance = PDFCache.get(pdfSource) ?? new PDF(pdfSource);
+  if (!PDFCache.has(pdfSource)) {
+    PDFCache.set(pdfSource, pdfInstance);
   }
 
-  const imgBlob = await renderPage(pdfDocument, page);
+  const imgBlob = await pdfInstance.renderPage(page);
   const buffer = new Uint8Array(await imgBlob.arrayBuffer());
   const processedImgBuffer = await processImage(buffer, config);
   const processedImgBlob = new Blob([processedImgBuffer], {
