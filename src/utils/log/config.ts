@@ -23,6 +23,11 @@ export const logConfig = {
     background: "#A2E4B8",
     color: "#333",
     text: "🖼️ Process Image",
+  },
+  combineImages: {
+    background: "#A2E4B8",
+    color: "#333",
+    text: "📃 Combine Images",
   }
 };
 
