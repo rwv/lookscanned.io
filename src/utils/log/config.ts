@@ -14,6 +14,11 @@ export const logConfig = {
     color: "#fff",
     text: "✨ ImageMagick",
   },
+  scan: {
+    background: "#DCD0FF",
+    color: "#222",
+    text: "🖨️ Scan",
+  },
 };
 
 export type logType = keyof typeof logConfig;
