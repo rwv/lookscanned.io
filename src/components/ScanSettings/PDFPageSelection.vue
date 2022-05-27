@@ -31,7 +31,7 @@ const page_computed = computed({
 
 watch(pdfSource, async (new_url) => {
   if (new_url != "") {
-    const pdf = await getPdfDocument(new_url, true);
+    const pdf = await getPdfDocument(new_url);
     pdfPageLength.value = pdf.numPages;
     page_computed.value = 1;
   }

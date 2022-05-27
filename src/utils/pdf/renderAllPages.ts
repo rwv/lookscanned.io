@@ -12,7 +12,7 @@ export default async function (
   pdfSource: string,
   callback: renderAllPagesCallback
 ): Promise<Awaited<ReturnType<typeof renderPage>>[]> {
-  const pdfDocument = await getPdfDocument(pdfSource, false);
+  const pdfDocument = await getPdfDocument(pdfSource);
   const numPages = pdfDocument.numPages;
   //    range(numPages)
   const pagesArray = Array.from(Array(numPages).keys()).map(

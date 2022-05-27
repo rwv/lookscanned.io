@@ -44,7 +44,7 @@ const setToProcessPDFImage = async () => {
 
   // Read pdf Document from Cache
   const pdfDocument =
-    PDFDocumentCache.get(pdfSource) ?? (await getPdfDocument(pdfSource, false));
+    PDFDocumentCache.get(pdfSource) ?? (await getPdfDocument(pdfSource));
   if (!PDFDocumentCache.has(pdfSource)) {
     PDFDocumentCache.set(pdfSource, pdfDocument);
   }
