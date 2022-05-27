@@ -11,7 +11,7 @@ export type FromWorkerMessge = ArrayBufferView;
 
 import { getLogger } from "@/utils/log";
 
-const logger = getLogger(["scan", "imageMagick", "processImage"]);
+const logger = getLogger(["processImage"]);
 
 export const processImageWithWorker: processImageFuncType = async function (
   imageArrayBufferView,

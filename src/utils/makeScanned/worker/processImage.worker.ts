@@ -7,7 +7,7 @@ import type {
 
 import { getLogger } from "@/utils/log";
 
-const logger = getLogger(["scan", "imageMagick", "processImage", "webWorker"]);
+const logger = getLogger(["processImage", "webWorker"]);
 
 onmessage = function (e) {
   const data = e.data as ToWorkerMessage;

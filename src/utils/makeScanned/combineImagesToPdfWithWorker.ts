@@ -8,7 +8,7 @@ export type FromWorkerMessge = Blob;
 
 import { getLogger } from "@/utils/log";
 
-const logger = getLogger(["scan", "imageMagick", "combineImages"]);
+const logger = getLogger(["combineImages"]);
 
 export const combineImagesToPdfWithWorker: combineImagesToPdfFuncType =
   async function (imageArrayBufferViews) {
