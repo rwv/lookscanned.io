@@ -1,2 +1,2 @@
-export type { renderAllPagesCallback } from "./renderAllPages";
 export { PDF } from "./PDF";
+export type { renderAllPagesCallback } from "./PDF";

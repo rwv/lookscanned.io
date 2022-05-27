@@ -1,12 +1,16 @@
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/pdf";
 import getPdfjsLib from "./getPdfjsLib";
 import renderPage from "./renderPage";
-import renderAllPages from "./renderAllPages";
-import type { renderAllPagesCallback } from "./renderAllPages";
+
+export type renderAllPagesCallback = (
+  pageNum: number,
+  totalPageNum: number,
+  pageImage: Blob
+) => void;
 
 export class PDF {
-  pdfSource: string;
-  pdfDocument?: PDFDocumentProxy;
+  private pdfSource: string;
+  private pdfDocument?: PDFDocumentProxy;
 
   constructor(pdfSource: string) {
     this.pdfSource = pdfSource;
@@ -40,7 +44,17 @@ export class PDF {
   }
 
   async renderAllPages(callback: renderAllPagesCallback) {
-    const document = await this.getDocument();
-    return await renderAllPages(document, callback);
+    const numPages = await this.getNumPages();
+    const pagesArray = Array.from(Array(numPages).keys()).map(
+      (x: number) => x + 1
+    );
+
+    const promises = pagesArray.map(async (pageNum: number) => {
+      const pageImageBlob = await this.renderPage(pageNum);
+      callback(pageNum, numPages, pageImageBlob);
+      return pageImageBlob;
+    });
+
+    return await Promise.all(promises);
   }
 }
