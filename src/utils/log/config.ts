@@ -9,7 +9,7 @@ export const logConfig = {
     color: "#000",
     text: "⚙️ Web Worker",
   },
-  magica: {
+  imageMagick: {
     background: "#2A3C93",
     color: "#fff",
     text: "✨ ImageMagick",
