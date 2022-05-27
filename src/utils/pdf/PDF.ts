@@ -35,22 +35,12 @@ export class PDF {
   }
 
   async renderPage(page: number) {
-    if (this.pdfDocument) {
-      return await renderPage(this.pdfDocument, page);
-    } else {
-      await this.init();
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return await renderPage(this.pdfDocument!, page);
-    }
+    const document = await this.getDocument();
+    return await renderPage(document, page);
   }
 
   async renderAllPages(callback: renderAllPagesCallback) {
-    if (this.pdfDocument) {
-      return await renderAllPages(this.pdfDocument, callback);
-    } else {
-      await this.init();
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      return await renderAllPages(this.pdfDocument!, callback);
-    }
+    const document = await this.getDocument();
+    return await renderAllPages(document, callback);
   }
 }
