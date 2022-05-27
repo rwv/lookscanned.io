@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { ref, watch, computed, toRefs } from "vue";
-import { getPdfDocument } from "@/utils/pdf";
+import { PDF } from "@/utils/pdf";
 
 const pdfPageLength = ref(1);
 
@@ -31,8 +31,8 @@ const page_computed = computed({
 
 watch(pdfSource, async (new_url) => {
   if (new_url != "") {
-    const pdf = await getPdfDocument(new_url);
-    pdfPageLength.value = pdf.numPages;
+    const pdf = new PDF(new_url);
+    pdfPageLength.value = await pdf.getNumPages();
     page_computed.value = 1;
   }
 });

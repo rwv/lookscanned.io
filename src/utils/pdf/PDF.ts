@@ -19,6 +19,21 @@ export class PDF {
     this.pdfDocument = pdfDocument;
   }
 
+  async getDocument() {
+    if (this.pdfDocument) {
+      return this.pdfDocument;
+    } else {
+      await this.init();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      return this.pdfDocument!;
+    }
+  }
+
+  async getNumPages() {
+    const document = await this.getDocument();
+    return document.numPages;
+  }
+
   async renderPage(page: number) {
     if (this.pdfDocument) {
       return await renderPage(this.pdfDocument, page);
