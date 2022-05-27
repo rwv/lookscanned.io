@@ -2,6 +2,9 @@ import { ref, computed } from "vue";
 import { makeScannedPdf } from "@/utils/makeScanned";
 import { fileSave } from "browser-fs-access";
 import type { ProcessConfig } from "@/utils/makeScanned";
+import { getLogger } from "@/utils/log";
+
+const logger = getLogger(["scan"]);
 
 export function GenerateScannedPDFSetup() {
   const renderedPDF = ref(0);
@@ -23,13 +26,13 @@ export function GenerateScannedPDFSetup() {
     scannedPDFLength.value = 0;
 
     const pdfCallback = (pageNum: number, totalPageNum: number) => {
-      console.log(`rendered page ${pageNum}/${totalPageNum}`);
+      logger.log(`Rendered page ${pageNum}/${totalPageNum}`);
       renderedPDF.value += 1;
       renderedPDFLength.value = totalPageNum;
     };
 
     const processCallback = (pageNum: number, totalPageNum: number) => {
-      console.log(`processed page ${pageNum}/${totalPageNum}`);
+      logger.log(`Processed page ${pageNum}/${totalPageNum}`);
       scannedPDF.value += 1;
       scannedPDFLength.value = totalPageNum;
     };
@@ -38,6 +41,7 @@ export function GenerateScannedPDFSetup() {
 
     const config_ = JSON.parse(JSON.stringify(config)) as ProcessConfig;
     try {
+      logger.log("Start generating scanned PDF");
       const blobPromise = makeScannedPdf(
         pdfSource,
         config_,
@@ -55,7 +59,7 @@ export function GenerateScannedPDFSetup() {
         status.value = "finished";
         return;
       }
-      console.error(e);
+      logger.error(e);
       error_message.value = JSON.stringify(e);
       status.value = "error";
       return;
