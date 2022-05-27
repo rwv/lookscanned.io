@@ -1,5 +1,5 @@
-import getPdfDocument from "./getPdfDocument";
 import renderPage from "./renderPage";
+import type { PDFDocumentProxy } from "pdfjs-dist/types/src/pdf";
 
 export type renderAllPagesCallback = (
   pageNum: number,
@@ -9,10 +9,9 @@ export type renderAllPagesCallback = (
 
 // get Pdf Document is very heavy, for now there's no need for parallelization
 export default async function (
-  pdfSource: string,
+  pdfDocument: PDFDocumentProxy,
   callback: renderAllPagesCallback
 ): Promise<Awaited<ReturnType<typeof renderPage>>[]> {
-  const pdfDocument = await getPdfDocument(pdfSource);
   const numPages = pdfDocument.numPages;
   //    range(numPages)
   const pagesArray = Array.from(Array(numPages).keys()).map(

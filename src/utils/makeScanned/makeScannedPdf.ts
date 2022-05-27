@@ -1,4 +1,5 @@
-import { renderAllPages } from "@/utils/pdf";
+import { PDF } from "@/utils/pdf";
+import type { renderAllPagesCallback } from "@/utils/pdf";
 
 import { processImageWithWorker } from "./processImageWithWorker";
 import type { ProcessConfig } from "./processConfig";
@@ -15,10 +16,11 @@ type ProcessCallbackType = (
 export async function makeScannedPdf(
   pdfSource: string,
   config: ProcessConfig,
-  pdfCallback: Parameters<typeof renderAllPages>[1],
+  pdfCallback: renderAllPagesCallback,
   processCallback: ProcessCallbackType
 ) {
-  const rawPages = await renderAllPages(pdfSource, pdfCallback);
+  const pdfInstance = new PDF(pdfSource);
+  const rawPages = await pdfInstance.renderAllPages(pdfCallback);
   const handleEachPage = async (page: Blob, idx: number) => {
     const buffer = new Uint8Array(await page.arrayBuffer());
     const image = await processImageWithWorker(buffer, config);
