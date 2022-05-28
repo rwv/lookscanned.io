@@ -27,12 +27,15 @@ const setToProcessPDFImage = async () => {
   const page = props.page;
   const refKey_ = refKey.value;
 
-  const blob = await props.scanInstance.getImageBlob(page);
-  const imgSrc = URL.createObjectURL(blob);
-
-  // When pdf config page are same
-  if (refKey_ == refKey.value) {
-    imageSrc.value = imgSrc;
+  try {
+    const blob = await props.scanInstance.getImageBlob(page);
+    const imgSrc = URL.createObjectURL(blob);
+    // When pdf config page are same
+    if (refKey_ == refKey.value) {
+      imageSrc.value = imgSrc;
+    }
+  } catch (e) {
+    console.error(e);
   }
 };
 
