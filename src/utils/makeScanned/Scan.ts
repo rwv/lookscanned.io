@@ -15,7 +15,7 @@ export class Scan {
   constructor(pdfInstance: PDF, config: ProcessConfig) {
     this.pdfInstance = pdfInstance;
     this.config = JSON.parse(JSON.stringify(config)) as ProcessConfig;
-    this.id = `${this.pdfInstance.pdfSource}-${this.config}`;
+    this.id = `${this.pdfInstance.pdfSource}-${JSON.stringify(this.config)}`;
   }
 
   async getImageBuffer(page: number): Promise<ArrayBufferView> {
