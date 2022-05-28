@@ -8,6 +8,7 @@
           @action:preview="preview"
           v-model:config="config"
           :pdfInstance="pdfInstance"
+          :scanInstance="scanInstance"
         />
       </v-col>
 

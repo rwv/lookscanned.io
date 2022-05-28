@@ -47,6 +47,7 @@ import { ref, watch, computed } from "vue";
 import { GenerateScannedPDFSetup } from "./GenerateScannedPDFSetup";
 
 import type { PDF } from "@/utils/pdf";
+import type { Scan } from "@/utils/makeScanned";
 
 // Handle pdfSource changes
 const pdfSource = ref("");
@@ -56,6 +57,7 @@ const noFileError = ref(false);
 const props = defineProps<{
   config: ProcessConfig;
   pdfInstance: PDF;
+  scanInstance: Scan;
 }>();
 
 const emit = defineEmits<{
@@ -89,7 +91,7 @@ const { statusText, downloadScannedPDF, status } = GenerateScannedPDFSetup();
 function generateAction() {
   if (pdfSource.value) {
     noFileError.value = false;
-    downloadScannedPDF(pdfSource.value, config.value);
+    downloadScannedPDF(props.scanInstance);
   } else {
     noFileError.value = true;
   }

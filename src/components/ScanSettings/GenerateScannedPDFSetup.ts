@@ -1,7 +1,7 @@
 import { ref, computed } from "vue";
-import { makeScannedPdf } from "@/utils/makeScanned";
 import { fileSave } from "browser-fs-access";
-import type { ProcessConfig } from "@/utils/makeScanned";
+import type { Scan } from "@/utils/makeScanned";
+
 import { getLogger } from "@/utils/log";
 
 const logger = getLogger(["scan"]);
@@ -16,20 +16,11 @@ export function GenerateScannedPDFSetup() {
   );
   const error_message = ref("");
 
-  const downloadScannedPDF = async (
-    pdfSource: string,
-    config: ProcessConfig
-  ) => {
+  const downloadScannedPDF = async (scanInstance: Scan) => {
     renderedPDF.value = 0;
     renderedPDFLength.value = 0;
     scannedPDF.value = 0;
     scannedPDFLength.value = 0;
-
-    const pdfCallback = (pageNum: number, totalPageNum: number) => {
-      logger.log(`Rendered page ${pageNum}/${totalPageNum}`);
-      renderedPDF.value += 1;
-      renderedPDFLength.value = totalPageNum;
-    };
 
     const processCallback = (pageNum: number, totalPageNum: number) => {
       logger.log(`Processed page ${pageNum}/${totalPageNum}`);
@@ -39,15 +30,9 @@ export function GenerateScannedPDFSetup() {
 
     status.value = "processing";
 
-    const config_ = JSON.parse(JSON.stringify(config)) as ProcessConfig;
     try {
       logger.log("Start generating scanned PDF");
-      const blobPromise = makeScannedPdf(
-        pdfSource,
-        config_,
-        pdfCallback,
-        processCallback
-      );
+      const blobPromise = scanInstance.getScannedPDF(processCallback);
       await fileSave(blobPromise, {
         fileName: "scanned.pdf",
         extensions: [".pdf"],
@@ -66,6 +51,7 @@ export function GenerateScannedPDFSetup() {
     }
   };
 
+  // statusText computed
   const statusText = computed(() => {
     if (status.value === "finished") {
       return "Finished";
