@@ -14,7 +14,6 @@
       <v-col cols="12" sm="7" md="8" lg="9">
         <SideBySidePreview
           :page="previewPage"
-          :config="previewConfig"
           :pdfInstance="pdfInstance"
           :scanInstance="scanInstance"
         />
@@ -44,10 +43,11 @@ const pdfInstance = computed(() => {
 });
 
 const scanInstance = computed(() => {
-  return new Scan(pdfInstance.value, config.value);
+  return new Scan(pdfInstance.value, previewConfig.value);
 });
 
 function preview() {
+  // Otherwise the previewConfig and config will be the same Object
   previewConfig.value = JSON.parse(
     JSON.stringify(config.value)
   ) as ProcessConfig;

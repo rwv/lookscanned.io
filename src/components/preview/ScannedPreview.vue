@@ -4,17 +4,13 @@
 
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from "vue";
-import type { PDF } from "@/utils/pdf";
 
-import type { ProcessConfig } from "@/utils/makeScanned";
 import type { Scan } from "@/utils/makeScanned";
 
 import PreviewHolder from "./PreviewHolder.vue";
 
 const props = defineProps<{
   page: number;
-  config: ProcessConfig;
-  pdfInstance: PDF;
   scanInstance: Scan;
 }>();
 
