@@ -23,7 +23,12 @@ export class Scan {
     this.id = `${this.pdfInstance.pdfSource}-${JSON.stringify(this.config)}`;
     this.signal = signal;
 
-    this.getScannedPDF(undefined, 4, true);
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(
+      navigator.userAgent || navigator.vendor
+    );
+    const maxConcurrency = isMobile ? 2 : 4;
+
+    this.getScannedPDF(undefined, maxConcurrency, true);
   }
 
   async getImageBuffer(page: number): Promise<ArrayBufferView> {
