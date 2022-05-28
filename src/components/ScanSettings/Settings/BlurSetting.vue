@@ -15,10 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProcessConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/makeScanned";
 import { computed } from "vue";
 
-type blurType = ProcessConfig["blur"];
+type blurType = ScanConfig["blur"];
 
 const props = defineProps<{
   blur: blurType;

@@ -1,10 +1,10 @@
 import type { processImageFuncType } from "./processImage";
 
-import type { ProcessConfig } from "./processConfig";
+import type { ScanConfig } from "./ScanConfig";
 
 export type ToWorkerMessage = {
   imageArrayBufferView: ArrayBufferView;
-  config: ProcessConfig;
+  config: ScanConfig;
 };
 
 export type FromWorkerMessge = ArrayBufferView;

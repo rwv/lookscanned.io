@@ -1,6 +1,6 @@
-import type { ProcessConfig } from "./processConfig";
+import type { ScanConfig } from "./ScanConfig";
 
-export const defaultConfig: ProcessConfig = {
+export const defaultConfig: ScanConfig = {
   rotate: 1,
   rotate_var: 0.5,
   colorspace: "gray",

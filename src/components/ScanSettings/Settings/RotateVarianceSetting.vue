@@ -15,10 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProcessConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/makeScanned";
 import { computed } from "vue";
 
-type rotate_varType = ProcessConfig["rotate_var"];
+type rotate_varType = ScanConfig["rotate_var"];
 
 const props = defineProps<{
   rotate_var: rotate_varType;

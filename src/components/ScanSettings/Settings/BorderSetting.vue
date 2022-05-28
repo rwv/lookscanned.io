@@ -14,10 +14,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProcessConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/makeScanned";
 import { computed } from "vue";
 
-type borderType = ProcessConfig["border"];
+type borderType = ScanConfig["border"];
 
 const props = defineProps<{
   border: borderType;

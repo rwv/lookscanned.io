@@ -2,12 +2,12 @@ import { main } from "./magicaImporter";
 
 import { generateIFile } from "./utils";
 
-import type { ProcessConfig } from "./processConfig";
-import { getProcessCommand } from "./processConfig";
+import type { ScanConfig } from "./ScanConfig";
+import { getProcessCommand } from "./ScanConfig";
 
 export type processImageFuncType = (
   imageArrayBufferView: ArrayBufferView,
-  config: ProcessConfig
+  config: ScanConfig
 ) => Promise<ArrayBufferView>;
 
 export const processImage: processImageFuncType = async function (

@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProcessConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/makeScanned";
 import { defaultConfig } from "@/utils/makeScanned";
 import SideBySidePreview from "@/components/preview/SideBySidePreview.vue";
 import ScanSettingsCard from "@/components/ScanSettings/ScanSettingsCard.vue";
@@ -36,7 +36,7 @@ import { Scan } from "@/utils/makeScanned";
 const pdfSource = ref(PDFURL);
 const config = ref(defaultConfig);
 const previewConfig = ref(
-  JSON.parse(JSON.stringify(config.value)) as ProcessConfig
+  JSON.parse(JSON.stringify(config.value)) as ScanConfig
 );
 const previewPage = ref(1);
 const pdfInstance = computed(() => {
@@ -51,6 +51,6 @@ function preview() {
   // Otherwise the previewConfig and config will be the same Object
   previewConfig.value = JSON.parse(
     JSON.stringify(config.value)
-  ) as ProcessConfig;
+  ) as ScanConfig;
 }
 </script>

@@ -2,7 +2,7 @@ import { PDF } from "@/utils/pdf";
 import type { renderAllPagesCallback } from "@/utils/pdf";
 
 import { processImageWithWorker } from "./processImageWithWorker";
-import type { ProcessConfig } from "./processConfig";
+import type { ScanConfig } from "./ScanConfig";
 import { combineImagesToPdfWithWorker } from "./combineImagesToPdfWithWorker";
 
 import pMap from "p-map";
@@ -15,7 +15,7 @@ type ProcessCallbackType = (
 
 export async function makeScannedPdf(
   pdfSource: string,
-  config: ProcessConfig,
+  config: ScanConfig,
   pdfCallback: renderAllPagesCallback,
   processCallback: ProcessCallbackType
 ) {

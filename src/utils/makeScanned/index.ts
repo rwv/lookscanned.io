@@ -1,11 +1,11 @@
 export { processImageWithWorker as processImage } from "./processImageWithWorker";
 
-export type { ProcessConfig } from "./processConfig";
+export type { ScanConfig } from "./ScanConfig";
 
 export { makeScannedPdf } from "./makeScannedPdf";
 
 export { defaultConfig } from "./defaultConfig";
 
-export { colorspaces } from "./processConfig";
+export { colorspaces } from "./ScanConfig";
 
 export { Scan } from "./Scan";

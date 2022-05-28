@@ -1,5 +1,5 @@
 export const colorspaces = ["gray", "sRGB"] as const;
-export interface ProcessConfig {
+export interface ScanConfig {
   rotate: number;
   rotate_var: number;
   colorspace: typeof colorspaces[number];
@@ -10,7 +10,7 @@ export interface ProcessConfig {
 }
 
 export function getProcessCommand(
-  config: ProcessConfig,
+  config: ScanConfig,
   inputFilename: string,
   outputFilename: string
 ): string {

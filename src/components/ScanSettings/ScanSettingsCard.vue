@@ -41,7 +41,7 @@ import ActionButtons from "./ActionButtons.vue";
 import PDFPageSelection from "./PDFPageSelection.vue";
 import GenerateStatus from "./GenerateStatus.vue";
 
-import type { ProcessConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/makeScanned";
 import { ref, watch, computed } from "vue";
 
 import { GenerateScannedPDFSetup } from "./GenerateScannedPDFSetup";
@@ -55,14 +55,14 @@ const page = ref(1);
 const noFileError = ref(false);
 
 const props = defineProps<{
-  config: ProcessConfig;
+  config: ScanConfig;
   pdfInstance: PDF;
   scanInstance: Scan;
 }>();
 
 const emit = defineEmits<{
   (e: "update:pdfSource", url: string): void;
-  (e: "update:config", config: ProcessConfig): void;
+  (e: "update:config", config: ScanConfig): void;
   (e: "update:page", page: number): void;
   (e: "action:preview"): void;
   (e: "action:generate"): void;

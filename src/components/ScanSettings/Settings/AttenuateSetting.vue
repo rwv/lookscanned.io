@@ -15,10 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProcessConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/makeScanned";
 import { computed } from "vue";
 
-type attenuateType = ProcessConfig["attenuate"];
+type attenuateType = ScanConfig["attenuate"];
 
 const props = defineProps<{
   attenuate: attenuateType;

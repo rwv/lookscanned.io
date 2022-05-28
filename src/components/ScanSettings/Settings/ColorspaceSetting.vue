@@ -14,10 +14,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { ProcessConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/makeScanned";
 import { computed } from "vue";
 
-type colorspaceType = ProcessConfig["colorspace"];
+type colorspaceType = ScanConfig["colorspace"];
 
 const props = defineProps<{
   colorspace: colorspaceType;

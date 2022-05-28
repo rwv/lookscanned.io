@@ -1,5 +1,5 @@
 import type { PDF } from "@/utils/pdf";
-import type { ProcessConfig } from "./processConfig";
+import type { ScanConfig } from "./ScanConfig";
 import { processImageWithWorker } from "./processImageWithWorker";
 import { combineImagesToPdfWithWorker } from "./combineImagesToPdfWithWorker";
 import pMap from "p-map";
@@ -8,13 +8,13 @@ type ScanCallbackFunc = (pageNum: number, totalPageNum: number) => void;
 
 export class Scan {
   readonly pdfInstance: PDF;
-  readonly config: ProcessConfig;
+  readonly config: ScanConfig;
   private pageImageCache: Map<number, ArrayBufferView> = new Map();
   readonly id: string;
 
-  constructor(pdfInstance: PDF, config: ProcessConfig) {
+  constructor(pdfInstance: PDF, config: ScanConfig) {
     this.pdfInstance = pdfInstance;
-    this.config = JSON.parse(JSON.stringify(config)) as ProcessConfig;
+    this.config = JSON.parse(JSON.stringify(config)) as ScanConfig;
     this.id = `${this.pdfInstance.pdfSource}-${JSON.stringify(this.config)}`;
   }
 
