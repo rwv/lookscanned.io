@@ -21,7 +21,7 @@
     "browser-fs-access": "^0.29.5",
     "magica": "^0.2.17",
     "magica-re-export": "^1.0.9",
-    "p-map": "^5.4.0",
+    "p-map": "^4.0.0",
     "path-browserify": "^1.0.1",
     "pdfjs-dist": "^2.14.305",
     "roboto-fontface": "*",
