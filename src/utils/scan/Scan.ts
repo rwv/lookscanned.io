@@ -80,6 +80,10 @@ export class Scan {
           .map(({ value }) => value);
 
     const handleEachPage = async (page: number) => {
+      if (this.signal?.aborted) {
+        throw new Error("AbortError");
+      }
+
       const imageBuffer = await this.getImageBuffer(page);
       logger.log(`Page ${page}/${numPages} scanned`);
       if (ScanCallbackFunc) {
@@ -95,6 +99,10 @@ export class Scan {
     const processedPages = await pMap(pages, handleEachPage, {
       concurrency,
     });
+
+    if (this.signal?.aborted) {
+      throw new Error("AbortError");
+    }
 
     const pdfDocument = await combineImagesToPdfWithWorker(
       processedPages,
