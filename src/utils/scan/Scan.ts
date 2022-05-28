@@ -42,13 +42,15 @@ export class Scan {
     return new Blob([buffer], { type: "image/png" });
   }
 
-  async getScannedPDF(ScanCallbackFunc: ScanCallbackFunc): Promise<Blob> {
+  async getScannedPDF(ScanCallbackFunc?: ScanCallbackFunc): Promise<Blob> {
     const numPages = await this.pdfInstance.getNumPages();
     const pages = [...Array(numPages).keys()].map((x) => x + 1);
 
     const handleEachPage = async (page: number) => {
       const imageBuffer = await this.getImageBuffer(page);
-      ScanCallbackFunc(page, numPages);
+      if (ScanCallbackFunc) {
+        ScanCallbackFunc(page, numPages);
+      }
       return imageBuffer;
     };
 
