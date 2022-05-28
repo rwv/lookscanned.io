@@ -33,8 +33,10 @@ export function GenerateScannedPDFSetup() {
     try {
       logger.log("Start generating scanned PDF");
       const blobPromise = scanInstance.getScannedPDF(processCallback);
+      const originFilename = scanInstance.pdfInstance.pdfFilename;
+      const filename = `${originFilename.replace(/\.[^/.]+$/, "")}-scan.pdf`;
       await fileSave(blobPromise, {
-        fileName: "scanned.pdf",
+        fileName: filename,
         extensions: [".pdf"],
       });
       status.value = "finished";
