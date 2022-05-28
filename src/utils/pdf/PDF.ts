@@ -14,10 +14,12 @@ export class PDF {
   readonly pdfFilename: string;
   private pdfDocument?: PDFDocumentProxy;
   private pageImageCache: Map<number, Blob> = new Map();
+  readonly id: string;
 
   constructor(pdfInfo: PDFInfoType) {
     this.pdfSource = pdfInfo.source;
     this.pdfFilename = pdfInfo.filename;
+    this.id = this.pdfSource;
   }
 
   async init() {
