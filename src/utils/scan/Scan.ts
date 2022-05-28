@@ -15,6 +15,7 @@ export class Scan {
   private pageImageCache: Map<number, ArrayBufferView> = new Map();
   readonly id: string;
   private signal: AbortSignal | undefined;
+  private pdfDocumentCache: Blob | undefined = undefined;
 
   constructor(pdfInstance: PDF, config: ScanConfig, signal?: AbortSignal) {
     this.pdfInstance = pdfInstance;
@@ -52,6 +53,17 @@ export class Scan {
     maxConcurrency?: number
   ): Promise<Blob> {
     const numPages = await this.pdfInstance.getNumPages();
+
+    if (this.pdfDocumentCache) {
+      logger.log("Return cached pdf document");
+      if (ScanCallbackFunc) {
+        for (let i = 0; i < numPages; i++) {
+          ScanCallbackFunc(i, numPages);
+        }
+      }
+      return this.pdfDocumentCache;
+    }
+
     const pages = [...Array(numPages).keys()].map((x) => x + 1);
 
     const handleEachPage = async (page: number) => {
@@ -72,6 +84,7 @@ export class Scan {
     });
 
     const pdfDocument = await combineImagesToPdfWithWorker(processedPages);
+    this.pdfDocumentCache = pdfDocument;
     return pdfDocument;
   }
 }
