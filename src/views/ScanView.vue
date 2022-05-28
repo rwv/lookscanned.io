@@ -12,7 +12,6 @@
 
       <v-col cols="12" sm="7" md="8" lg="9">
         <SideBySidePreview
-          :pdfSource="pdfSource"
           :page="previewPage"
           :config="previewConfig"
           :pdfInstance="pdfInstance"

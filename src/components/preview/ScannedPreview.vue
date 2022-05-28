@@ -3,8 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, toRefs } from "vue";
-import { PDF } from "@/utils/pdf";
+import { ref, onMounted, watch, computed } from "vue";
+import type { PDF } from "@/utils/pdf";
 
 import { processImage } from "@/utils/makeScanned";
 import type { ProcessConfig } from "@/utils/makeScanned";
@@ -12,37 +12,41 @@ import type { ProcessConfig } from "@/utils/makeScanned";
 import PreviewHolder from "./PreviewHolder.vue";
 
 const props = defineProps<{
-  pdfSource: string;
   page: number;
   config: ProcessConfig;
+  pdfInstance: PDF;
 }>();
-
-const { page, pdfSource, config } = toRefs(props);
 
 const imageSrc = ref("");
 
-// Define Cache Map for PDF Document and Pagfes
-const PDFCache = new Map<string, PDF>();
-const PDFPageCache = new Map<string, string>();
+// Define Cache Map for Pages
+const PDFPageCache = new Map<string, Blob>();
+
+// Watch pdfSource and Page
+const cachePageKey = computed(
+  () =>
+    `${props.pdfInstance.pdfSource}-${props.page}-${JSON.stringify(
+      props.config
+    )}`
+);
 
 const setToProcessPDFImage = async () => {
-  const page = props.page;
-  const pdfSource = props.pdfSource;
-  const config = JSON.parse(JSON.stringify(props.config)) as ProcessConfig;
-
-  const cachePageKey = `${pdfSource}-${page}-${JSON.stringify(config)}`;
-
-  if (PDFPageCache.has(cachePageKey)) {
-    imageSrc.value = PDFPageCache.get(cachePageKey) as string;
-    return;
-  }
-
   // Set to Empty First
+  URL.revokeObjectURL(imageSrc.value);
   imageSrc.value = "";
 
-  const pdfInstance = PDFCache.get(pdfSource) ?? new PDF(pdfSource);
-  if (!PDFCache.has(pdfSource)) {
-    PDFCache.set(pdfSource, pdfInstance);
+  const page = props.page;
+  const pdfInstance = props.pdfInstance;
+  const config = JSON.parse(JSON.stringify(props.config)) as ProcessConfig;
+
+  const cachePageKey_ = cachePageKey.value;
+
+  if (PDFPageCache.has(cachePageKey_)) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const imgBlob = PDFPageCache.get(cachePageKey_)!;
+    const imgSrc = URL.createObjectURL(imgBlob);
+    imageSrc.value = imgSrc;
+    return;
   }
 
   const imgBlob = await pdfInstance.renderPage(page);
@@ -52,16 +56,15 @@ const setToProcessPDFImage = async () => {
     type: "image/png",
   });
   const processedImgSrc = URL.createObjectURL(processedImgBlob);
+  PDFPageCache.set(cachePageKey_, processedImgBlob);
 
-  imageSrc.value = processedImgSrc;
-  PDFPageCache.set(cachePageKey, processedImgSrc);
+  // When pdf config page are same
+  if (cachePageKey_ == cachePageKey.value) {
+    imageSrc.value = processedImgSrc;
+  }
 };
 
 onMounted(setToProcessPDFImage);
 
-watch(page, setToProcessPDFImage);
-watch(config, setToProcessPDFImage, { deep: true });
-watch(pdfSource, () => {
-  setToProcessPDFImage();
-});
+watch(cachePageKey, setToProcessPDFImage);
 </script>
