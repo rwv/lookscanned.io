@@ -9,6 +9,7 @@
       <v-card elevation="4">
         <ScannedPreview
           :pdfInstance="pdfInstance"
+          :scanInstance="scanInstance"
           :page="page"
           :config="config"
         />
@@ -22,10 +23,12 @@ import RawPreview from "./RawPreview.vue";
 import ScannedPreview from "./ScannedPreview.vue";
 import type { ProcessConfig } from "@/utils/makeScanned";
 import type { PDF } from "@/utils/pdf";
+import type { Scan } from "@/utils/makeScanned";
 
 defineProps<{
   page: number;
   config: ProcessConfig;
   pdfInstance: PDF;
+  scanInstance: Scan;
 }>();
 </script>

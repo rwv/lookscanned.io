@@ -6,8 +6,8 @@
 import { ref, onMounted, watch, computed } from "vue";
 import type { PDF } from "@/utils/pdf";
 
-import { processImage } from "@/utils/makeScanned";
 import type { ProcessConfig } from "@/utils/makeScanned";
+import type { Scan } from "@/utils/makeScanned";
 
 import PreviewHolder from "./PreviewHolder.vue";
 
@@ -15,12 +15,10 @@ const props = defineProps<{
   page: number;
   config: ProcessConfig;
   pdfInstance: PDF;
+  scanInstance: Scan;
 }>();
 
 const imageSrc = ref("");
-
-// Define Cache Map for Pages
-const PDFPageCache = new Map<string, Blob>();
 
 // Watch pdfSource and Page
 const cachePageKey = computed(
@@ -36,31 +34,14 @@ const setToProcessPDFImage = async () => {
   imageSrc.value = "";
 
   const page = props.page;
-  const pdfInstance = props.pdfInstance;
-  const config = JSON.parse(JSON.stringify(props.config)) as ProcessConfig;
-
   const cachePageKey_ = cachePageKey.value;
 
-  if (PDFPageCache.has(cachePageKey_)) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    const imgBlob = PDFPageCache.get(cachePageKey_)!;
-    const imgSrc = URL.createObjectURL(imgBlob);
-    imageSrc.value = imgSrc;
-    return;
-  }
-
-  const imgBlob = await pdfInstance.renderPage(page);
-  const buffer = new Uint8Array(await imgBlob.arrayBuffer());
-  const processedImgBuffer = await processImage(buffer, config);
-  const processedImgBlob = new Blob([processedImgBuffer], {
-    type: "image/png",
-  });
-  const processedImgSrc = URL.createObjectURL(processedImgBlob);
-  PDFPageCache.set(cachePageKey_, processedImgBlob);
+  const blob = await props.scanInstance.getImageBlob(page);
+  const imgSrc = URL.createObjectURL(blob);
 
   // When pdf config page are same
   if (cachePageKey_ == cachePageKey.value) {
-    imageSrc.value = processedImgSrc;
+    imageSrc.value = imgSrc;
   }
 };
 

@@ -16,6 +16,7 @@
           :page="previewPage"
           :config="previewConfig"
           :pdfInstance="pdfInstance"
+          :scanInstance="scanInstance"
         />
       </v-col>
     </v-row>
@@ -30,6 +31,7 @@ import ScanSettingsCard from "@/components/ScanSettings/ScanSettingsCard.vue";
 import { ref, computed } from "vue";
 import PDFURL from "@/assets/examples/pdfs/test.pdf";
 import { PDF } from "@/utils/pdf";
+import { Scan } from "@/utils/makeScanned";
 
 const pdfSource = ref(PDFURL);
 const config = ref(defaultConfig);
@@ -39,6 +41,10 @@ const previewConfig = ref(
 const previewPage = ref(1);
 const pdfInstance = computed(() => {
   return new PDF(pdfSource.value);
+});
+
+const scanInstance = computed(() => {
+  return new Scan(pdfInstance.value, config.value);
 });
 
 function preview() {
