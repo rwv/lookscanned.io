@@ -16,12 +16,12 @@ const props = defineProps<{
 
 const imageSrc = ref("");
 
-const refKey = computed(() => `${props.pdfInstance.id}-${props.page}`)
+const refKey = computed(() => `${props.pdfInstance.id}-${props.page}`);
 
 const setToRawPDFImage = async () => {
   URL.revokeObjectURL(imageSrc.value);
   imageSrc.value = "";
-  const refKey_ = refKey.value
+  const refKey_ = refKey.value;
   const imgBlob = await props.pdfInstance.renderPage(props.page);
 
   if (refKey_ == refKey.value) {
