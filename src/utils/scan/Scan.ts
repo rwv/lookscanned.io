@@ -23,7 +23,7 @@ export class Scan {
     this.id = `${this.pdfInstance.pdfSource}-${JSON.stringify(this.config)}`;
     this.signal = signal;
 
-    this.getScannedPDF(undefined, 4);
+    this.getScannedPDF(undefined, 4, true);
   }
 
   async getImageBuffer(page: number): Promise<ArrayBufferView> {
@@ -50,7 +50,8 @@ export class Scan {
 
   async getScannedPDF(
     ScanCallbackFunc?: ScanCallbackFunc,
-    maxConcurrency?: number
+    maxConcurrency?: number,
+    ordered?: boolean
   ): Promise<Blob> {
     const numPages = await this.pdfInstance.getNumPages();
 
@@ -64,7 +65,14 @@ export class Scan {
       return this.pdfDocumentCache;
     }
 
-    const pages = [...Array(numPages).keys()].map((x) => x + 1);
+    const pages_ = [...Array(numPages).keys()].map((x) => x + 1);
+
+    const pages = !ordered
+      ? pages_
+      : pages_
+          .map((value) => ({ value, sort: Math.random() }))
+          .sort((a, b) => a.sort - b.sort)
+          .map(({ value }) => value);
 
     const handleEachPage = async (page: number) => {
       const imageBuffer = await this.getImageBuffer(page);
