@@ -67,7 +67,7 @@ export class Scan {
 
     const pages_ = [...Array(numPages).keys()].map((x) => x + 1);
 
-    const pages = !ordered
+    const pages = ordered
       ? pages_
       : pages_
           .map((value) => ({ value, sort: Math.random() }))
