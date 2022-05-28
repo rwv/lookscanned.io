@@ -9,7 +9,7 @@ export type renderAllPagesCallback = (
 ) => void;
 
 export class PDF {
-  private pdfSource: string;
+  readonly pdfSource: string;
   private pdfDocument?: PDFDocumentProxy;
 
   constructor(pdfSource: string) {
