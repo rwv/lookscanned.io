@@ -83,7 +83,10 @@ export class Scan {
       concurrency,
     });
 
-    const pdfDocument = await combineImagesToPdfWithWorker(processedPages);
+    const pdfDocument = await combineImagesToPdfWithWorker(
+      processedPages,
+      this.signal
+    );
     this.pdfDocumentCache = pdfDocument;
     return pdfDocument;
   }
