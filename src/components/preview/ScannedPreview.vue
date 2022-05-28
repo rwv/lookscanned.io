@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, computed } from "vue";
 
-import type { Scan } from "@/utils/makeScanned";
+import type { Scan } from "@/utils/scan";
 
 import PreviewHolder from "./PreviewHolder.vue";
 

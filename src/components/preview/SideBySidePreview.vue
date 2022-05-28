@@ -17,7 +17,7 @@
 import RawPreview from "./RawPreview.vue";
 import ScannedPreview from "./ScannedPreview.vue";
 import type { PDF } from "@/utils/pdf";
-import type { Scan } from "@/utils/makeScanned";
+import type { Scan } from "@/utils/scan";
 
 defineProps<{
   page: number;

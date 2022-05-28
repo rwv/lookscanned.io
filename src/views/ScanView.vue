@@ -24,14 +24,14 @@
 </template>
 
 <script lang="ts" setup>
-import type { ScanConfig } from "@/utils/makeScanned";
-import { defaultConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/scan";
+import { defaultConfig } from "@/utils/scan";
 import SideBySidePreview from "@/components/preview/SideBySidePreview.vue";
 import ScanSettingsCard from "@/components/ScanSettings/ScanSettingsCard.vue";
 import { ref, computed } from "vue";
 import PDFURL from "@/assets/examples/pdfs/test.pdf";
 import { PDF } from "@/utils/pdf";
-import { Scan } from "@/utils/makeScanned";
+import { Scan } from "@/utils/scan";
 
 const pdfSource = ref(PDFURL);
 const config = ref(defaultConfig);

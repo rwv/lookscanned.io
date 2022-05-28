@@ -1,6 +1,6 @@
 import { ref, computed } from "vue";
 import { fileSave } from "browser-fs-access";
-import type { Scan } from "@/utils/makeScanned";
+import type { Scan } from "@/utils/scan";
 
 import { getLogger } from "@/utils/log";
 

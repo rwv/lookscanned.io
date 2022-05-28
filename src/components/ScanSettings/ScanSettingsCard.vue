@@ -41,13 +41,13 @@ import ActionButtons from "./ActionButtons.vue";
 import PDFPageSelection from "./PDFPageSelection.vue";
 import GenerateStatus from "./GenerateStatus.vue";
 
-import type { ScanConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/scan";
 import { ref, watch, computed } from "vue";
 
 import { GenerateScannedPDFSetup } from "./GenerateScannedPDFSetup";
 
 import type { PDF } from "@/utils/pdf";
-import type { Scan } from "@/utils/makeScanned";
+import type { Scan } from "@/utils/scan";
 
 // Handle pdfSource changes
 const pdfSource = ref("");

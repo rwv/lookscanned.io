@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ScanConfig } from "@/utils/makeScanned";
+import type { ScanConfig } from "@/utils/scan";
 import { computed } from "vue";
 
 type blurType = ScanConfig["blur"];
