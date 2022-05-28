@@ -11,11 +11,13 @@ export class Scan {
   readonly config: ScanConfig;
   private pageImageCache: Map<number, ArrayBufferView> = new Map();
   readonly id: string;
+  private signal: AbortSignal | undefined;
 
-  constructor(pdfInstance: PDF, config: ScanConfig) {
+  constructor(pdfInstance: PDF, config: ScanConfig, signal?: AbortSignal) {
     this.pdfInstance = pdfInstance;
     this.config = JSON.parse(JSON.stringify(config)) as ScanConfig;
     this.id = `${this.pdfInstance.pdfSource}-${JSON.stringify(this.config)}`;
+    this.signal = signal;
   }
 
   async getImageBuffer(page: number): Promise<ArrayBufferView> {
@@ -27,7 +29,8 @@ export class Scan {
       const buffer = new Uint8Array(await originPage.arrayBuffer());
       const processedImgBuffer = await processImageWithWorker(
         buffer,
-        this.config
+        this.config,
+        this.signal
       );
       this.pageImageCache.set(page, processedImgBuffer);
       return processedImgBuffer;

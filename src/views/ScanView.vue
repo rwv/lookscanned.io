@@ -48,8 +48,14 @@ const pdfInstance = computed(() => {
   return new PDF(pdfInfo.value);
 });
 
+let controller = new AbortController();
+
 const scanInstance = computed(() => {
-  return new Scan(pdfInstance.value, previewConfig.value);
+  controller.abort();
+  controller = new AbortController();
+  const signal = controller.signal;
+
+  return new Scan(pdfInstance.value, previewConfig.value, signal);
 });
 
 function preview() {
