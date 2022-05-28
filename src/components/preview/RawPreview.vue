@@ -3,53 +3,33 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, toRefs } from "vue";
-import { PDF } from "@/utils/pdf";
+import { ref, onMounted, watch } from "vue";
+import type { PDF } from "@/utils/pdf";
 
 import PreviewHolder from "./PreviewHolder.vue";
+import { computed } from "@vue/reactivity";
 
 const props = defineProps<{
-  pdfSource: string;
   page: number;
+  pdfInstance: PDF;
 }>();
-
-const { page, pdfSource } = toRefs(props);
 
 const imageSrc = ref("");
 
-// Define Cache Map for PDF Document and Pagfes
-const PDFCache = new Map<string, PDF>();
-const PDFPageCache = new Map<string, string>();
-
 const setToRawPDFImage = async () => {
-  const page = props.page;
-  const pdfSource = props.pdfSource;
-  const cachePageKey = `${pdfSource}-${page}`;
-
-  if (PDFPageCache.has(cachePageKey)) {
-    imageSrc.value = PDFPageCache.get(cachePageKey) as string;
-    return;
-  }
-
-  // Set to Empty First
+  URL.revokeObjectURL(imageSrc.value);
   imageSrc.value = "";
-
-  // Read pdf Document from Cache
-  const pdfInstance = PDFCache.get(pdfSource) ?? new PDF(pdfSource);
-  if (!PDFCache.has(pdfSource)) {
-    PDFCache.set(pdfSource, pdfInstance);
-  }
-
-  const imgBlob = await pdfInstance.renderPage(page);
+  const imgBlob = await props.pdfInstance.renderPage(props.page);
   const imgSrc = URL.createObjectURL(imgBlob);
   imageSrc.value = imgSrc;
-  PDFPageCache.set(cachePageKey, imgSrc);
 };
 
 onMounted(setToRawPDFImage);
 
-watch(page, setToRawPDFImage);
-watch(pdfSource, () => {
-  setToRawPDFImage();
-});
+// Watch pdfSource and Page
+const pdfSourceAndPage = computed(
+  () => `${props.pdfInstance.pdfSource}_${props.page}`
+);
+
+watch(pdfSourceAndPage, setToRawPDFImage);
 </script>

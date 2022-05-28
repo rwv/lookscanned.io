@@ -2,7 +2,7 @@
   <v-row>
     <v-col cols="12" md="6">
       <v-card elevation="4">
-        <RawPreview :pdfSource="pdfSource" :page="page" />
+        <RawPreview :pdfInstance="pdfInstance" :page="page" />
       </v-card>
     </v-col>
     <v-col cols="12" md="6">
@@ -17,10 +17,12 @@
 import RawPreview from "./RawPreview.vue";
 import ScannedPreview from "./ScannedPreview.vue";
 import type { ProcessConfig } from "@/utils/makeScanned";
+import type { PDF } from "@/utils/pdf";
 
 defineProps<{
   pdfSource: string;
   page: number;
   config: ProcessConfig;
+  pdfInstance: PDF;
 }>();
 </script>
