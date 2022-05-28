@@ -49,8 +49,6 @@ const scanInstance = computed(() => {
 
 function preview() {
   // Otherwise the previewConfig and config will be the same Object
-  previewConfig.value = JSON.parse(
-    JSON.stringify(config.value)
-  ) as ScanConfig;
+  previewConfig.value = JSON.parse(JSON.stringify(config.value)) as ScanConfig;
 }
 </script>
