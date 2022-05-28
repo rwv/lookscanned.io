@@ -7,6 +7,7 @@
           @update:page="(page) => (previewPage = page)"
           @action:preview="preview"
           v-model:config="config"
+          :pdfInstance="pdfInstance"
         />
       </v-col>
 

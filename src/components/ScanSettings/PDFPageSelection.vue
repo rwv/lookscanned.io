@@ -8,17 +8,15 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, computed, toRefs } from "vue";
-import { PDF } from "@/utils/pdf";
+import { ref, watch, computed } from "vue";
+import type { PDF } from "@/utils/pdf";
 
 const pdfPageLength = ref(1);
 
 const props = defineProps<{
-  pdfSource: string;
+  pdfInstance: PDF;
   page: number;
 }>();
-
-const { pdfSource } = toRefs(props);
 
 const emit = defineEmits<{
   (e: "update:page", page: number): void;
@@ -29,11 +27,10 @@ const page_computed = computed({
   set: (page) => emit("update:page", page),
 });
 
-watch(pdfSource, async (new_url) => {
-  if (new_url != "") {
-    const pdf = new PDF(new_url);
-    pdfPageLength.value = await pdf.getNumPages();
-    page_computed.value = 1;
-  }
+const pdfSource = computed(() => props.pdfInstance.pdfSource);
+
+watch(pdfSource, async () => {
+  pdfPageLength.value = await props.pdfInstance.getNumPages();
+  page_computed.value = 1;
 });
 </script>

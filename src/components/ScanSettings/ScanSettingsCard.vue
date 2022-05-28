@@ -13,7 +13,7 @@
     <BlurSetting v-model:blur="config.blur" />
     <AttenuateSetting v-model:attenuate="config.attenuate" />
 
-    <PDFPageSelection v-model:page="page" :pdfSource="pdfSource" />
+    <PDFPageSelection v-model:page="page" :pdfInstance="pdfInstance" />
 
     <ActionButtons
       @action:preview="$emit('action:preview')"
@@ -46,6 +46,8 @@ import { ref, watch, computed } from "vue";
 
 import { GenerateScannedPDFSetup } from "./GenerateScannedPDFSetup";
 
+import type { PDF } from "@/utils/pdf";
+
 // Handle pdfSource changes
 const pdfSource = ref("");
 const page = ref(1);
@@ -53,6 +55,7 @@ const noFileError = ref(false);
 
 const props = defineProps<{
   config: ProcessConfig;
+  pdfInstance: PDF;
 }>();
 
 const emit = defineEmits<{
