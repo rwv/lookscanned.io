@@ -11,6 +11,7 @@ export type renderAllPagesCallback = (
 export class PDF {
   readonly pdfSource: string;
   private pdfDocument?: PDFDocumentProxy;
+  private pageImageCache: Map<number, Blob> = new Map();
 
   constructor(pdfSource: string) {
     this.pdfSource = pdfSource;
@@ -39,8 +40,15 @@ export class PDF {
   }
 
   async renderPage(page: number) {
-    const document = await this.getDocument();
-    return await renderPage(document, page);
+    const pageImage_ = this.pageImageCache.get(page);
+    if (pageImage_) {
+      return pageImage_;
+    } else {
+      const document = await this.getDocument();
+      const pageImage = await renderPage(document, page);
+      this.pageImageCache.set(page, pageImage);
+      return pageImage;
+    }
   }
 
   async renderAllPages(callback: renderAllPagesCallback) {
