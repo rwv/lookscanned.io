@@ -28,7 +28,7 @@ export const logConfig = {
     background: "#FFFF99",
     color: "#333",
     text: "📃 Combine Images",
-  }
+  },
 };
 
 export type logType = keyof typeof logConfig;
