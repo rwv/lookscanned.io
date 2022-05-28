@@ -7,3 +7,5 @@ export { makeScannedPdf } from "./makeScannedPdf";
 export { defaultConfig } from "./defaultConfig";
 
 export { colorspaces } from "./processConfig";
+
+export { Scan } from "./Scan";
