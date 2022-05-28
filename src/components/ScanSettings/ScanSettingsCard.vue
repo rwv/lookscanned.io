@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="4" min-height="268">
     <PDFSelection
-      @update:pdfSource="(url) => (pdfSource = url)"
+      @update:pdfInfo="(info) => (pdfInfo = info)"
       :noFileError="noFileError"
     />
 
@@ -46,11 +46,14 @@ import { ref, watch, computed } from "vue";
 
 import { GenerateScannedPDFSetup } from "./GenerateScannedPDFSetup";
 
-import type { PDF } from "@/utils/pdf";
+import type { PDF, PDFInfoType } from "@/utils/pdf";
 import type { Scan } from "@/utils/scan";
 
 // Handle pdfSource changes
-const pdfSource = ref("");
+const pdfInfo = ref({
+  source: "",
+  filename: "",
+} as PDFInfoType);
 const page = ref(1);
 const noFileError = ref(false);
 
@@ -61,17 +64,17 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  (e: "update:pdfSource", url: string): void;
+  (e: "update:pdfInfo", info: PDFInfoType): void;
   (e: "update:config", config: ScanConfig): void;
   (e: "update:page", page: number): void;
   (e: "action:preview"): void;
   (e: "action:generate"): void;
 }>();
 
-watch(pdfSource, (new_url) => {
-  if (new_url) {
+watch(pdfInfo, (info) => {
+  if (info) {
     noFileError.value = false;
-    emit("update:pdfSource", new_url);
+    emit("update:pdfInfo", info);
   }
 });
 
@@ -89,7 +92,7 @@ const config = computed({
 const { statusText, downloadScannedPDF, status } = GenerateScannedPDFSetup();
 
 function generateAction() {
-  if (pdfSource.value) {
+  if (pdfInfo.value.source) {
     noFileError.value = false;
     downloadScannedPDF(props.scanInstance);
   } else {

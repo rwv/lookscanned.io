@@ -1,6 +1,7 @@
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/pdf";
 import getPdfjsLib from "./getPdfjsLib";
 import renderPage from "./renderPage";
+import type { PDFInfoType } from "./PDFInfoType";
 
 export type renderAllPagesCallback = (
   pageNum: number,
@@ -10,11 +11,13 @@ export type renderAllPagesCallback = (
 
 export class PDF {
   readonly pdfSource: string;
+  readonly pdfFilename: string;
   private pdfDocument?: PDFDocumentProxy;
   private pageImageCache: Map<number, Blob> = new Map();
 
-  constructor(pdfSource: string) {
-    this.pdfSource = pdfSource;
+  constructor(pdfInfo: PDFInfoType) {
+    this.pdfSource = pdfInfo.source;
+    this.pdfFilename = pdfInfo.filename;
   }
 
   async init() {

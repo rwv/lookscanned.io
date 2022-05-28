@@ -15,6 +15,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from "vue";
+import type { PDFInfoType } from "@/utils/pdf";
 
 const props = defineProps<{
   noFileError: boolean;
@@ -29,7 +30,7 @@ const noFileErrorMessage = computed(() => {
 });
 
 const emit = defineEmits<{
-  (e: "update:pdfSource", url: string): void;
+  (e: "update:pdfInfo", info: PDFInfoType): void;
 }>();
 
 const blobUrl = ref("");
@@ -43,7 +44,11 @@ function onFileChange(event: Event) {
     const file = files[0];
     const url = URL.createObjectURL(file);
     blobUrl.value = url;
-    emit("update:pdfSource", url);
+    const info = {
+      source: url,
+      filename: file.name,
+    } as PDFInfoType;
+    emit("update:pdfInfo", info);
   }
 }
 </script>

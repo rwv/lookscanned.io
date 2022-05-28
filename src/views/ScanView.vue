@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12" sm="5" md="4" lg="3">
         <ScanSettingsCard
-          @update:pdfSource="(url) => (pdfSource = url)"
+          @update:pdfInfo="(info) => (pdfInfo = info)"
           @update:page="(page) => (previewPage = page)"
           @action:preview="preview"
           v-model:config="config"
@@ -32,15 +32,20 @@ import { ref, computed } from "vue";
 import PDFURL from "@/assets/examples/pdfs/test.pdf";
 import { PDF } from "@/utils/pdf";
 import { Scan } from "@/utils/scan";
+import type { PDFInfoType } from "@/utils/pdf";
 
-const pdfSource = ref(PDFURL);
+const pdfInfo = ref({
+  source: PDFURL,
+  filename: "test.pdf",
+} as PDFInfoType);
+
 const config = ref(defaultConfig);
 const previewConfig = ref(
   JSON.parse(JSON.stringify(config.value)) as ScanConfig
 );
 const previewPage = ref(1);
 const pdfInstance = computed(() => {
-  return new PDF(pdfSource.value);
+  return new PDF(pdfInfo.value);
 });
 
 const scanInstance = computed(() => {
