@@ -10,10 +10,12 @@ export class Scan {
   readonly pdfInstance: PDF;
   readonly config: ProcessConfig;
   private pageImageCache: Map<number, ArrayBufferView> = new Map();
+  readonly id: string;
 
   constructor(pdfInstance: PDF, config: ProcessConfig) {
     this.pdfInstance = pdfInstance;
     this.config = JSON.parse(JSON.stringify(config)) as ProcessConfig;
+    this.id = `${this.pdfInstance.pdfSource}-${this.config}`;
   }
 
   async getImageBuffer(page: number): Promise<ArrayBufferView> {

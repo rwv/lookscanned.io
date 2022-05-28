@@ -21,12 +21,7 @@ const props = defineProps<{
 const imageSrc = ref("");
 
 // Watch pdfSource and Page
-const cachePageKey = computed(
-  () =>
-    `${props.pdfInstance.pdfSource}-${props.page}-${JSON.stringify(
-      props.config
-    )}`
-);
+const refKey = computed(() => `${props.scanInstance.id}-${props.page}`);
 
 const setToProcessPDFImage = async () => {
   // Set to Empty First
@@ -34,18 +29,18 @@ const setToProcessPDFImage = async () => {
   imageSrc.value = "";
 
   const page = props.page;
-  const cachePageKey_ = cachePageKey.value;
+  const refKey_ = refKey.value;
 
   const blob = await props.scanInstance.getImageBlob(page);
   const imgSrc = URL.createObjectURL(blob);
 
   // When pdf config page are same
-  if (cachePageKey_ == cachePageKey.value) {
+  if (refKey_ == refKey.value) {
     imageSrc.value = imgSrc;
   }
 };
 
 onMounted(setToProcessPDFImage);
 
-watch(cachePageKey, setToProcessPDFImage);
+watch(refKey, setToProcessPDFImage);
 </script>
