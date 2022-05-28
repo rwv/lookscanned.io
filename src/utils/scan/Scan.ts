@@ -4,6 +4,9 @@ import { processImageWithWorker } from "./processImageWithWorker";
 import { combineImagesToPdfWithWorker } from "./combineImagesToPdfWithWorker";
 import pMap from "p-map";
 
+import { getLogger } from "@/utils/log";
+const logger = getLogger(["scan"]);
+
 type ScanCallbackFunc = (pageNum: number, totalPageNum: number) => void;
 
 export class Scan {
@@ -18,6 +21,8 @@ export class Scan {
     this.config = JSON.parse(JSON.stringify(config)) as ScanConfig;
     this.id = `${this.pdfInstance.pdfSource}-${JSON.stringify(this.config)}`;
     this.signal = signal;
+
+    this.getScannedPDF(undefined, 4);
   }
 
   async getImageBuffer(page: number): Promise<ArrayBufferView> {
@@ -42,19 +47,26 @@ export class Scan {
     return new Blob([buffer], { type: "image/png" });
   }
 
-  async getScannedPDF(ScanCallbackFunc?: ScanCallbackFunc): Promise<Blob> {
+  async getScannedPDF(
+    ScanCallbackFunc?: ScanCallbackFunc,
+    maxConcurrency?: number
+  ): Promise<Blob> {
     const numPages = await this.pdfInstance.getNumPages();
     const pages = [...Array(numPages).keys()].map((x) => x + 1);
 
     const handleEachPage = async (page: number) => {
       const imageBuffer = await this.getImageBuffer(page);
+      logger.log(`Page ${page}/${numPages} scanned`);
       if (ScanCallbackFunc) {
         ScanCallbackFunc(page, numPages);
       }
       return imageBuffer;
     };
 
-    const concurrency = navigator.hardwareConcurrency;
+    const concurrency = Math.min(
+      navigator.hardwareConcurrency,
+      maxConcurrency ?? 1024
+    );
     const processedPages = await pMap(pages, handleEachPage, {
       concurrency,
     });
