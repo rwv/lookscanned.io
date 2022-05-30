@@ -38,6 +38,7 @@ export function GenerateScannedPDFSetup() {
       await fileSave(blobPromise, {
         fileName: filename,
         extensions: [".pdf"],
+        mimeTypes: ["application/pdf"],
         startIn: "downloads",
         id: "lookscanned",
       });
