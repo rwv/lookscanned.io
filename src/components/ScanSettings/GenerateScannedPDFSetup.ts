@@ -7,8 +7,6 @@ import { getLogger } from "@/utils/log";
 const logger = getLogger(["scan"]);
 
 export function GenerateScannedPDFSetup() {
-  const renderedPDF = ref(0);
-  const renderedPDFLength = ref(0);
   const scannedPDF = ref(0);
   const scannedPDFLength = ref(0);
   const status = ref(
@@ -17,8 +15,7 @@ export function GenerateScannedPDFSetup() {
   const error_message = ref("");
 
   const downloadScannedPDF = async (scanInstance: Scan) => {
-    renderedPDF.value = 0;
-    renderedPDFLength.value = 0;
+    status.value = "processing";
     scannedPDF.value = 0;
     scannedPDFLength.value = 0;
 
@@ -27,8 +24,6 @@ export function GenerateScannedPDFSetup() {
       scannedPDF.value += 1;
       scannedPDFLength.value = totalPageNum;
     };
-
-    status.value = "processing";
 
     try {
       logger.log("Start generating scanned PDF");
@@ -56,26 +51,7 @@ export function GenerateScannedPDFSetup() {
     }
   };
 
-  // statusText computed
-  const statusText = computed(() => {
-    if (status.value === "finished") {
-      return "Finished";
-    }
-    if (status.value === "error") {
-      return `Error: ${error_message.value}`;
-    }
-
-    if (renderedPDFLength.value > 0) {
-      if (renderedPDF.value < renderedPDFLength.value) {
-        // Not finished rendering
-        return `Rendering PDF pages: ${renderedPDF.value}/${renderedPDFLength.value}`;
-      } else {
-        if (scannedPDF.value == 0) {
-          return "Rendering finished, waiting for processing";
-        }
-      }
-    }
-
+  const processStatusText = computed(() => {
     if (scannedPDF.value < scannedPDFLength.value) {
       return `Processing PDF pages: ${scannedPDF.value}/${scannedPDFLength.value}`;
     }
@@ -85,17 +61,26 @@ export function GenerateScannedPDFSetup() {
     ) {
       return "Combining PDF pages";
     }
-    if (status.value === "processing") {
-      return `Processing`;
+    return "Processing";
+  });
+
+  // statusText computed
+  const statusText = computed(() => {
+    switch (status.value) {
+      case "not-started":
+        return "Not started";
+      case "processing":
+        return processStatusText.value;
+      case "error":
+        return `Error: ${error_message.value}`;
+      case "finished":
+        return "Finished";
     }
-    return "Not Started";
+
+    return "";
   });
 
   return {
-    renderedPDF,
-    renderedPDFLength,
-    scannedPDF,
-    scannedPDFLength,
     statusText,
     status,
     downloadScannedPDF,
