@@ -23,10 +23,7 @@
 
       <v-col cols="12" class="text-center mt-10">
         <v-row>
-          <FeatureHolder title="🔐 Privacy">
-            Your data stay on your device. We don't store any of your data.
-            Everything is processed on your browser.
-          </FeatureHolder>
+          <FeaturePrivacy />
 
           <FeatureHolder title="⚡️ Speed">
             Based on WebAssembly, No waiting for your PDF to be scanned. Just
@@ -71,6 +68,8 @@
 
 <script setup lang="ts">
 import FeatureHolder from "@/components/Features/FeatureHolder.vue";
+import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
+
 
 import IconUrl from "@/assets/scanner.svg";
 import { useI18n } from "vue-i18n";
