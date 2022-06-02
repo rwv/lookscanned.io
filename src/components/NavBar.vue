@@ -1,9 +1,9 @@
 <template>
   <v-app-bar elevation="4">
     <v-app-bar-title tag="h1">
-      <router-link :to="{ name: 'index' }" class="nav-link"
-        >Look Scanned</router-link
-      >
+      <router-link :to="{ name: 'index' }" class="nav-link">
+        {{ t("base.title") }}
+      </router-link>
     </v-app-bar-title>
 
     <template v-slot:append>
@@ -14,6 +14,8 @@
 
 <script setup lang="ts">
 import { mdiGithub } from "@mdi/js";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const GITHUB_URL = "https://github.com/rwv/lookscanned.io";
 
