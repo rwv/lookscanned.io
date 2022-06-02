@@ -6,7 +6,7 @@
           <img :src="IconUrl" style="width: 100%" />
         </div>
 
-        <h1 class="v-heading text-h3 text-sm-h3 mb-4">Look Scanned</h1>
+        <h1 class="v-heading text-h3 text-sm-h3 mb-4">{{ t("base.title") }}</h1>
         <p class="mx-auto text-justify mb-8" style="max-width: 568px">
           Look Scanned is a pure frontend site that makes your PDFs look
           scanned! No need for printers and scanners anymore - everything you
@@ -73,6 +73,8 @@
 import FeatureHolder from "@/components/Features/FeatureHolder.vue";
 
 import IconUrl from "@/assets/scanner.svg";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const GITHUB_URL = "https://github.com/rwv/lookscanned.io";
 
