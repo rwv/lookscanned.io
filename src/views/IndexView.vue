@@ -24,11 +24,7 @@
       <v-col cols="12" class="text-center mt-10">
         <v-row>
           <FeaturePrivacy />
-
-          <FeatureHolder title="⚡️ Speed">
-            Based on WebAssembly, No waiting for your PDF to be scanned. Just
-            click the button and your PDF will be scanned in a second.
-          </FeatureHolder>
+          <FeatureSpeed />
 
           <FeatureHolder title="⚙️ Customization">
             Tweak the settings to make your PDF look better. See the preview in
@@ -69,7 +65,7 @@
 <script setup lang="ts">
 import FeatureHolder from "@/components/Features/FeatureHolder.vue";
 import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
-
+import FeatureSpeed from "@/components/Features/FeatureSpeed.vue";
 
 import IconUrl from "@/assets/scanner.svg";
 import { useI18n } from "vue-i18n";
