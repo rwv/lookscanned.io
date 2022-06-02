@@ -1,7 +1,7 @@
 <template>
   <v-list-item two-line>
     <v-list-item-header>
-      <v-list-item-title>Rotate Variance</v-list-item-title>
+      <v-list-item-title>{{ t("settings.rotateVariance") }}</v-list-item-title>
       <v-slider
         hide-details
         density="compact"
@@ -17,6 +17,8 @@
 <script lang="ts" setup>
 import type { ScanConfig } from "@/utils/scan";
 import { computed } from "vue";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 type rotate_varType = ScanConfig["rotate_var"];
 
