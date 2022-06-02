@@ -25,11 +25,7 @@
         <v-row>
           <FeaturePrivacy />
           <FeatureSpeed />
-
-          <FeatureHolder title="⚙️ Customization">
-            Tweak the settings to make your PDF look better. See the preview in
-            real time. What You See Is What You Get.
-          </FeatureHolder>
+          <FeatureCustomization />
 
           <FeatureHolder title="💡 Open Source">
             Look Scanned is open source and available on
@@ -66,6 +62,7 @@
 import FeatureHolder from "@/components/Features/FeatureHolder.vue";
 import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
 import FeatureSpeed from "@/components/Features/FeatureSpeed.vue";
+import FeatureCustomization from "@/components/Features/FeatureCustomization.vue";
 
 import IconUrl from "@/assets/scanner.svg";
 import { useI18n } from "vue-i18n";

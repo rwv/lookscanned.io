@@ -9,4 +9,9 @@ export const features = {
     description:
       "Based on WebAssembly, No waiting for your PDF to be scanned. Just click the button and your PDF will be scanned in a second.",
   },
+  customization: {
+    title: "⚙️ Customization",
+    description:
+      "Tweak the settings to make your PDF look better. See the preview in real time. What You See Is What You Get.",
+  },
 };
