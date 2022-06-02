@@ -12,7 +12,9 @@
         </p>
 
         <div>
-          <v-btn class="mr-2" :to="{ name: 'scan' }">Start Scanning</v-btn>
+          <v-btn class="mr-2" :to="{ name: 'scan' }">
+            {{ t("actions.navigateToScan") }}
+          </v-btn>
           <v-btn class="ml-2" :href="GITHUB_URL" @click.prevent="openGitHub"
             >GitHub</v-btn
           >
