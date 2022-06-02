@@ -9,4 +9,6 @@ export const settings = {
   },
   rotate: "Rotate",
   rotateVariance: "Rotate Variance",
+  pdfSelectLabel: "Select PDF",
+  pdfNoSelectMessage: "No PDF selected",
 };

@@ -2,7 +2,7 @@
   <v-list-item>
     <v-file-input
       accept="application/pdf"
-      label="Select PDF"
+      :label="t('settings.pdfSelectLabel')"
       density="compact"
       truncate-length="21"
       :hide-details="!props.noFileError"
@@ -16,6 +16,8 @@
 <script lang="ts" setup>
 import { ref, computed } from "vue";
 import type { PDFInfoType } from "@/utils/pdf";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
 
 const props = defineProps<{
   noFileError: boolean;
@@ -23,7 +25,7 @@ const props = defineProps<{
 
 const noFileErrorMessage = computed(() => {
   if (props.noFileError) {
-    return "No PDF selected";
+    return t("settings.pdfNoSelectMessage");
   } else {
     return [];
   }
