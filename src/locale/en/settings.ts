@@ -1,7 +1,11 @@
 export const settings = {
   attenuate: "Noise",
   blur: "Blur",
-  border: "Border",
+  border: {
+    label: "Border",
+    true: "Yes",
+    false: "No",
+  },
   colorspace: {
     label: "Colorspace",
     colorful: "Colorful",

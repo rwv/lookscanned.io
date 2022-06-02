@@ -1,11 +1,11 @@
 <template>
   <v-list-item two-line>
     <v-list-item-header>
-      <v-list-item-title>{{ t("settings.border") }}</v-list-item-title>
+      <v-list-item-title>{{ t("settings.border.label") }}</v-list-item-title>
       <v-switch
         v-model="borderSwitch"
         color="success"
-        :label="borderSwitch ? 'Yes' : 'No'"
+        :label="borderSwitchLabel"
         hide-details
         density="compact"
       ></v-switch>
@@ -32,6 +32,12 @@ const emit = defineEmits<{
 const borderSwitch = computed({
   get: () => props.border == true,
   set: (border) => emit("update:border", border ? true : false),
+});
+
+const borderSwitchLabel = computed(() => {
+  return borderSwitch.value
+    ? t("settings.border.true")
+    : t("settings.border.false");
 });
 </script>
 

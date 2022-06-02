@@ -1,7 +1,11 @@
 export const settings = {
   attenuate: "噪点",
   blur: "模糊",
-  border: "边框",
+  border: {
+    label: "边框",
+    true: "有",
+    false: "无",
+  },
   colorspace: {
     label: "颜色",
     colorful: "彩色",
