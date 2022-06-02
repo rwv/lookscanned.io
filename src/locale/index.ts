@@ -5,6 +5,12 @@ import { zhCN } from "./zh-CN";
 
 const currentLocale = navigator?.language;
 
+type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;
+
 const i18n = createI18n({
   locale: currentLocale,
   fallbackLocale: "en",
@@ -12,7 +18,7 @@ const i18n = createI18n({
   messages: {
     en,
     zh: zhCN,
-  } as { [key: string]: Partial<typeof en> },
+  } as { [key: string]: DeepPartial<typeof en> },
 });
 
 export default i18n;
