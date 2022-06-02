@@ -3,12 +3,7 @@ import App from "./App.vue";
 import router from "./router";
 import vuetify from "./plugins/vuetify";
 import { createMetaManager } from "vue-meta";
-import { createI18n } from "vue-i18n";
-
-const i18n = createI18n({
-  locale: "en",
-  fallbackLocale: "en",
-});
+import i18n from "./locale";
 
 const app = createApp(App);
 
