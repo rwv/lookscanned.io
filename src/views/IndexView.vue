@@ -8,9 +8,7 @@
 
         <h1 class="v-heading text-h3 text-sm-h3 mb-4">{{ t("base.title") }}</h1>
         <p class="mx-auto text-justify mb-8" style="max-width: 568px">
-          Look Scanned is a pure frontend site that makes your PDFs look
-          scanned! No need for printers and scanners anymore - everything you
-          need to do is just a few clicks.
+          {{ t("base.description") }}
         </p>
 
         <div>
