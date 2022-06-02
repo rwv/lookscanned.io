@@ -28,11 +28,7 @@
           <FeatureCustomization />
           <FeatureOpenSource />
           <FeatureMobileFriendly />
-
-          <FeatureHolder title="🦕 Offline Use">
-            Look Scanned is offline-capable. It works even if you don't have a
-            network connection.
-          </FeatureHolder>
+          <FeatureOfflineUse />
         </v-row>
       </v-col>
     </v-row>
@@ -40,12 +36,12 @@
 </template>
 
 <script setup lang="ts">
-import FeatureHolder from "@/components/Features/FeatureHolder.vue";
 import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
 import FeatureSpeed from "@/components/Features/FeatureSpeed.vue";
 import FeatureCustomization from "@/components/Features/FeatureCustomization.vue";
 import FeatureOpenSource from "@/components/Features/FeatureOpenSource.vue";
 import FeatureMobileFriendly from "@/components/Features/FeatureMobileFriendly.vue";
+import FeatureOfflineUse from "@/components/Features/FeatureOfflineUse.vue";
 
 import IconUrl from "@/assets/scanner.svg";
 import { useI18n } from "vue-i18n";

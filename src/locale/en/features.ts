@@ -26,4 +26,9 @@ export const features = {
     description:
       "Look Scanned is mobile friendly. It works on all modern browsers and devices.",
   },
+  offlineUse: {
+    title: "🦕 Offline Use",
+    description:
+      "Look Scanned is offline-capable. It works even if you don't have a network connection.",
+  },
 };
