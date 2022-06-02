@@ -1,5 +1,5 @@
 <template>
-  <FeatureHolder :title="t('features.privacy.title')">
+  <FeatureHolder :title="t('features.openSource.title')">
     <i18n-t keypath="features.openSource.description">
       <template #github>
         <a
