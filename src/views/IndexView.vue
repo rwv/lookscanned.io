@@ -26,22 +26,7 @@
           <FeaturePrivacy />
           <FeatureSpeed />
           <FeatureCustomization />
-
-          <FeatureHolder title="💡 Open Source">
-            Look Scanned is open source and available on
-            <a
-              href="https://github.com/rwv/lookscanned.io"
-              class="plain-link"
-              target="_blank"
-              >GitHub</a
-            >. Also, this site is inspired by another open source project
-            <a
-              href="https://github.com/baicunko/scanyourpdf"
-              class="plain-link"
-              target="_blank"
-              >baicunko/scanyourpdf</a
-            >
-          </FeatureHolder>
+          <FeatureOpenSource />
 
           <FeatureHolder title="📱 Mobile Friendly">
             Look Scanned is mobile friendly. It works on all modern browsers and
@@ -63,6 +48,7 @@ import FeatureHolder from "@/components/Features/FeatureHolder.vue";
 import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
 import FeatureSpeed from "@/components/Features/FeatureSpeed.vue";
 import FeatureCustomization from "@/components/Features/FeatureCustomization.vue";
+import FeatureOpenSource from "@/components/Features/FeatureOpenSource.vue";
 
 import IconUrl from "@/assets/scanner.svg";
 import { useI18n } from "vue-i18n";

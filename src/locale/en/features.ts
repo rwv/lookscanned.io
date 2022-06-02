@@ -14,4 +14,11 @@ export const features = {
     description:
       "Tweak the settings to make your PDF look better. See the preview in real time. What You See Is What You Get.",
   },
+  openSource: {
+    title: "💡 Open Source",
+    description:
+      "Look Scanned is open source and available on {github}. Also, this site is inspired by another open source project {scanyourpdf}",
+    github: "GitHub",
+    scanyourpdf: "baicunko/scanyourpdf",
+  },
 };
