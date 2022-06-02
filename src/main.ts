@@ -12,8 +12,12 @@ app.use(router);
 app.use(createMetaManager());
 app.use(i18n);
 app.use(vuetify);
-app.use(VueGtag, {
-  config: { id: "G-0HFWPLP3L2" },
-});
+
+// Only for lookscanned.io
+if (location.hostname == "lookscanned.io") {
+  app.use(VueGtag, {
+    config: { id: "G-0HFWPLP3L2" },
+  });
+}
 
 app.mount("#app");
