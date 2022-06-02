@@ -4,6 +4,10 @@ import type { Scan } from "@/utils/scan";
 
 import { getLogger } from "@/utils/log";
 
+import i18n from "@/locale";
+
+const { t } = i18n.global;
+
 const logger = getLogger(["scan"]);
 
 export function GenerateScannedPDFSetup() {
@@ -53,28 +57,31 @@ export function GenerateScannedPDFSetup() {
 
   const processStatusText = computed(() => {
     if (scannedPDF.value < scannedPDFLength.value) {
-      return `Processing PDF pages: ${scannedPDF.value}/${scannedPDFLength.value}`;
+      return t("status.processsing.progress", {
+        current: scannedPDF.value,
+        total: scannedPDFLength.value,
+      });
     }
     if (
       scannedPDF.value === scannedPDFLength.value &&
       scannedPDFLength.value > 0
     ) {
-      return "Combining PDF pages";
+      return t("status.processsing.combine");
     }
-    return "Processing";
+    return t("status.processsing.default");
   });
 
   // statusText computed
   const statusText = computed(() => {
     switch (status.value) {
       case "not-started":
-        return "Not started";
+        return t("status.notStarted");
       case "processing":
         return processStatusText.value;
       case "error":
-        return `Error: ${error_message.value}`;
+        return t("status.error", { error: error_message.value });
       case "finished":
-        return "Finished";
+        return t("status.finished");
     }
 
     return "";
