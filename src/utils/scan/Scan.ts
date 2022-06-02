@@ -36,8 +36,8 @@ export class Scan {
     if (bufferInCache) {
       return bufferInCache;
     } else {
-      const originPage = await this.pdfInstance.renderPage(page);
-      const buffer = new Uint8Array(await originPage.arrayBuffer());
+      const { blob } = await this.pdfInstance.renderPage(page);
+      const buffer = new Uint8Array(await blob.arrayBuffer());
       const processedImgBuffer = await processImageWithWorker(
         buffer,
         this.config,

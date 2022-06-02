@@ -22,10 +22,10 @@ const setToRawPDFImage = async () => {
   URL.revokeObjectURL(imageSrc.value);
   imageSrc.value = "";
   const refKey_ = refKey.value;
-  const imgBlob = await props.pdfInstance.renderPage(props.page);
+  const { blob } = await props.pdfInstance.renderPage(props.page);
 
   if (refKey_ == refKey.value) {
-    const imgSrc = URL.createObjectURL(imgBlob);
+    const imgSrc = URL.createObjectURL(blob);
     imageSrc.value = imgSrc;
   }
 };

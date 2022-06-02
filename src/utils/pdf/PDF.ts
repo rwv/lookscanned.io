@@ -1,13 +1,20 @@
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/pdf";
 import getPdfjsLib from "./getPdfjsLib";
-import renderPage from "./renderPage";
 import type { PDFInfoType } from "./PDFInfoType";
+
+type pageInfoType = {
+  blob: Blob;
+  page: number;
+  height: number;
+  width: number;
+  scale: number;
+};
 
 export class PDF {
   readonly pdfSource: string;
   readonly pdfFilename: string;
   private pdfDocument?: PDFDocumentProxy;
-  private pageImageCache: Map<number, Blob> = new Map();
+  private pageInfoCache: Map<number, pageInfoType> = new Map();
   readonly id: string;
 
   constructor(pdfInfo: PDFInfoType) {
@@ -38,15 +45,49 @@ export class PDF {
     return document.numPages;
   }
 
-  async renderPage(page: number) {
-    const pageImage_ = this.pageImageCache.get(page);
-    if (pageImage_) {
-      return pageImage_;
+  async renderPage(page: number): Promise<pageInfoType> {
+    const scale = 2.0;
+
+    const pageInfoInCache = this.pageInfoCache.get(page);
+    if (pageInfoInCache) {
+      return pageInfoInCache;
     } else {
-      const document = await this.getDocument();
-      const pageImage = await renderPage(document, page);
-      this.pageImageCache.set(page, pageImage);
-      return pageImage;
+      const pdfDocument = await this.getDocument();
+      const pdfPage = await pdfDocument.getPage(page);
+      const viewport = pdfPage.getViewport({ scale });
+      const width = viewport.width;
+      const height = viewport.height;
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      const renderTask = pdfPage.render({
+        canvasContext: ctx as object,
+        viewport,
+      });
+      await renderTask.promise;
+
+      const blob: Blob = await new Promise((resolve, reject) => {
+        canvas.toBlob((blob) => {
+          if (blob) {
+            resolve(blob);
+          } else {
+            reject(new Error("Canvas to Blob failed"));
+          }
+        });
+      });
+
+      const pageInfo = {
+        blob,
+        page,
+        height,
+        width,
+        scale,
+      };
+
+      this.pageInfoCache.set(page, pageInfo);
+      return pageInfo;
     }
   }
 }
