@@ -21,4 +21,9 @@ export const features = {
     github: "GitHub",
     scanyourpdf: "baicunko/scanyourpdf",
   },
+  mobileFriendly: {
+    title: "📱 Mobile Friendly",
+    description:
+      "Look Scanned is mobile friendly. It works on all modern browsers and devices.",
+  },
 };

@@ -27,11 +27,7 @@
           <FeatureSpeed />
           <FeatureCustomization />
           <FeatureOpenSource />
-
-          <FeatureHolder title="📱 Mobile Friendly">
-            Look Scanned is mobile friendly. It works on all modern browsers and
-            devices.
-          </FeatureHolder>
+          <FeatureMobileFriendly />
 
           <FeatureHolder title="🦕 Offline Use">
             Look Scanned is offline-capable. It works even if you don't have a
@@ -49,6 +45,7 @@ import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
 import FeatureSpeed from "@/components/Features/FeatureSpeed.vue";
 import FeatureCustomization from "@/components/Features/FeatureCustomization.vue";
 import FeatureOpenSource from "@/components/Features/FeatureOpenSource.vue";
+import FeatureMobileFriendly from "@/components/Features/FeatureMobileFriendly.vue";
 
 import IconUrl from "@/assets/scanner.svg";
 import { useI18n } from "vue-i18n";
