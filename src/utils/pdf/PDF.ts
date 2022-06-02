@@ -3,12 +3,6 @@ import getPdfjsLib from "./getPdfjsLib";
 import renderPage from "./renderPage";
 import type { PDFInfoType } from "./PDFInfoType";
 
-export type renderAllPagesCallback = (
-  pageNum: number,
-  totalPageNum: number,
-  pageImage: Blob
-) => void;
-
 export class PDF {
   readonly pdfSource: string;
   readonly pdfFilename: string;
@@ -54,20 +48,5 @@ export class PDF {
       this.pageImageCache.set(page, pageImage);
       return pageImage;
     }
-  }
-
-  async renderAllPages(callback: renderAllPagesCallback) {
-    const numPages = await this.getNumPages();
-    const pagesArray = Array.from(Array(numPages).keys()).map(
-      (x: number) => x + 1
-    );
-
-    const promises = pagesArray.map(async (pageNum: number) => {
-      const pageImageBlob = await this.renderPage(pageNum);
-      callback(pageNum, numPages, pageImageBlob);
-      return pageImageBlob;
-    });
-
-    return await Promise.all(promises);
   }
 }
