@@ -12,7 +12,7 @@ const i18n = createI18n({
   messages: {
     en,
     zh: zhCN,
-  },
+  } as { [key: string]: Partial<typeof en> },
 });
 
 export default i18n;
