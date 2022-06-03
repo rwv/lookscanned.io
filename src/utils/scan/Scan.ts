@@ -3,7 +3,7 @@ import type { ScanConfig } from "./ScanConfig";
 import { processImageWithWorker } from "./processImageWithWorker";
 // import { combineImagesToPdfWithWorker } from "./combineImagesToPdfWithWorker";
 import pMap from "p-map";
-import { jsPDF } from "jspdf";
+import { combineImagesToPDF } from "./combineImagesToPDF";
 
 import { getLogger } from "@/utils/log";
 const logger = getLogger(["scan"]);
@@ -105,22 +105,7 @@ export class Scan {
       throw new Error("AbortError");
     }
 
-    const doc = new jsPDF({
-      unit: "in",
-    });
-    doc.deletePage(1); // delete the default page
-
-    for (const info of processedPageInfos) {
-      const { buffer, width, height, dpi } = info;
-      const buffer_ = new Uint8Array(buffer.buffer);
-      const physicalWidth = width / dpi;
-      const physicalHeight = height / dpi;
-
-      doc.addPage([physicalWidth, physicalHeight]);
-      doc.addImage(buffer_, "PNG", 0, 0, physicalWidth, physicalHeight);
-    }
-
-    const pdfDocument = doc.output("blob");
+    const pdfDocument = await combineImagesToPDF(processedPageInfos);
 
     this.pdfDocumentCache = pdfDocument;
     return pdfDocument;
