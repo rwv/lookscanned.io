@@ -1,7 +1,6 @@
 import type { PDF } from "@/utils/pdf";
-import type { ScanConfig } from "./ScanConfig";
-import { processImageWithWorker } from "./processImageWithWorker";
-// import { combineImagesToPdfWithWorker } from "./combineImagesToPdfWithWorker";
+import type { ScanConfig } from "./processImage";
+import { processImageWithWorker } from "./processImage";
 import pMap from "p-map";
 import { combineImagesToPDF } from "./combineImagesToPDF";
 

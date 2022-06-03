@@ -1,9 +1,9 @@
-import { processImage } from "../processImage";
+import { processImage } from "./processImage";
 
 import type {
   ToWorkerMessage,
   FromWorkerMessge,
-} from "../processImageWithWorker";
+} from "./processImageWithWorker";
 
 import { getLogger } from "@/utils/log";
 

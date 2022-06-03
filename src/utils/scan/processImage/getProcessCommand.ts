@@ -1,13 +1,4 @@
-export const colorspaces = ["gray", "sRGB"] as const;
-export interface ScanConfig {
-  rotate: number;
-  rotate_var: number;
-  colorspace: typeof colorspaces[number];
-  blur: number;
-  attenuate: number;
-  noise: string;
-  border: boolean;
-}
+import type { ScanConfig } from "./config";
 
 export function getProcessCommand(
   config: ScanConfig,

@@ -1,6 +1,4 @@
-import type { processImageFuncType } from "./processImage";
-
-import type { ScanConfig } from "./ScanConfig";
+import type { ScanConfig } from "./config";
 
 export type ToWorkerMessage = {
   imageArrayBufferView: ArrayBufferView;
@@ -22,7 +20,7 @@ export const processImageWithWorker = async function (
     logger.log("Web Worker is supported by your browser!");
     return await new Promise((resolve, reject) => {
       const magicaWorker = new Worker(
-        new URL("./worker/processImage.worker.ts", import.meta.url),
+        new URL("./processImage.worker.ts", import.meta.url),
         {
           type: "module",
         }
@@ -57,9 +55,7 @@ export const processImageWithWorker = async function (
     logger.log(
       "Web Worker is not supported by your browser, fallback to main thread."
     );
-    const processImage = (await import(
-      "./processImage"
-    )) as unknown as processImageFuncType;
+    const processImage = (await import("./processImage")).processImage;
     return await processImage(imageArrayBufferView, config);
   }
 };

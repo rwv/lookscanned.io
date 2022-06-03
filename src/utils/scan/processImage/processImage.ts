@@ -1,9 +1,9 @@
-import { main } from "./magicaImporter";
+import { main } from "./magica";
 
-import { generateIFile } from "./utils";
+import { generateIFile } from "./generateIFile";
 
-import type { ScanConfig } from "./ScanConfig";
-import { getProcessCommand } from "./ScanConfig";
+import type { ScanConfig } from "./config";
+import { getProcessCommand } from "./getProcessCommand";
 
 export type processImageFuncType = (
   imageArrayBufferView: ArrayBufferView,
