@@ -1,8 +1,9 @@
 import type { PDF } from "@/utils/pdf";
 import type { ScanConfig } from "./ScanConfig";
 import { processImageWithWorker } from "./processImageWithWorker";
-import { combineImagesToPdfWithWorker } from "./combineImagesToPdfWithWorker";
+// import { combineImagesToPdfWithWorker } from "./combineImagesToPdfWithWorker";
 import pMap from "p-map";
+import { jsPDF } from "jspdf";
 
 import { getLogger } from "@/utils/log";
 const logger = getLogger(["scan"]);
@@ -76,19 +77,27 @@ export class Scan {
         throw new Error("AbortError");
       }
 
-      const imageBuffer = await this.getImageBuffer(page);
+      const buffer = await this.getImageBuffer(page);
+      const { width, height, dpi } = await this.pdfInstance.renderPage(page);
       logger.log(`Page ${page}/${numPages} scanned`);
       if (ScanCallbackFunc) {
         ScanCallbackFunc(page, numPages);
       }
-      return imageBuffer;
+      const info = {
+        buffer,
+        width,
+        height,
+        dpi,
+        page,
+      };
+      return info;
     };
 
     const concurrency = Math.min(
       navigator.hardwareConcurrency,
       maxConcurrency ?? 1024
     );
-    const processedPages = await pMap(pages, handleEachPage, {
+    const processedPageInfos = await pMap(pages, handleEachPage, {
       concurrency,
     });
 
@@ -96,10 +105,23 @@ export class Scan {
       throw new Error("AbortError");
     }
 
-    const pdfDocument = await combineImagesToPdfWithWorker(
-      processedPages,
-      this.signal
-    );
+    const doc = new jsPDF({
+      unit: "in",
+    });
+    doc.deletePage(1); // delete the default page
+
+    for (const info of processedPageInfos) {
+      const { buffer, width, height, dpi } = info;
+      const buffer_ = new Uint8Array(buffer.buffer);
+      const physicalWidth = width / dpi;
+      const physicalHeight = height / dpi;
+
+      doc.addPage([physicalWidth, physicalHeight]);
+      doc.addImage(buffer_, "PNG", 0, 0, physicalWidth, physicalHeight);
+    }
+
+    const pdfDocument = doc.output("blob");
+
     this.pdfDocumentCache = pdfDocument;
     return pdfDocument;
   }

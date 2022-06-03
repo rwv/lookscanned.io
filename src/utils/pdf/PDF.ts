@@ -8,6 +8,7 @@ type pageInfoType = {
   height: number;
   width: number;
   scale: number;
+  dpi: number;
 };
 
 export class PDF {
@@ -47,6 +48,7 @@ export class PDF {
 
   async renderPage(page: number): Promise<pageInfoType> {
     const scale = 2.0;
+    const dpi = scale * 72;
 
     const pageInfoInCache = this.pageInfoCache.get(page);
     if (pageInfoInCache) {
@@ -84,6 +86,7 @@ export class PDF {
         height,
         width,
         scale,
+        dpi,
       };
 
       this.pageInfoCache.set(page, pageInfo);
