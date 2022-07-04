@@ -37,7 +37,7 @@
     "@vue/test-utils": "^2.0.0",
     "@vue/tsconfig": "^0.1.3",
     "@vuetify/vite-plugin": "^1.0.0-alpha.11",
-    "eslint": "^8.16.0",
+    "eslint": "^8.19.0",
     "eslint-plugin-vue": "^8.7.1",
     "jsdom": "^19.0.0",
     "prettier": "^2.6.2",
