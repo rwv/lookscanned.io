@@ -10,7 +10,7 @@ export default defineConfig({
     VitePWA({
       includeAssets: ["favicon.ico", "robots.txt", "icons/*"],
       workbox: {
-        globPatterns: ["assets/*"],
+        globPatterns: ["assets/*", "**/*.{js,css,html}"],
         maximumFileSizeToCacheInBytes: 10000000,
       },
       manifest: {
