@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import { NCard, NSpace } from "naive-ui";
+import { NCard, NSpace, useMessage } from "naive-ui";
 
 import PDFSelection from "./PDFSelection.vue";
 
@@ -66,6 +66,10 @@ import { GenerateScannedPDFSetup } from "./GenerateScannedPDFSetup";
 
 import type { PDF, PDFInfoType } from "@/utils/pdf";
 import type { Scan } from "@/utils/scan";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+const message = useMessage();
 
 // Handle pdfSource changes
 const pdfInfo = ref({
@@ -115,6 +119,7 @@ function generateAction() {
     downloadScannedPDF(props.scanInstance);
   } else {
     noFileError.value = true;
+    message.error(t("settings.pdfNoSelectMessage"));
   }
 }
 </script>
