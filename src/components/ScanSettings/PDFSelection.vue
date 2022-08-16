@@ -1,20 +1,22 @@
 <template>
-  <n-button text @click="onClick">
-    <template #icon>
-      <n-icon>
-        <Attach16Regular />
-      </n-icon>
-    </template>
-    <n-text v-if="filename">
-      <n-ellipsis style="max-width: 14em">{{ filename }}</n-ellipsis>
-    </n-text>
-    <n-text type="error" v-else-if="noFileError">
-      {{ t("settings.pdfNoSelectMessage") }}
-    </n-text>
-    <n-text v-else>
-      {{ t("settings.pdfSelectLabel") }}
-    </n-text>
-  </n-button>
+  <div>
+    <n-button text @click="onClick">
+      <template #icon>
+        <n-icon>
+          <Attach16Regular />
+        </n-icon>
+      </template>
+      <n-text v-if="filename">
+        <n-ellipsis style="max-width: 14em">{{ filename }}</n-ellipsis>
+      </n-text>
+      <n-text type="error" v-else-if="noFileError">
+        {{ t("settings.pdfNoSelectMessage") }}
+      </n-text>
+      <n-text v-else>
+        {{ t("settings.pdfSelectLabel") }}
+      </n-text>
+    </n-button>
+  </div>
 </template>
 
 <script lang="ts" setup>

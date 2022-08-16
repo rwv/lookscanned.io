@@ -9,6 +9,7 @@
       @update:pdfInfo="(info) => (pdfInfo = info)"
       :noFileError="noFileError"
       style="
+        width: 100%;
         padding-bottom: 10px;
         margin-bottom: 10px;
         border-bottom: 1px solid var(--n-border-color);
