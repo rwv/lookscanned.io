@@ -1,5 +1,8 @@
 <template>
   <MainContainer>
+    <div style="margin-bottom: 25px">
+      <BackToIndex />
+    </div>
     <n-grid
       x-gap="25"
       y-gap="25"
@@ -40,6 +43,7 @@ import PDFURL from "@/assets/examples/pdfs/test.pdf";
 import { PDF } from "@/utils/pdf";
 import { Scan } from "@/utils/scan";
 import type { PDFInfoType } from "@/utils/pdf";
+import BackToIndex from "@/components/buttons/BackToIndex.vue";
 
 const pdfInfo = ref({
   source: PDFURL,
