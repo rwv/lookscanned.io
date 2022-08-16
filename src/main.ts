@@ -13,7 +13,7 @@ app.use(head);
 app.use(i18n);
 
 // Only for lookscanned.io
-if (location.hostname == "lookscanned.io") {
+if (location.hostname.endsWith("lookscanned.io")) {
   app.use(VueGtag, {
     config: { id: "G-0HFWPLP3L2" },
   });
