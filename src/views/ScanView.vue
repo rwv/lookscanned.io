@@ -1,6 +1,12 @@
 <template>
   <MainContainer>
-    <n-grid x-gap="25" :cols="12" item-responsive responsive="screen">
+    <n-grid
+      x-gap="25"
+      y-gap="25"
+      :cols="12"
+      item-responsive
+      responsive="screen"
+    >
       <n-grid-item span="5 m:4 l:3">
         <ScanSettingsCard
           @update:pdfInfo="(info) => (pdfInfo = info)"

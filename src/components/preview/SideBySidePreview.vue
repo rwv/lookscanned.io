@@ -1,5 +1,5 @@
 <template>
-  <n-grid cols="1 m:2" x-gap="25px" responsive="screen">
+  <n-grid cols="1 m:2" x-gap="25px" y-gap="25px" responsive="screen">
     <n-grid-item>
       <n-card>
         <template #cover>
