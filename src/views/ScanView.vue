@@ -7,7 +7,7 @@
       item-responsive
       responsive="screen"
     >
-      <n-grid-item span="12 m:4 l:3">
+      <n-grid-item span="12 s:5 m:4 l:3">
         <ScanSettingsCard
           @update:pdfInfo="(info) => (pdfInfo = info)"
           @update:page="(page) => (previewPage = page)"
@@ -17,7 +17,7 @@
           :scanInstance="scanInstance"
         />
       </n-grid-item>
-      <n-grid-item span="12 m:8 l:9">
+      <n-grid-item span="12 s:7 m:8 l:9">
         <SideBySidePreview
           :page="previewPage"
           :pdfInstance="pdfInstance"
