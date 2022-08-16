@@ -1,5 +1,8 @@
 <template>
-  <n-form-item :label="t('settings.rotate')" :show-feedback="false">
+  <n-form-item :show-feedback="false">
+    <template #label>
+      <span :style="style">{{ t("settings.rotate") }}</span>
+    </template>
     <n-slider
       v-model:value="rotate_computed"
       :max="10"
@@ -33,4 +36,10 @@ const rotate_computed = computed({
 });
 
 const formatTooltip = (value: number) => `${value}°`;
+
+const style = computed(() => {
+  return {
+    transform: `rotate(${rotate_computed.value}deg)`,
+  };
+});
 </script>
