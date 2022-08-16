@@ -1,5 +1,5 @@
 <template>
-  <n-image :src="imgSrc" v-if="imgSrc !== '' && false" />
+  <n-image :src="imgSrc" v-if="imgSrc !== ''" />
   <n-skeleton v-else height="70vh" />
 </template>
 
