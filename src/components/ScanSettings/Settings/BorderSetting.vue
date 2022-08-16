@@ -32,7 +32,7 @@ const borderSwitch = computed({
 const style = computed(() => {
   if (borderSwitch.value) {
     return {
-      outline: "1px solid #222",
+      outline: "1px solid var(--n-label-text-color)",
     };
   } else {
     return {};
