@@ -1,5 +1,10 @@
 <template>
-  <n-form-item :label="t('settings.attenuate')" :show-feedback="false">
+  <n-form-item :show-feedback="false">
+    <template #label>
+      <span :style="style" class="noise">
+        {{ t("settings.attenuate") }}
+      </span>
+    </template>
     <n-slider
       v-model:value="attenuate_computed"
       :max="1"
@@ -30,4 +35,26 @@ const attenuate_computed = computed({
   get: () => props.attenuate,
   set: (value) => emit("update:attenuate", value),
 });
+
+const style = computed(() => {
+  return {
+    "--noise-opacity": attenuate_computed.value,
+  };
+});
 </script>
+
+<style scoped>
+.noise {
+  position: relative;
+  z-index: 1;
+  overflow: hidden; /*if you want to crop the image*/
+}
+.noise:before {
+  z-index: -1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: url("./noise.svg");
+  opacity: var(--noise-opacity);
+}
+</style>
