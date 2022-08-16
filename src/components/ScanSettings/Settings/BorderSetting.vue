@@ -1,9 +1,9 @@
 <template>
-  <n-form-item :label="t('settings.border.label')" :show-feedback="false">
-    <NSwitch v-model:value="borderSwitch">
-      <template #checked>{{ t("settings.border.true") }}</template>
-      <template #unchecked>{{ t("settings.border.false") }}</template>
-    </NSwitch>
+  <n-form-item :show-feedback="false">
+    <template #label>
+      <span :style="style">{{ t("settings.border.label") }}</span>
+    </template>
+    <NSwitch v-model:value="borderSwitch"></NSwitch>
   </n-form-item>
 </template>
 
@@ -27,5 +27,15 @@ const emit = defineEmits<{
 const borderSwitch = computed({
   get: () => props.border == true,
   set: (border) => emit("update:border", border ? true : false),
+});
+
+const style = computed(() => {
+  if (borderSwitch.value) {
+    return {
+      outline: "1px solid #222",
+    };
+  } else {
+    return {};
+  }
 });
 </script>
