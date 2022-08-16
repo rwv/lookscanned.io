@@ -1,14 +1,18 @@
 <template>
-  <v-pagination
-    v-show="pdfPageLength >= 2"
-    v-model="page_computed"
-    :length="pdfPageLength"
-    size="x-small"
-  />
+  <n-space justify="center">
+    <n-pagination
+      v-model:page="page_computed"
+      :page-count="pdfPageLength"
+      v-show="pdfPageLength >= 2"
+      :page-slot="5"
+      size="small"
+    />
+  </n-space>
 </template>
 
 <script lang="ts" setup>
 import { ref, watch, computed } from "vue";
+import { NPagination, NSpace } from "naive-ui";
 import type { PDF } from "@/utils/pdf";
 
 const pdfPageLength = ref(1);
