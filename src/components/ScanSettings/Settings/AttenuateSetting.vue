@@ -57,4 +57,10 @@ const style = computed(() => {
   content: url("./noise.svg");
   opacity: var(--noise-opacity);
 }
+
+@media (prefers-color-scheme: dark) {
+  .noise:before {
+    content: url("./dark-noise.svg");
+  }
+}
 </style>
