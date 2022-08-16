@@ -9,17 +9,26 @@
       {{ t("base.description") }}
     </n-p>
 
-    <n-space size="large">
-      <NavigateToScan />
-      <NavigateToGitHub />
+    <n-space vertical :size="0">
+      <n-space size="large">
+        <NavigateToScan />
+        <NavigateToGitHub />
+      </n-space>
+
+      <n-space size="large">
+        <NavigateToHomePage />
+        <NavigateToSupportMe />
+      </n-space>
     </n-space>
   </n-space>
 </template>
 
 <script setup lang="ts">
-import { NH1, NP, NSpace, NButton, NIcon } from "naive-ui";
+import { NH1, NP, NSpace } from "naive-ui";
 import NavigateToScan from "@/components/buttons/NavigateToScan.vue";
 import NavigateToGitHub from "@/components/buttons/NavigateToGitHub.vue";
+import NavigateToHomePage from "@/components/buttons/NavigateToHomePage.vue";
+import NavigateToSupportMe from "@/components/buttons/NavigateToSupportMe.vue";
 
 import { useI18n } from "vue-i18n";
 
