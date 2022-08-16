@@ -9,22 +9,25 @@
       {{ t("base.description") }}
     </n-p>
 
-    <n-space vertical :size="0">
-      <n-space size="large">
+    <n-grid :x-gap="20" :y-gap="0" :cols="2">
+      <n-grid-item>
         <NavigateToScan />
+      </n-grid-item>
+      <n-grid-item>
         <NavigateToGitHub />
-      </n-space>
-
-      <n-space size="large">
+      </n-grid-item>
+      <n-grid-item>
         <NavigateToHomePage />
+      </n-grid-item>
+      <n-grid-item>
         <NavigateToSupportMe />
-      </n-space>
-    </n-space>
+      </n-grid-item>
+    </n-grid>
   </n-space>
 </template>
 
 <script setup lang="ts">
-import { NH1, NP, NSpace } from "naive-ui";
+import { NH1, NP, NSpace, NGrid, NGridItem } from "naive-ui";
 import NavigateToScan from "@/components/buttons/NavigateToScan.vue";
 import NavigateToGitHub from "@/components/buttons/NavigateToGitHub.vue";
 import NavigateToHomePage from "@/components/buttons/NavigateToHomePage.vue";
