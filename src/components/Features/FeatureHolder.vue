@@ -1,6 +1,6 @@
 <template>
   <div>
-    <n-h3>
+    <n-h3 prefix="bar">
       <n-icon size="1em" :component="icon" style="margin-right: 0.5em" />{{
         title
       }}
