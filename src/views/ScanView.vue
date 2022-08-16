@@ -1,7 +1,7 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12" sm="5" md="4" lg="3">
+  <MainContainer>
+    <n-grid x-gap="25" :cols="12" item-responsive responsive="screen">
+      <n-grid-item span="5 m:4 l:3">
         <ScanSettingsCard
           @update:pdfInfo="(info) => (pdfInfo = info)"
           @update:page="(page) => (previewPage = page)"
@@ -10,20 +10,21 @@
           :pdfInstance="pdfInstance"
           :scanInstance="scanInstance"
         />
-      </v-col>
-
-      <v-col cols="12" sm="7" md="8" lg="9">
+      </n-grid-item>
+      <n-grid-item span="7 m:8 l:9">
         <SideBySidePreview
           :page="previewPage"
           :pdfInstance="pdfInstance"
           :scanInstance="scanInstance"
         />
-      </v-col>
-    </v-row>
-  </v-container>
+      </n-grid-item>
+    </n-grid>
+  </MainContainer>
 </template>
 
 <script lang="ts" setup>
+import { NGrid, NGridItem } from "naive-ui";
+import MainContainer from "@/components/MainContainer.vue";
 import type { ScanConfig } from "@/utils/scan";
 import { defaultConfig } from "@/utils/scan";
 import SideBySidePreview from "@/components/preview/SideBySidePreview.vue";
