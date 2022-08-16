@@ -1,5 +1,5 @@
 <template>
-  <n-grid :x-gap="40" :y-gap="12" cols="2" responsive="screen">
+  <n-grid :x-gap="40" :y-gap="30" cols="2" responsive="screen">
     <n-grid-item>
       <FeaturePrivacy />
     </n-grid-item>
