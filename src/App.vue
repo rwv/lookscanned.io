@@ -3,6 +3,7 @@
     <n-global-style />
     <n-message-provider>
       <main class="view"><RouterView :key="route.fullPath" /></main>
+      <ServieWorkerReloadPrompt />
     </n-message-provider>
   </n-config-provider>
 </template>
@@ -18,6 +19,7 @@ import {
 import { RouterView } from "vue-router";
 import { computed } from "vue";
 import { useRoute } from "vue-router";
+import ServieWorkerReloadPrompt from "@/components/Misc/ServiceWorkerReloadPrompt.vue";
 
 const route = useRoute();
 

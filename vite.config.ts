@@ -8,14 +8,7 @@ export default defineConfig({
   plugins: [
     vue(),
     VitePWA({
-      injectRegister: "script",
-      includeAssets: [
-        "favicon.ico",
-        "robots.txt",
-        "icons/*.png",
-        "icons/*.svg",
-        "icons/favicon.ico",
-      ],
+      includeAssets: ["favicon.ico", "robots.txt", "icons/*"],
       workbox: {
         globPatterns: ["assets/*"],
         maximumFileSizeToCacheInBytes: 10000000,
