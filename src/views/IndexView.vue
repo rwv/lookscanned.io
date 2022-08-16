@@ -1,76 +1,45 @@
 <template>
-  <v-container>
-    <v-row no-gutters class="text-center">
-      <v-col cols="12" class="mb-4 middle">
-        <div style="max-width: 12rem">
-          <img :src="IconUrl" style="width: 100%" />
-        </div>
-
-        <h1 class="v-heading text-h3 text-sm-h3 mb-4">{{ t("base.title") }}</h1>
-        <p class="mx-auto text-justify mb-8" style="max-width: 568px">
-          {{ t("base.description") }}
-        </p>
-
-        <div>
-          <v-btn class="mr-2" :to="{ name: 'scan' }">
-            {{ t("actions.navigateToScan") }}
-          </v-btn>
-          <v-btn class="ml-2" :href="GITHUB_URL" @click.prevent="openGitHub"
-            >GitHub</v-btn
-          >
-        </div>
-      </v-col>
-
-      <v-col cols="12" class="text-center mt-10">
-        <v-row>
-          <FeaturePrivacy />
-          <FeatureSpeed />
-          <FeatureCustomization />
-          <FeatureOpenSource />
-          <FeatureMobileFriendly />
-          <FeatureOfflineUse />
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
+  <MainContainer>
+    <n-grid
+      x-gap="100"
+      y-gap="50"
+      :cols="3"
+      item-responsive
+      responsive="screen"
+      class="index-grid"
+    >
+      <n-grid-item span="3 s:1">
+        <TheIndexViewHead />
+      </n-grid-item>
+      <n-grid-item span="3 s:2">
+        <TheFeatures />
+      </n-grid-item>
+    </n-grid>
+  </MainContainer>
 </template>
 
 <script setup lang="ts">
-import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
-import FeatureSpeed from "@/components/Features/FeatureSpeed.vue";
-import FeatureCustomization from "@/components/Features/FeatureCustomization.vue";
-import FeatureOpenSource from "@/components/Features/FeatureOpenSource.vue";
-import FeatureMobileFriendly from "@/components/Features/FeatureMobileFriendly.vue";
-import FeatureOfflineUse from "@/components/Features/FeatureOfflineUse.vue";
+import { NGrid, NGridItem } from "naive-ui";
 
-import IconUrl from "@/assets/scanner.svg";
+import TheIndexViewHead from "@/components/Misc/TheIndexViewHead.vue";
+import TheFeatures from "@/components/Features/TheFeatures.vue";
+import MainContainer from "@/components/MainContainer.vue";
+import { useHead } from "@vueuse/head";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
-const GITHUB_URL = "https://github.com/rwv/lookscanned.io";
+useHead({
+  title: t("base.title"),
+  meta: [{ name: "description", content: t("base.description") }],
+});
 
-const openGitHub = () => window.open(GITHUB_URL, "_blank");
+// const breakpoints = { xs: 0, s: 640, m: 1024, l: 1280, xl: 1536, xxl: 1920 };
 </script>
 
 <style scoped>
-.middle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.advantage-icon {
-  font-size: 8em;
-}
-</style>
-
-<style lang="scss" scoped>
-.plain-link {
-  text-decoration: none;
-  color: inherit;
-
-  &:hover {
-    text-decoration: none;
+@media (min-width: 640px) {
+  .index-grid {
+    margin-top: 25vh;
   }
 }
 </style>

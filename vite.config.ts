@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import vuetify from "@vuetify/vite-plugin";
 import path from "path";
 import { VitePWA } from "vite-plugin-pwa";
 
@@ -8,19 +7,8 @@ import { VitePWA } from "vite-plugin-pwa";
 export default defineConfig({
   plugins: [
     vue(),
-    // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
-    vuetify({
-      autoImport: true,
-    }),
     VitePWA({
-      injectRegister: "script",
-      includeAssets: [
-        "favicon.ico",
-        "robots.txt",
-        "icons/*.png",
-        "icons/*.svg",
-        "icons/favicon.ico",
-      ],
+      includeAssets: ["favicon.ico", "robots.txt", "icons/*"],
       workbox: {
         globPatterns: ["assets/*"],
         maximumFileSizeToCacheInBytes: 10000000,

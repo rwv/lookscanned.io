@@ -1,33 +1,52 @@
 <template>
-  <v-card elevation="4" min-height="268">
+  <n-card
+    :segmented="{
+      content: true,
+      footer: 'soft',
+    }"
+  >
     <PDFSelection
       @update:pdfInfo="(info) => (pdfInfo = info)"
       :noFileError="noFileError"
+      style="
+        width: 100%;
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid var(--n-border-color);
+      "
     />
 
     <!-- Scan Settings -->
-    <ColorspaceSetting v-model:colorspace="config.colorspace" />
-    <BorderSetting v-model:border="config.border" />
+    <n-space :size="40">
+      <ColorspaceSetting v-model:colorspace="config.colorspace" />
+      <BorderSetting v-model:border="config.border" />
+    </n-space>
+
     <RotateSetting v-model:rotate="config.rotate" />
     <RotateVarianceSetting v-model:rotate_var="config.rotate_var" />
     <BlurSetting v-model:blur="config.blur" />
     <AttenuateSetting v-model:attenuate="config.attenuate" />
 
-    <PDFPageSelection v-model:page="page" :pdfInstance="pdfInstance" />
-
-    <ActionButtons
-      @action:preview="$emit('action:preview')"
-      @action:generate="generateAction"
-    />
-    <GenerateStatus
-      v-if="status != 'not-started'"
-      :status="status"
-      :text="statusText"
-    />
-  </v-card>
+    <template #footer>
+      <n-space vertical :wrap-item="false">
+        <PDFPageSelection v-model:page="page" :pdfInstance="pdfInstance" />
+        <ActionButtons
+          @action:preview="$emit('action:preview')"
+          @action:generate="generateAction"
+        />
+        <GenerateStatus
+          v-if="status != 'not-started'"
+          :status="status"
+          :text="statusText"
+        />
+      </n-space>
+    </template>
+  </n-card>
 </template>
 
 <script lang="ts" setup>
+import { NCard, NSpace, useMessage } from "naive-ui";
+
 import PDFSelection from "./PDFSelection.vue";
 
 import BorderSetting from "./Settings/BorderSetting.vue";
@@ -48,6 +67,10 @@ import { GenerateScannedPDFSetup } from "./GenerateScannedPDFSetup";
 
 import type { PDF, PDFInfoType } from "@/utils/pdf";
 import type { Scan } from "@/utils/scan";
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+const message = useMessage();
 
 // Handle pdfSource changes
 const pdfInfo = ref({
@@ -97,6 +120,7 @@ function generateAction() {
     downloadScannedPDF(props.scanInstance);
   } else {
     noFileError.value = true;
+    message.error(t("settings.pdfNoSelectMessage"));
   }
 }
 </script>

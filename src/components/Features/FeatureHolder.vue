@@ -1,12 +1,19 @@
 <template>
-  <v-col cols="12" md="4" sm="6" class="px-6">
-    <h2 class="v-heading text-h5 text-sm-h5 mb-4">{{ title }}</h2>
-    <p class="mx-auto text-justify">
+  <div>
+    <n-h3>
+      <n-icon size="1em" :component="icon" style="margin-right: 0.5em" />{{
+        title
+      }}
+    </n-h3>
+    <n-p>
       <slot></slot>
-    </p>
-  </v-col>
+    </n-p>
+  </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{ title: string }>();
+import type { Component } from "vue";
+import { NH3, NP, NIcon } from "naive-ui";
+
+defineProps<{ title: string; icon: Component }>();
 </script>

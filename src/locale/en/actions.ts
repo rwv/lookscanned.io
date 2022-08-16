@@ -1,5 +1,6 @@
 export const actions = {
-  navigateToScan: "scan",
+  navigateToScan: "Scan",
+  backToIndex: "Back",
   preview: "Preview",
   save: "Save",
 };

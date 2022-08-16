@@ -1,22 +1,22 @@
 <template>
-  <v-list-item two-line>
-    <v-list-item-header>
-      <v-list-item-title>{{ t("settings.rotate") }}</v-list-item-title>
-      <v-slider
-        hide-details
-        density="compact"
-        max="10"
-        min="-10"
-        thumb-label
-        v-model="rotate_computed"
-      />
-    </v-list-item-header>
-  </v-list-item>
+  <n-form-item :show-feedback="false">
+    <template #label>
+      <span :style="style">{{ t("settings.rotate") }}</span>
+    </template>
+    <n-slider
+      v-model:value="rotate_computed"
+      :max="10"
+      :min="-10"
+      :step="0.1"
+      :format-tooltip="formatTooltip"
+    />
+  </n-form-item>
 </template>
 
 <script lang="ts" setup>
 import type { ScanConfig } from "@/utils/scan";
 import { computed } from "vue";
+import { NFormItem, NSlider } from "naive-ui";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -33,5 +33,13 @@ const emit = defineEmits<{
 const rotate_computed = computed({
   get: () => props.rotate,
   set: (value) => emit("update:rotate", value),
+});
+
+const formatTooltip = (value: number) => `${value}°`;
+
+const style = computed(() => {
+  return {
+    transform: `rotate(${rotate_computed.value}deg)`,
+  };
 });
 </script>

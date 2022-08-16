@@ -1,21 +1,16 @@
 <template>
-  <v-list-item two-line>
-    <v-list-item-header>
-      <v-list-item-title>{{ t("settings.border.label") }}</v-list-item-title>
-      <v-switch
-        v-model="borderSwitch"
-        color="success"
-        :label="borderSwitchLabel"
-        hide-details
-        density="compact"
-      ></v-switch>
-    </v-list-item-header>
-  </v-list-item>
+  <n-form-item :show-feedback="false">
+    <template #label>
+      <span :style="style">{{ t("settings.border.label") }}</span>
+    </template>
+    <NSwitch v-model:value="borderSwitch"></NSwitch>
+  </n-form-item>
 </template>
 
 <script lang="ts" setup>
 import type { ScanConfig } from "@/utils/scan";
 import { computed } from "vue";
+import { NFormItem, NSwitch } from "naive-ui";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -34,15 +29,13 @@ const borderSwitch = computed({
   set: (border) => emit("update:border", border ? true : false),
 });
 
-const borderSwitchLabel = computed(() => {
-  return borderSwitch.value
-    ? t("settings.border.true")
-    : t("settings.border.false");
+const style = computed(() => {
+  if (borderSwitch.value) {
+    return {
+      outline: "1px solid var(--n-label-text-color)",
+    };
+  } else {
+    return {};
+  }
 });
 </script>
-
-<style>
-.v-select > div.v-input__control > div > div.v-field__overlay {
-  background-color: inherit;
-}
-</style>

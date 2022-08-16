@@ -1,29 +1,28 @@
 <template>
-  <v-app>
-    <metainfo> </metainfo>
-    <NavBar />
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <n-config-provider :theme="theme">
+    <n-global-style />
+    <n-message-provider>
+      <main class="view"><RouterView :key="route.fullPath" /></main>
+      <ServieWorkerReloadPrompt />
+    </n-message-provider>
+  </n-config-provider>
 </template>
 
 <script lang="ts" setup>
-import { useMeta } from "vue-meta";
+import {
+  useOsTheme,
+  darkTheme,
+  NConfigProvider,
+  NGlobalStyle,
+  NMessageProvider,
+} from "naive-ui";
+import { RouterView } from "vue-router";
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import ServieWorkerReloadPrompt from "@/components/Misc/ServiceWorkerReloadPrompt.vue";
 
-import NavBar from "@/components/NavBar.vue";
+const route = useRoute();
 
-useMeta({
-  title: "Look Scanned",
-  description:
-    "Look Scanned is a pure frontend site that makes your PDFs look scanned! No need for printers and scanners anymore - everything you need to do is just a few clicks.",
-});
+const osThemeRef = useOsTheme();
+const theme = computed(() => (osThemeRef.value === "dark" ? darkTheme : null));
 </script>
-
-<style>
-body {
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-}
-</style>
