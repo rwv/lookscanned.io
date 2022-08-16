@@ -8,11 +8,19 @@
     <PDFSelection
       @update:pdfInfo="(info) => (pdfInfo = info)"
       :noFileError="noFileError"
+      style="
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+        border-bottom: 1px solid var(--n-border-color);
+      "
     />
 
     <!-- Scan Settings -->
-    <ColorspaceSetting v-model:colorspace="config.colorspace" />
-    <BorderSetting v-model:border="config.border" />
+    <n-space :size="40">
+      <ColorspaceSetting v-model:colorspace="config.colorspace" />
+      <BorderSetting v-model:border="config.border" />
+    </n-space>
+
     <RotateSetting v-model:rotate="config.rotate" />
     <RotateVarianceSetting v-model:rotate_var="config.rotate_var" />
     <BlurSetting v-model:blur="config.blur" />
