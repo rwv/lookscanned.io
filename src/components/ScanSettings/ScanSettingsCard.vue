@@ -17,7 +17,7 @@
     />
 
     <!-- Scan Settings -->
-    <n-space :size="40">
+    <n-space :size="40" style="margin-bottom: 10px">
       <ColorspaceSetting v-model:colorspace="config.colorspace" />
       <BorderSetting v-model:border="config.border" />
     </n-space>
