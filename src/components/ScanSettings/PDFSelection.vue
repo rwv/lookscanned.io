@@ -5,7 +5,9 @@
         <Attach16Regular />
       </n-icon>
     </template>
-    <n-text v-if="filename">{{ filename }}</n-text>
+    <n-text v-if="filename">
+      <n-ellipsis style="max-width: 14em">{{ filename }}</n-ellipsis>
+    </n-text>
     <n-text type="error" v-else-if="noFileError">
       {{ t("settings.pdfNoSelectMessage") }}
     </n-text>
@@ -17,7 +19,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue";
-import { NButton, NIcon, NText } from "naive-ui";
+import { NButton, NIcon, NText, NEllipsis } from "naive-ui";
 import { Attach16Regular } from "@vicons/fluent";
 import { fileOpen } from "browser-fs-access";
 
