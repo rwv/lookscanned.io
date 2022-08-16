@@ -10,46 +10,16 @@
     </n-p>
 
     <n-space size="large">
-      <router-link
-        :to="{
-          name: 'scan',
-        }"
-        #="{ navigate, href }"
-        custom
-      >
-        <n-button text tag="a" :href="href" @click="navigate">
-          <template #icon>
-            <n-icon>
-              <AdfScannerOutlined />
-            </n-icon>
-          </template>
-          {{ t("actions.navigateToScan") }}
-        </n-button>
-      </router-link>
-      |
-      <n-button
-        text
-        tag="a"
-        href="https://github.com/rwv/lookscanned.io"
-        target="_blank"
-      >
-        <template #icon>
-          <n-icon>
-            <LogoGithub />
-          </n-icon>
-        </template>
-        GitHub
-      </n-button>
+      <NavigateToScan />
+      <NavigateToGitHub />
     </n-space>
   </n-space>
 </template>
 
 <script setup lang="ts">
 import { NH1, NP, NSpace, NButton, NIcon } from "naive-ui";
-import { AdfScannerOutlined } from "@vicons/material";
-import { LogoGithub } from "@vicons/ionicons5";
-
-import { RouterLink } from "vue-router";
+import NavigateToScan from "@/components/buttons/NavigateToScan.vue";
+import NavigateToGitHub from "@/components/buttons/NavigateToGitHub.vue";
 
 import { useI18n } from "vue-i18n";
 
