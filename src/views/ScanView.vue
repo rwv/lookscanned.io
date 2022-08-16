@@ -44,6 +44,14 @@ import { PDF } from "@/utils/pdf";
 import { Scan } from "@/utils/scan";
 import type { PDFInfoType } from "@/utils/pdf";
 import BackToIndex from "@/components/buttons/BackToIndex.vue";
+import { useHead } from "@vueuse/head";
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+
+useHead({
+  title: t("base.scanTitle") + " - " + t("base.title"),
+  meta: [{ name: "description", content: t("base.description") }],
+});
 
 const pdfInfo = ref({
   source: PDFURL,
