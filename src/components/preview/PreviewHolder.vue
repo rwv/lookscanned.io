@@ -1,20 +1,12 @@
 <template>
-  <v-img :src="showImgSrc" :transition="false" />
+  <n-image :src="imgSrc" v-if="imgSrc !== '' && false" />
+  <n-skeleton v-else height="70vh" />
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import placeholderUrl from "@/assets/previewPagePlaceholder.svg";
+import { NImage, NSkeleton } from "naive-ui";
 
-const props = defineProps<{
+defineProps<{
   imgSrc: string;
 }>();
-
-const showImgSrc = computed(() => {
-  if (props.imgSrc == "") {
-    return placeholderUrl;
-  } else {
-    return props.imgSrc;
-  }
-});
 </script>
