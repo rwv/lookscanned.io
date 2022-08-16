@@ -5,10 +5,8 @@
         <img src="@/assets/scanner.svg" style="width: 100%" />
       </div>
 
-      <n-h1 class="v-heading text-h3 text-sm-h3 mb-4">{{
-        t("base.title")
-      }}</n-h1>
-      <n-p class="mx-auto text-justify mb-8" style="max-width: 568px">
+      <n-h1>{{ t("base.title") }}</n-h1>
+      <n-p style="max-width: 568px">
         {{ t("base.description") }}
       </n-p>
 
