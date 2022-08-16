@@ -1,5 +1,5 @@
 <template>
-  <n-space vertical align="center" :size="0">
+  <n-space vertical :size="0">
     <n-h3>{{ title }}</n-h3>
     <n-p>
       <slot></slot>
