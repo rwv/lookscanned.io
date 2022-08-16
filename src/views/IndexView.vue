@@ -1,26 +1,52 @@
 <template>
-  <v-container>
-    <v-row no-gutters class="text-center">
-      <v-col cols="12" class="mb-4 middle">
-        <div style="max-width: 12rem">
-          <img :src="IconUrl" style="width: 100%" />
-        </div>
+  <MainContainer>
+    <n-space vertical align="center">
+      <div style="max-width: 12rem">
+        <img src="@/assets/scanner.svg" style="width: 100%" />
+      </div>
 
-        <h1 class="v-heading text-h3 text-sm-h3 mb-4">{{ t("base.title") }}</h1>
-        <p class="mx-auto text-justify mb-8" style="max-width: 568px">
-          {{ t("base.description") }}
-        </p>
+      <n-h1 class="v-heading text-h3 text-sm-h3 mb-4">{{
+        t("base.title")
+      }}</n-h1>
+      <n-p class="mx-auto text-justify mb-8" style="max-width: 568px">
+        {{ t("base.description") }}
+      </n-p>
 
-        <div>
-          <v-btn class="mr-2" :to="{ name: 'scan' }">
+      <n-space size="large">
+        <router-link
+          :to="{
+            name: 'scan',
+          }"
+          #="{ navigate, href }"
+          custom
+        >
+          <n-button text tag="a" :href="href" @click="navigate">
+            <template #icon>
+              <n-icon>
+                <AdfScannerOutlined />
+              </n-icon>
+            </template>
             {{ t("actions.navigateToScan") }}
-          </v-btn>
-          <v-btn class="ml-2" :href="GITHUB_URL" @click.prevent="openGitHub"
-            >GitHub</v-btn
-          >
-        </div>
-      </v-col>
+          </n-button>
+        </router-link>
+        |
+        <n-button
+          text
+          tag="a"
+          href="https://github.com/rwv/lookscanned.io"
+          target="_blank"
+        >
+          <template #icon>
+            <n-icon>
+              <LogoGithub />
+            </n-icon>
+          </template>
+          GitHub
+        </n-button>
+      </n-space>
+    </n-space>
 
+    <v-row no-gutters class="text-center">
       <v-col cols="12" class="text-center mt-10">
         <v-row>
           <FeaturePrivacy />
@@ -32,45 +58,23 @@
         </v-row>
       </v-col>
     </v-row>
-  </v-container>
+  </MainContainer>
 </template>
 
 <script setup lang="ts">
+import MainContainer from "@/components/MainContainer.vue";
+import { NH1, NP, NSpace, NButton, NIcon } from "naive-ui";
+import { AdfScannerOutlined } from "@vicons/material";
+import { LogoGithub } from "@vicons/ionicons5";
+
 import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
 import FeatureSpeed from "@/components/Features/FeatureSpeed.vue";
 import FeatureCustomization from "@/components/Features/FeatureCustomization.vue";
 import FeatureOpenSource from "@/components/Features/FeatureOpenSource.vue";
 import FeatureMobileFriendly from "@/components/Features/FeatureMobileFriendly.vue";
 import FeatureOfflineUse from "@/components/Features/FeatureOfflineUse.vue";
+import { RouterLink } from "vue-router";
 
-import IconUrl from "@/assets/scanner.svg";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
-
-const GITHUB_URL = "https://github.com/rwv/lookscanned.io";
-
-const openGitHub = () => window.open(GITHUB_URL, "_blank");
 </script>
-
-<style scoped>
-.middle {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.advantage-icon {
-  font-size: 8em;
-}
-</style>
-
-<style lang="scss" scoped>
-.plain-link {
-  text-decoration: none;
-  color: inherit;
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-</style>
