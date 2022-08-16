@@ -1,7 +1,7 @@
 <template>
-  <n-space vertical align="center">
-    <div style="max-width: 12rem">
-      <img src="@/assets/scanner.svg" style="width: 100%" />
+  <n-space vertical align="center" justify="center" height="100%">
+    <div style="max-width: 12em">
+      <ScannerSvg style="width: 100%" />
     </div>
 
     <n-h1>{{ t("base.title") }}</n-h1>
@@ -52,5 +52,8 @@ import { LogoGithub } from "@vicons/ionicons5";
 import { RouterLink } from "vue-router";
 
 import { useI18n } from "vue-i18n";
+
+import ScannerSvg from "./ScannerSvg.vue";
+
 const { t } = useI18n();
 </script>
