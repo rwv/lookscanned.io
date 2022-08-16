@@ -1,22 +1,18 @@
 <template>
-  <v-list-item two-line>
-    <v-list-item-header>
-      <v-list-item-title>{{ t("settings.rotateVariance") }}</v-list-item-title>
-      <v-slider
-        hide-details
-        density="compact"
-        max="10"
-        min="-10"
-        thumb-label
-        v-model="rotate_var_computed"
-      />
-    </v-list-item-header>
-  </v-list-item>
+  <n-form-item :label="t('settings.rotateVariance')">
+    <n-slider
+      v-model:value="rotate_var_computed"
+      :max="10"
+      :min="-10"
+      :step="0.1"
+    />
+  </n-form-item>
 </template>
 
 <script lang="ts" setup>
 import type { ScanConfig } from "@/utils/scan";
 import { computed } from "vue";
+import { NFormItem, NSlider } from "naive-ui";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
