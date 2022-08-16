@@ -1,12 +1,14 @@
 <template>
-  <v-col cols="12" md="4" sm="6" class="px-6">
-    <h2 class="v-heading text-h5 text-sm-h5 mb-4">{{ title }}</h2>
-    <p class="mx-auto text-justify">
+  <n-space vertical align="center" :size="0">
+    <n-h3>{{ title }}</n-h3>
+    <n-p>
       <slot></slot>
-    </p>
-  </v-col>
+    </n-p>
+  </n-space>
 </template>
 
 <script setup lang="ts">
+import { NH3, NP, NSpace } from "naive-ui";
+
 defineProps<{ title: string }>();
 </script>
