@@ -53,7 +53,7 @@ const railStyle = ({
     // get random color from array
     style.background = linearGradient;
     if (focused) {
-      style.boxShadow = "0 0 0 2px #05193740";
+      style.boxShadow = "0 0 0 2px #FF6F9140";
     }
   } else {
     style.background = "#000000";
