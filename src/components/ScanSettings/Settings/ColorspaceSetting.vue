@@ -1,5 +1,13 @@
 <template>
   <n-form-item :label="t('settings.colorspace.label')" :show-feedback="false">
+    <template #label>
+      <n-gradient-text :gradient="linearGradient" v-show="colorspaceSwitch">
+        {{ t("settings.colorspace.label") }}
+      </n-gradient-text>
+      <n-text v-show="!colorspaceSwitch">{{
+        t("settings.colorspace.label")
+      }}</n-text>
+    </template>
     <NSwitch v-model:value="colorspaceSwitch" :rail-style="railStyle">
       <template #checked>{{ t("settings.colorspace.colorful") }}</template>
       <template #unchecked>{{ t("settings.colorspace.grayscale") }}</template>
@@ -10,7 +18,7 @@
 <script lang="ts" setup>
 import type { ScanConfig } from "@/utils/scan";
 import { type CSSProperties, computed } from "vue";
-import { NFormItem, NSwitch } from "naive-ui";
+import { NFormItem, NSwitch, NGradientText } from "naive-ui";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -29,6 +37,9 @@ const colorspaceSwitch = computed({
   set: (colorspace) => emit("update:colorspace", colorspace ? "sRGB" : "gray"),
 });
 
+const linearGradient =
+  "linear-gradient(to right top, #845ec2, #a55dbd, #c15db5, #d95fab, #ec64a0, #f76e91, #fd7b84, #ff8a7a, #ffa26e, #ffbd66, #ffda65, #f9f871)";
+
 const railStyle = ({
   focused,
   checked,
@@ -40,8 +51,7 @@ const railStyle = ({
   if (checked) {
     // If colorspace is colorful, the rail is colored.
     // get random color from array
-    style.background =
-      "linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12)";
+    style.background = linearGradient;
     if (focused) {
       style.boxShadow = "0 0 0 2px #05193740";
     }
