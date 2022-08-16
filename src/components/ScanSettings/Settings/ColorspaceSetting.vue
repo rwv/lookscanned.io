@@ -1,5 +1,5 @@
 <template>
-  <n-form-item :label="t('settings.colorspace.label')">
+  <n-form-item :label="t('settings.colorspace.label')" :show-feedback="false">
     <NSwitch v-model:value="colorspaceSwitch">
       <template #checked>{{ t("settings.colorspace.colorful") }}</template>
       <template #unchecked>{{ t("settings.colorspace.grayscale") }}</template>

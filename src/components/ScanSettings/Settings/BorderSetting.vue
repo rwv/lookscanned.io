@@ -1,5 +1,5 @@
 <template>
-  <n-form-item :label="t('settings.border.label')">
+  <n-form-item :label="t('settings.border.label')" :show-feedback="false">
     <NSwitch v-model:value="borderSwitch">
       <template #checked>{{ t("settings.border.true") }}</template>
       <template #unchecked>{{ t("settings.border.false") }}</template>

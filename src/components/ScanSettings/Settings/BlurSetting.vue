@@ -1,5 +1,5 @@
 <template>
-  <n-form-item :label="t('settings.blur')">
+  <n-form-item :label="t('settings.blur')" :show-feedback="false">
     <n-slider v-model:value="blur_computed" :max="1" :min="0" :step="0.01" />
   </n-form-item>
 </template>

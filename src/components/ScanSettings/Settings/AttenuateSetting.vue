@@ -1,5 +1,5 @@
 <template>
-  <n-form-item :label="t('settings.attenuate')">
+  <n-form-item :label="t('settings.attenuate')" :show-feedback="false">
     <n-slider
       v-model:value="attenuate_computed"
       :max="1"

@@ -1,5 +1,5 @@
 <template>
-  <n-form-item :label="t('settings.rotate')">
+  <n-form-item :label="t('settings.rotate')" :show-feedback="false">
     <n-slider
       v-model:value="rotate_computed"
       :max="10"
