@@ -18,24 +18,25 @@
     <BlurSetting v-model:blur="config.blur" />
     <AttenuateSetting v-model:attenuate="config.attenuate" />
 
-    <PDFPageSelection v-model:page="page" :pdfInstance="pdfInstance" />
-
     <template #footer>
-      <ActionButtons
-        @action:preview="$emit('action:preview')"
-        @action:generate="generateAction"
-      />
-      <GenerateStatus
-        v-if="status != 'not-started'"
-        :status="status"
-        :text="statusText"
-      />
+      <n-space vertical :wrap-item="false">
+        <PDFPageSelection v-model:page="page" :pdfInstance="pdfInstance" />
+        <ActionButtons
+          @action:preview="$emit('action:preview')"
+          @action:generate="generateAction"
+        />
+        <GenerateStatus
+          v-if="status != 'not-started'"
+          :status="status"
+          :text="statusText"
+        />
+      </n-space>
     </template>
   </n-card>
 </template>
 
 <script lang="ts" setup>
-import { NCard } from "naive-ui";
+import { NCard, NSpace } from "naive-ui";
 
 import PDFSelection from "./PDFSelection.vue";
 
