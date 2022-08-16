@@ -1,5 +1,10 @@
 <template>
-  <v-card elevation="4" min-height="268">
+  <n-card
+    :segmented="{
+      content: true,
+      footer: 'soft',
+    }"
+  >
     <PDFSelection
       @update:pdfInfo="(info) => (pdfInfo = info)"
       :noFileError="noFileError"
@@ -15,19 +20,23 @@
 
     <PDFPageSelection v-model:page="page" :pdfInstance="pdfInstance" />
 
-    <ActionButtons
-      @action:preview="$emit('action:preview')"
-      @action:generate="generateAction"
-    />
-    <GenerateStatus
-      v-if="status != 'not-started'"
-      :status="status"
-      :text="statusText"
-    />
-  </v-card>
+    <template #footer>
+      <ActionButtons
+        @action:preview="$emit('action:preview')"
+        @action:generate="generateAction"
+      />
+      <GenerateStatus
+        v-if="status != 'not-started'"
+        :status="status"
+        :text="statusText"
+      />
+    </template>
+  </n-card>
 </template>
 
 <script lang="ts" setup>
+import { NCard } from "naive-ui";
+
 import PDFSelection from "./PDFSelection.vue";
 
 import BorderSetting from "./Settings/BorderSetting.vue";
