@@ -1,5 +1,5 @@
 <template>
-  <FeatureHolder :title="t('features.openSource.title')">
+  <FeatureHolder :title="t('features.openSource.title')" :icon="LogoGithub">
     <i18n-t keypath="features.openSource.description">
       <template #github>
         <a
@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import FeatureHolder from "@/components/Features/FeatureHolder.vue";
+import { LogoGithub } from "@vicons/ionicons5";
 
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
