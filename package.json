@@ -20,7 +20,7 @@
     "pdfjs-dist": "^2.14.305",
     "vue": "^3.2.36",
     "vue-gtag": "^2.0.1",
-    "vue-i18n": "^9.1.10",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.0.15"
   },
   "devDependencies": {
