@@ -1,2 +1,2 @@
 export { PDF } from "./PDF";
-export type { PDFInfoType } from "./PDFInfoType";
+export type { PDFInfoType } from "./PDF";

@@ -1,7 +1,6 @@
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/pdf";
-import type { PDFInfoType } from "./PDFInfoType";
 
-type pageInfoType = {
+type PDFPageInfo = {
   blob: Blob;
   page: number;
   height: number;
@@ -10,11 +9,16 @@ type pageInfoType = {
   dpi: number;
 };
 
+export interface PDFInfoType {
+  source: string;
+  filename: string;
+}
+
 export class PDF {
   readonly pdfSource: string;
   readonly pdfFilename: string;
   private pdfDocument?: PDFDocumentProxy;
-  private pageInfoCache: Map<number, pageInfoType> = new Map();
+  private pageInfoCache: Map<number, PDFPageInfo> = new Map();
   readonly id: string;
   private readonly initPromise: Promise<void>;
 
@@ -44,7 +48,7 @@ export class PDF {
     return document.numPages;
   }
 
-  async renderPage(page: number, scale = 2.0): Promise<pageInfoType> {
+  async renderPage(page: number, scale = 2.0): Promise<PDFPageInfo> {
     const dpi = scale * 72;
 
     // Check if page is already in cache
