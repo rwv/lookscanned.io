@@ -1,5 +1,4 @@
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/pdf";
-import getPdfjsLib from "./getPdfjsLib";
 import type { PDFInfoType } from "./PDFInfoType";
 
 type pageInfoType = {
@@ -27,9 +26,8 @@ export class PDF {
   }
 
   async init() {
-    const pdfjsLib = await getPdfjsLib();
-    const loadingTask = pdfjsLib.getDocument(this.pdfSource);
-    const pdfDocument = await loadingTask.promise;
+    const { getDocument } = await import("./getDocument");
+    const pdfDocument = await getDocument(this.pdfSource).promise;
     this.pdfDocument = pdfDocument;
   }
 
