@@ -11,7 +11,7 @@ type ScanCallbackFunc = (pageNum: number, totalPageNum: number) => void;
 export class Scan {
   readonly pdfInstance: PDF;
   readonly config: ScanConfig;
-  private pageImageCache: Map<number, ArrayBufferView> = new Map();
+  private pageImageCache: Map<number, Blob> = new Map();
   readonly id: string;
   private signal: AbortSignal | undefined;
   private pdfDocumentCache: Blob | undefined = undefined;
@@ -30,26 +30,24 @@ export class Scan {
     this.getScannedPDF(undefined, maxConcurrency);
   }
 
-  async getImageBuffer(page: number): Promise<ArrayBufferView> {
-    const bufferInCache = this.pageImageCache.get(page);
-    if (bufferInCache) {
-      return bufferInCache;
-    } else {
-      const { blob } = await this.pdfInstance.renderPage(page);
-      const buffer = new Uint8Array(await blob.arrayBuffer());
-      const processedImgBuffer = await processImageWithWorker(
-        buffer,
-        this.config,
-        this.signal
-      );
-      this.pageImageCache.set(page, processedImgBuffer);
-      return processedImgBuffer;
-    }
-  }
-
   async getImageBlob(page: number): Promise<Blob> {
-    const buffer = await this.getImageBuffer(page);
-    return new Blob([buffer], { type: "image/png" });
+    // Check if the image is already in cache
+    const blobInCache = this.pageImageCache.get(page);
+    if (blobInCache) {
+      return blobInCache;
+    }
+
+    // Render the page
+    const { blob } = await this.pdfInstance.renderPage(page);
+    const buffer = new Uint8Array(await blob.arrayBuffer());
+    const processedImgBuffer = await processImageWithWorker(
+      buffer,
+      this.config,
+      this.signal
+    );
+    const scannedBlob = new Blob([processedImgBuffer], { type: "image/png" });
+    this.pageImageCache.set(page, scannedBlob);
+    return scannedBlob;
   }
 
   async getScannedPDF(
