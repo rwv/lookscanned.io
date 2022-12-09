@@ -2,7 +2,6 @@ import type { PDF } from "@/utils/pdf";
 import type { ScanConfig } from "./processImage";
 import { processImageWithWorker } from "./processImage";
 import pMap from "p-map";
-import { combineImagesToPDF } from "./combineImagesToPDF";
 
 import { getLogger } from "@/utils/log";
 const logger = getLogger(["scan"]);
@@ -76,14 +75,14 @@ export class Scan {
         throw new Error("AbortError");
       }
 
-      const buffer = await this.getImageBuffer(page);
+      const blob = await this.getImageBlob(page);
       const { width, height, dpi } = await this.pdfInstance.renderPage(page);
       logger.log(`Page ${page}/${numPages} scanned`);
       if (ScanCallbackFunc) {
         ScanCallbackFunc(page, numPages);
       }
       const info = {
-        buffer,
+        blob,
         width,
         height,
         dpi,
@@ -104,7 +103,8 @@ export class Scan {
       throw new Error("AbortError");
     }
 
-    const pdfDocument = await combineImagesToPDF(processedPageInfos);
+    const imagesToPDF = (await import("@/utils/images-to-pdf")).default;
+    const pdfDocument = await imagesToPDF(processedPageInfos);
 
     this.pdfDocumentCache = pdfDocument;
     return pdfDocument;
