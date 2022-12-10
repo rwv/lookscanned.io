@@ -6,7 +6,7 @@ export async function imagesToPDFWithWorker(
   signal?: AbortSignal
 ): Promise<Blob> {
   if (window.Worker) {
-    return await new Promise((resolve, reject) => {
+    return await new Promise<Blob>((resolve, reject) => {
       const worker = new ImagesToPDFWorker();
 
       if (signal) {
@@ -16,8 +16,8 @@ export async function imagesToPDFWithWorker(
         });
       }
 
-      worker.onmessage = (e) => {
-        const blob = e.data as Blob;
+      worker.onmessage = (e: MessageEvent<Blob>) => {
+        const blob = e.data;
         worker.terminate();
         resolve(blob);
       };
