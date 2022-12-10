@@ -3,39 +3,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, computed } from "vue";
+import { useObjectUrl, computedAsync } from "@vueuse/core";
 import type { PDF } from "@/utils/pdf";
 
 import PreviewHolder from "./PreviewHolder.vue";
-import { computed } from "@vue/reactivity";
 
 const props = defineProps<{
   page: number;
   pdfInstance: PDF;
 }>();
 
-const imageSrc = ref("");
-
-const refKey = computed(() => `${props.pdfInstance.id}-${props.page}`);
-
-const setToRawPDFImage = async () => {
-  URL.revokeObjectURL(imageSrc.value);
-  imageSrc.value = "";
-  const refKey_ = refKey.value;
-  const { blob } = await props.pdfInstance.renderPage(props.page);
-
-  if (refKey_ == refKey.value) {
-    const imgSrc = URL.createObjectURL(blob);
-    imageSrc.value = imgSrc;
-  }
-};
-
-onMounted(setToRawPDFImage);
-
-// Watch pdfSource and Page
-const pdfSourceAndPage = computed(
-  () => `${props.pdfInstance.pdfSource}_${props.page}`
+const evaluating = ref(false);
+const imageBlob = computedAsync(
+  async () => {
+    const { blob } = await props.pdfInstance.renderPage(props.page);
+    return blob;
+  },
+  undefined,
+  evaluating
 );
-
-watch(pdfSourceAndPage, setToRawPDFImage);
+const blobURL = useObjectUrl(imageBlob);
+const imageSrc = computed(() => (evaluating.value ? undefined : blobURL.value));
 </script>

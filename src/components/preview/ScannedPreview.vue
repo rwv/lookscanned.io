@@ -3,7 +3,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, computed } from "vue";
+import { ref, computed } from "vue";
+import { useObjectUrl, computedAsync } from "@vueuse/core";
 
 import type { Scan } from "@/utils/scan";
 
@@ -14,32 +15,15 @@ const props = defineProps<{
   scanInstance: Scan;
 }>();
 
-const imageSrc = ref("");
-
-// Watch pdfSource and Page
-const refKey = computed(() => `${props.scanInstance.id}-${props.page}`);
-
-const setToProcessPDFImage = async () => {
-  // Set to Empty First
-  URL.revokeObjectURL(imageSrc.value);
-  imageSrc.value = "";
-
-  const page = props.page;
-  const refKey_ = refKey.value;
-
-  try {
-    const blob = await props.scanInstance.getImageBlob(page);
-    const imgSrc = URL.createObjectURL(blob);
-    // When pdf config page are same
-    if (refKey_ == refKey.value) {
-      imageSrc.value = imgSrc;
-    }
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-onMounted(setToProcessPDFImage);
-
-watch(refKey, setToProcessPDFImage);
+const evaluating = ref(false);
+const imageBlob = computedAsync(
+  async () => {
+    const blob = await props.scanInstance.getImageBlob(props.page);
+    return blob;
+  },
+  undefined,
+  evaluating
+);
+const blobURL = useObjectUrl(imageBlob);
+const imageSrc = computed(() => (evaluating.value ? undefined : blobURL.value));
 </script>
