@@ -15,6 +15,7 @@ export class Scan {
   readonly id: string;
   private signal: AbortSignal | undefined;
   private pdfDocumentCache: Blob | undefined = undefined;
+  private pagePromises: Map<number, Promise<Blob>> = new Map();
 
   constructor(pdfInstance: PDF, config: ScanConfig, signal?: AbortSignal) {
     this.pdfInstance = pdfInstance;
@@ -37,6 +38,20 @@ export class Scan {
       return blobInCache;
     }
 
+    // Check if the image is already being processed
+    const promise = this.pagePromises.get(page);
+    if (promise) {
+      return await promise;
+    }
+
+    // Start processing the image
+    const blobPromise = this.getImageBlobRaw(page);
+    this.pagePromises.set(page, blobPromise);
+    const blob = await blobPromise;
+    return blob;
+  }
+
+  async getImageBlobRaw(page: number): Promise<Blob> {
     // Render the page
     const { blob } = await this.pdfInstance.renderPage(page);
     const buffer = new Uint8Array(await blob.arrayBuffer());
@@ -46,7 +61,6 @@ export class Scan {
       this.signal
     );
     const scannedBlob = new Blob([processedImgBuffer], { type: "image/png" });
-    this.pageImageCache.set(page, scannedBlob);
     return scannedBlob;
   }
 
