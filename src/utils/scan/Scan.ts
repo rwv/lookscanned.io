@@ -54,9 +54,8 @@ export class Scan {
   async getImageBlobRaw(page: number): Promise<Blob> {
     // Render the page
     const { blob } = await this.pdfInstance.renderPage(page);
-    const buffer = new Uint8Array(await blob.arrayBuffer());
     const processedImgBuffer = await processImageWithWorker(
-      buffer,
+      blob,
       this.config,
       this.signal
     );

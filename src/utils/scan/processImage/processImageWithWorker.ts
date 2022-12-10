@@ -1,21 +1,21 @@
 import type { ScanConfig } from "./config";
 
 export type ToWorkerMessage = {
-  imageArrayBufferView: ArrayBufferView;
+  imageBlob: Blob;
   config: ScanConfig;
 };
 
-export type FromWorkerMessge = ArrayBufferView;
+export type FromWorkerMessge = Blob;
 
 import { getLogger } from "@/utils/log";
 
 const logger = getLogger(["processImage"]);
 
 export const processImageWithWorker = async function (
-  imageArrayBufferView: ArrayBufferView,
+  imageBlob: Blob,
   config: ScanConfig,
   signal?: AbortSignal
-): Promise<ArrayBufferView> {
+): Promise<Blob> {
   if (window.Worker) {
     logger.log("Web Worker is supported by your browser!");
     return await new Promise((resolve, reject) => {
@@ -42,13 +42,10 @@ export const processImageWithWorker = async function (
         logger.log("Terminate Web Worker");
         resolve(abv);
       };
-      magicaWorker.postMessage(
-        {
-          imageArrayBufferView,
-          config,
-        } as ToWorkerMessage,
-        [imageArrayBufferView.buffer]
-      );
+      magicaWorker.postMessage({
+        imageBlob,
+        config,
+      } as ToWorkerMessage);
       logger.log("Send Origin Image to Web Worker");
     });
   } else {
@@ -56,6 +53,6 @@ export const processImageWithWorker = async function (
       "Web Worker is not supported by your browser, fallback to main thread."
     );
     const processImage = (await import("./processImage")).processImage;
-    return await processImage(imageArrayBufferView, config);
+    return await processImage(imageBlob, config);
   }
 };

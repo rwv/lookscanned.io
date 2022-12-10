@@ -6,18 +6,20 @@ import type { ScanConfig } from "./config";
 import { getProcessCommand } from "./getProcessCommand";
 
 export type processImageFuncType = (
-  imageArrayBufferView: ArrayBufferView,
+  imageBlob: Blob,
   config: ScanConfig
-) => Promise<ArrayBufferView>;
+) => Promise<Blob>;
 
 export const processImage: processImageFuncType = async function (
-  imageArrayBufferView,
+  imageBlob,
   config
 ) {
   const inputFilename = "image.png";
   const outputFilename = "foo.png";
 
-  const file = generateIFile(imageArrayBufferView, inputFilename);
+  const buffer = new Uint8Array(await imageBlob.arrayBuffer());
+
+  const file = generateIFile(buffer, inputFilename);
 
   const result = await main({
     debug: false,
@@ -26,6 +28,10 @@ export const processImage: processImageFuncType = async function (
   });
 
   const outputFile = result.outputFiles[0];
-  const outputFileContent = outputFile.content;
-  return outputFileContent;
+  const outputFileBuffer = outputFile.content;
+  const outputFileBlob = new Blob([outputFileBuffer], {
+    type: "image/png",
+  });
+
+  return outputFileBlob;
 };
