@@ -101,7 +101,7 @@ export class Scan {
       throw new Error("AbortError");
     }
 
-    const imagesToPDF = (await import("@/utils/images-to-pdf")).default;
+    const { imagesToPDF } = await import("@/utils/images-to-pdf");
     const pdfDocument = await imagesToPDF(processedPageInfos);
 
     this.pdfDocumentCache = pdfDocument;
