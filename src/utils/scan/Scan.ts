@@ -1,6 +1,5 @@
 import type { PDF } from "@/utils/pdf";
-import type { ScanConfig } from "./processImage";
-import { processImageWithWorker } from "./processImage";
+import { applyScanEffect, type ScanConfig } from "./apply-scan-effect";
 import pMap from "p-map";
 
 import { getLogger } from "@/utils/log";
@@ -54,7 +53,7 @@ export class Scan {
   async getImageBlobRaw(page: number): Promise<Blob> {
     // Render the page
     const { blob } = await this.pdfInstance.renderPage(page);
-    const scannedBlob = await processImageWithWorker(
+    const scannedBlob = await applyScanEffect(
       {
         image: blob,
         config: this.config,

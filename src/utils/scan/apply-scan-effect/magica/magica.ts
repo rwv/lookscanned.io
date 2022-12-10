@@ -1,6 +1,6 @@
 declare let self: {
-    MAGICA_WASM_LOCATION: string;
-}
+  MAGICA_WASM_LOCATION: string;
+};
 
 import wasmURL from "magica/dist/src/imageMagick/compiled/magick.wasm?url";
 

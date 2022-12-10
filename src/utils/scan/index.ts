@@ -1,5 +1,3 @@
-export type { ScanConfig } from "./processImage";
-
-export { defaultConfig } from "./processImage";
+export { defaultConfig, type ScanConfig } from "./apply-scan-effect";
 
 export { Scan } from "./Scan";

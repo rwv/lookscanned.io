@@ -3,7 +3,7 @@ import { main, BlobToIFile } from "./magica";
 import type { ScanConfig } from "./config";
 import { getProcessCommand } from "./getProcessCommand";
 
-export const processImage = async function (data: {
+export const applyScanEffect = async function (data: {
   image: Blob;
   config: ScanConfig;
 }): Promise<Blob> {
