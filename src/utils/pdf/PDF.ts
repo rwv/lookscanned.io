@@ -20,6 +20,8 @@ export class PDF {
   private pdfDocument?: PDFDocumentProxy;
   private readonly initPromise: Promise<void>;
   private readonly pagePromises: Map<number, Promise<PDFPageInfo>> = new Map();
+  private numPages = 0;
+  private finishedNumPages = 0;
   readonly scale = 2.0;
 
   constructor(pdfInfo: PDFInfoType) {
@@ -32,6 +34,7 @@ export class PDF {
     const { getDocument } = await import("./getDocument");
     const pdfDocument = await getDocument(this.pdfSource).promise;
     this.pdfDocument = pdfDocument;
+    this.numPages = pdfDocument.numPages;
   }
 
   async getDocument(): Promise<PDFDocumentProxy> {
@@ -43,8 +46,8 @@ export class PDF {
   }
 
   async getNumPages(): Promise<number> {
-    const document = await this.getDocument();
-    return document.numPages;
+    await this.initPromise;
+    return this.numPages;
   }
 
   async renderPage(page: number): Promise<PDFPageInfo> {
@@ -60,6 +63,8 @@ export class PDF {
   }
 
   async renderPageRaw(page: number): Promise<PDFPageInfo> {
+    await this.initPromise;
+
     const scale = this.scale;
     const dpi = scale * 72;
     const pdfDocument = await this.getDocument();
@@ -101,6 +106,17 @@ export class PDF {
 
     pdfPage.cleanup();
 
+    this.finishedNumPages += 1;
+    this.checkFinished();
+
     return pageInfo;
+  }
+
+  async checkFinished(): Promise<void> {
+    const numPages = await this.getNumPages();
+    if (this.finishedNumPages === numPages) {
+      const pdfDocument = await this.getDocument();
+      pdfDocument.destroy();
+    }
   }
 }
