@@ -1,58 +1,35 @@
 import type { ScanConfig } from "./config";
-
-export type ToWorkerMessage = {
-  imageBlob: Blob;
-  config: ScanConfig;
-};
-
-export type FromWorkerMessge = Blob;
-
-import { getLogger } from "@/utils/log";
-
-const logger = getLogger(["processImage"]);
+import type { processImage } from "./processImage";
+import ProcessImageWorker from "./processImage.worker.ts?worker";
 
 export const processImageWithWorker = async function (
-  imageBlob: Blob,
-  config: ScanConfig,
+  data: Parametes<typeof processImage>[0],
   signal?: AbortSignal
 ): Promise<Blob> {
   if (window.Worker) {
-    logger.log("Web Worker is supported by your browser!");
     return await new Promise((resolve, reject) => {
-      const magicaWorker = new Worker(
-        new URL("./processImage.worker.ts", import.meta.url),
-        {
-          type: "module",
-        }
-      );
+      const worker = new ProcessImageWorker();
 
       if (signal) {
         signal.addEventListener("abort", () => {
-          logger.debug("Abort signal received");
           magicaWorker.terminate();
           reject(new Error("Aborted"));
         });
       }
 
-      logger.log("Start Web Worker");
-      magicaWorker.onmessage = (e) => {
-        const abv = e.data as FromWorkerMessge;
-        logger.log("Get Image from Web Worker");
-        magicaWorker.terminate();
-        logger.log("Terminate Web Worker");
-        resolve(abv);
+      worker.onmessage = (e) => {
+        resolve(e.data);
+        worker.terminate();
       };
-      magicaWorker.postMessage({
-        imageBlob,
-        config,
-      } as ToWorkerMessage);
-      logger.log("Send Origin Image to Web Worker");
+
+      worker.onerror = (e) => {
+        reject(e);
+        worker.terminate();
+      };
+
+      worker.postMessage(data);
     });
   } else {
-    logger.log(
-      "Web Worker is not supported by your browser, fallback to main thread."
-    );
-    const processImage = (await import("./processImage")).processImage;
-    return await processImage(imageBlob, config);
+    throw new Error("Web Workers are not supported in this browser");
   }
 };

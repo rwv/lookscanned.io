@@ -55,8 +55,10 @@ export class Scan {
     // Render the page
     const { blob } = await this.pdfInstance.renderPage(page);
     const scannedBlob = await processImageWithWorker(
-      blob,
-      this.config,
+      {
+        image: blob,
+        config: this.config,
+      },
       this.signal
     );
     return scannedBlob;

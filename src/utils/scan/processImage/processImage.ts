@@ -5,19 +5,16 @@ import { generateIFile } from "./generateIFile";
 import type { ScanConfig } from "./config";
 import { getProcessCommand } from "./getProcessCommand";
 
-export type processImageFuncType = (
-  imageBlob: Blob,
-  config: ScanConfig
-) => Promise<Blob>;
+export const processImage = async function (data: {
+  image: Blob;
+  config: ScanConfig;
+}): Promise<Blob> {
+  const { image, config } = data;
 
-export const processImage: processImageFuncType = async function (
-  imageBlob,
-  config
-) {
   const inputFilename = "image.png";
   const outputFilename = "foo.png";
 
-  const buffer = new Uint8Array(await imageBlob.arrayBuffer());
+  const buffer = new Uint8Array(await image.arrayBuffer());
 
   const file = generateIFile(buffer, inputFilename);
 
