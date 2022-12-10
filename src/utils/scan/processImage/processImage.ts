@@ -1,6 +1,4 @@
-import { main } from "./magica";
-
-import { generateIFile } from "./generateIFile";
+import { main, BlobToIFile } from "./magica";
 
 import type { ScanConfig } from "./config";
 import { getProcessCommand } from "./getProcessCommand";
@@ -14,9 +12,7 @@ export const processImage = async function (data: {
   const inputFilename = "image.png";
   const outputFilename = "foo.png";
 
-  const buffer = new Uint8Array(await image.arrayBuffer());
-
-  const file = generateIFile(buffer, inputFilename);
+  const file = await BlobToIFile(image, inputFilename);
 
   const result = await main({
     debug: false,
