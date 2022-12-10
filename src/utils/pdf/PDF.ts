@@ -18,14 +18,13 @@ export class PDF {
   readonly pdfSource: string;
   readonly pdfFilename: string;
   private pdfDocument?: PDFDocumentProxy;
-  private pageInfoCache: Map<number, PDFPageInfo> = new Map();
-  readonly id: string;
   private readonly initPromise: Promise<void>;
+  private readonly pagePromises: Map<number, Promise<PDFPageInfo>> = new Map();
+  readonly scale = 2.0;
 
   constructor(pdfInfo: PDFInfoType) {
     this.pdfSource = pdfInfo.source;
     this.pdfFilename = pdfInfo.filename;
-    this.id = this.pdfSource;
     this.initPromise = this.init();
   }
 
@@ -48,15 +47,21 @@ export class PDF {
     return document.numPages;
   }
 
-  async renderPage(page: number, scale = 2.0): Promise<PDFPageInfo> {
-    const dpi = scale * 72;
-
-    // Check if page is already in cache
-    const pageInfoInCache = this.pageInfoCache.get(page);
-    if (pageInfoInCache) {
-      return pageInfoInCache;
+  async renderPage(page: number): Promise<PDFPageInfo> {
+    const promise = this.pagePromises.get(page);
+    if (promise) {
+      return await promise;
     }
 
+    const pageInfoPromise = this.renderPageRaw(page);
+    this.pagePromises.set(page, pageInfoPromise);
+
+    return await pageInfoPromise;
+  }
+
+  async renderPageRaw(page: number): Promise<PDFPageInfo> {
+    const scale = this.scale;
+    const dpi = scale * 72;
     const pdfDocument = await this.getDocument();
     const pdfPage = await pdfDocument.getPage(page);
     const viewport = pdfPage.getViewport({ scale });
@@ -93,8 +98,6 @@ export class PDF {
       scale,
       dpi,
     };
-
-    this.pageInfoCache.set(page, pageInfo);
 
     pdfPage.cleanup();
 
