@@ -102,7 +102,7 @@ export class Scan {
     }
 
     const { imagesToPDF } = await import("@/utils/images-to-pdf");
-    const pdfDocument = await imagesToPDF(processedPageInfos);
+    const pdfDocument = await imagesToPDF(processedPageInfos, this.signal);
 
     this.pdfDocumentCache = pdfDocument;
     return pdfDocument;
