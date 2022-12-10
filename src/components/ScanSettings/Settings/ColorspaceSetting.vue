@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import type { ScanConfig } from "@/utils/scan";
 import { type CSSProperties, computed } from "vue";
-import { NFormItem, NSwitch, NGradientText } from "naive-ui";
+import { NFormItem, NSwitch, NGradientText, NText } from "naive-ui";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
