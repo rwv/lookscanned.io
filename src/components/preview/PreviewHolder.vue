@@ -1,5 +1,5 @@
 <template>
-  <n-image :src="imgSrc" v-if="imgSrc" />
+  <n-image :src="src" v-if="src" />
   <n-skeleton v-else height="70vh" />
 </template>
 
@@ -7,6 +7,6 @@
 import { NImage, NSkeleton } from "naive-ui";
 
 defineProps<{
-  imgSrc: string | undefined;
+  src?: string;
 }>();
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <PreviewHolder :imgSrc="imageSrc" />
+  <PreviewHolder :src="imageSrc" />
 </template>
 
 <script setup lang="ts">
