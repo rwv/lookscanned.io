@@ -3,7 +3,7 @@ import type { processImage } from "./processImage";
 import ProcessImageWorker from "./processImage.worker.ts?worker";
 
 export const processImageWithWorker = async function (
-  data: Parametes<typeof processImage>[0],
+  data: Parameters<typeof processImage>[0],
   signal?: AbortSignal
 ): Promise<Blob> {
   if (window.Worker) {
@@ -12,7 +12,7 @@ export const processImageWithWorker = async function (
 
       if (signal) {
         signal.addEventListener("abort", () => {
-          magicaWorker.terminate();
+          worker.terminate();
           reject(new Error("Aborted"));
         });
       }
