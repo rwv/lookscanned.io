@@ -95,6 +95,9 @@ export class PDF {
     };
 
     this.pageInfoCache.set(page, pageInfo);
+
+    pdfPage.cleanup();
+
     return pageInfo;
   }
 }
