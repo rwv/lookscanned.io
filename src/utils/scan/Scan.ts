@@ -10,8 +10,6 @@ type ScanCallbackFunc = (pageNum: number, totalPageNum: number) => void;
 export class Scan {
   readonly pdfInstance: PDF;
   readonly config: ScanConfig;
-  private pageImageCache: Map<number, Blob> = new Map();
-  readonly id: string;
   private signal: AbortSignal | undefined;
   private pdfDocumentCache: Blob | undefined = undefined;
   private pagePromises: Map<number, Promise<Blob>> = new Map();
@@ -19,7 +17,6 @@ export class Scan {
   constructor(pdfInstance: PDF, config: ScanConfig, signal?: AbortSignal) {
     this.pdfInstance = pdfInstance;
     this.config = JSON.parse(JSON.stringify(config)) as ScanConfig;
-    this.id = `${this.pdfInstance.pdfSource}-${JSON.stringify(this.config)}`;
     this.signal = signal;
 
     const isMobile = /Android|iPhone|iPad|iPod/i.test(
@@ -31,12 +28,6 @@ export class Scan {
   }
 
   async getImageBlob(page: number): Promise<Blob> {
-    // Check if the image is already in cache
-    const blobInCache = this.pageImageCache.get(page);
-    if (blobInCache) {
-      return blobInCache;
-    }
-
     // Check if the image is already being processed
     const promise = this.pagePromises.get(page);
     if (promise) {
