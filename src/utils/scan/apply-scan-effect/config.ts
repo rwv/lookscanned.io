@@ -20,6 +20,6 @@ export const defaultConfig: ScanConfig = {
   attenuate: 0.25,
   noise: "Gaussian",
   border: false,
-  scale: 1,
+  scale: 2,
   output_format: "image/jpeg",
 };
