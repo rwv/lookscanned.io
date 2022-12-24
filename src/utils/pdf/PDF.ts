@@ -1,4 +1,5 @@
 import type { PDFDocumentProxy } from "pdfjs-dist/types/src/pdf";
+import { standardFontDataFactory } from "./standardFontDataFactory";
 
 type PDFPageInfo = {
   blob: Blob;
@@ -33,7 +34,10 @@ export class PDF {
 
   async init() {
     const { getDocument } = await import("./getDocument");
-    const pdfDocument = await getDocument(this.pdfSource).promise;
+    const pdfDocument = await getDocument({
+      url: this.pdfSource,
+      StandardFontDataFactory: standardFontDataFactory,
+    }).promise;
     this.pdfDocument = pdfDocument;
     this.numPages = pdfDocument.numPages;
   }
