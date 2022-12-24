@@ -9,6 +9,7 @@ export interface ScanConfig {
   noise: string;
   border: boolean;
   scale: number;
+  output_format: "image/png" | "image/jpeg";
 }
 
 export const defaultConfig: ScanConfig = {
@@ -20,4 +21,5 @@ export const defaultConfig: ScanConfig = {
   noise: "Gaussian",
   border: false,
   scale: 1,
+  output_format: "image/jpeg",
 };

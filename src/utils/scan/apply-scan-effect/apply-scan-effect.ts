@@ -10,7 +10,8 @@ export const applyScanEffect = async function (data: {
   const { image, config } = data;
 
   const inputFilename = "image.png";
-  const outputFilename = "foo.png";
+  const ext = config.output_format === "image/png" ? "png" : "jpeg";
+  const outputFilename = `foo.${ext}`;
 
   const file = await BlobToIFile(image, inputFilename);
 
@@ -23,7 +24,7 @@ export const applyScanEffect = async function (data: {
   const outputFile = result.outputFiles[0];
   const outputFileBuffer = outputFile.content;
   const outputFileBlob = new Blob([outputFileBuffer], {
-    type: "image/png",
+    type: config.output_format,
   });
 
   return outputFileBlob;
