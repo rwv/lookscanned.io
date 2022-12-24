@@ -7,7 +7,7 @@
       v-model:value="scale"
       :max="3"
       :min="1"
-      :step="1"
+      :step="0.5"
       :format-tooltip="formatTooltip"
     />
   </n-form-item>
