@@ -22,11 +22,12 @@ export class PDF {
   private readonly pagePromises: Map<number, Promise<PDFPageInfo>> = new Map();
   private numPages = 0;
   private finishedNumPages = 0;
-  readonly scale = 2.0;
+  readonly scale: number;
 
-  constructor(pdfInfo: PDFInfoType) {
+  constructor(pdfInfo: PDFInfoType, scale: number) {
     this.pdfSource = pdfInfo.source;
     this.pdfFilename = pdfInfo.filename;
+    this.scale = scale;
     this.initPromise = this.init();
   }
 

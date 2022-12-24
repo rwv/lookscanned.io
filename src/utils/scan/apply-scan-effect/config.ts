@@ -8,6 +8,7 @@ export interface ScanConfig {
   attenuate: number;
   noise: string;
   border: boolean;
+  scale: number;
 }
 
 export const defaultConfig: ScanConfig = {
@@ -18,4 +19,5 @@ export const defaultConfig: ScanConfig = {
   attenuate: 0.25,
   noise: "Gaussian",
   border: false,
+  scale: 1,
 };

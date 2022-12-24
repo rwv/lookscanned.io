@@ -64,7 +64,7 @@ const previewConfig = ref(
 );
 const previewPage = ref(1);
 const pdfInstance = computed(() => {
-  return new PDF(pdfInfo.value);
+  return new PDF(pdfInfo.value, previewConfig.value.scale);
 });
 
 let controller = new AbortController();

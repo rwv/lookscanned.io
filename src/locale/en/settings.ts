@@ -15,4 +15,5 @@ export const settings = {
   rotateVariance: "Rotate Variance",
   pdfSelectLabel: "Select PDF",
   pdfNoSelectMessage: "No PDF selected",
+  scale: "Resolution",
 };

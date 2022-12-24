@@ -26,6 +26,7 @@
     <RotateVarianceSetting v-model:rotate_var="config.rotate_var" />
     <BlurSetting v-model:blur="config.blur" />
     <AttenuateSetting v-model:attenuate="config.attenuate" />
+    <ScaleSetting v-model:scale="config.scale" />
 
     <template #footer>
       <n-space vertical :wrap-item="false">
@@ -55,6 +56,7 @@ import RotateVarianceSetting from "./Settings/RotateVarianceSetting.vue";
 import ColorspaceSetting from "./Settings/ColorspaceSetting.vue";
 import BlurSetting from "./Settings/BlurSetting.vue";
 import AttenuateSetting from "./Settings/AttenuateSetting.vue";
+import ScaleSetting from "./Settings/ScaleSetting.vue";
 
 import ActionButtons from "./ActionButtons.vue";
 import PDFPageSelection from "./PDFPageSelection.vue";
