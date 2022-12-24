@@ -12,8 +12,9 @@
     <n-slider
       v-model:value="rotate_var_computed"
       :max="10"
-      :min="-10"
+      :min="0"
       :step="0.1"
+      :format-tooltip="formatTooltip"
     />
   </n-form-item>
 </template>
@@ -39,6 +40,8 @@ const rotate_var_computed = computed({
   get: () => props.rotate_var,
   set: (value) => emit("update:rotate_var", value),
 });
+
+const formatTooltip = (value: number) => `±${value}°`;
 
 const label = t("settings.rotateVariance");
 // split label into characters
