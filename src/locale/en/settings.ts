@@ -1,4 +1,5 @@
 export const settings = {
+  settings: "Customization",
   attenuate: "Noise",
   blur: "Blur",
   border: {

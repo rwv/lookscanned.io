@@ -12,21 +12,33 @@
         width: 100%;
         padding-bottom: 10px;
         margin-bottom: 10px;
-        border-bottom: 1px solid var(--n-border-color);
+        /* border-bottom: 1px solid var(--n-border-color); */
       "
     />
 
-    <!-- Scan Settings -->
-    <n-space :size="40" style="margin-bottom: 10px">
-      <ColorspaceSetting v-model:colorspace="config.colorspace" />
-      <BorderSetting v-model:border="config.border" />
-    </n-space>
+    <n-collapse :default-expanded-names="['Settings']">
+      <template #header-extra>
+        <n-icon><ChevronDown12Regular /></n-icon>
+      </template>
+      <template #arrow>
+        <n-icon style="margin-right: 2px">
+          <AreaCustom />
+        </n-icon>
+      </template>
+      <n-collapse-item :title="t('settings.settings')" name="Settings">
+        <!-- Scan Settings -->
+        <n-space :size="40" style="margin-bottom: 10px">
+          <ColorspaceSetting v-model:colorspace="config.colorspace" />
+          <BorderSetting v-model:border="config.border" />
+        </n-space>
 
-    <RotateSetting v-model:rotate="config.rotate" />
-    <RotateVarianceSetting v-model:rotate_var="config.rotate_var" />
-    <BlurSetting v-model:blur="config.blur" />
-    <AttenuateSetting v-model:attenuate="config.attenuate" />
-    <ScaleSetting v-model:scale="config.scale" />
+        <RotateSetting v-model:rotate="config.rotate" />
+        <RotateVarianceSetting v-model:rotate_var="config.rotate_var" />
+        <BlurSetting v-model:blur="config.blur" />
+        <AttenuateSetting v-model:attenuate="config.attenuate" />
+        <ScaleSetting v-model:scale="config.scale" />
+      </n-collapse-item>
+    </n-collapse>
 
     <template #footer>
       <n-space vertical :wrap-item="false">
@@ -46,7 +58,16 @@
 </template>
 
 <script lang="ts" setup>
-import { NCard, NSpace, useMessage } from "naive-ui";
+import {
+  NCard,
+  NSpace,
+  useMessage,
+  NCollapse,
+  NCollapseItem,
+  NIcon,
+} from "naive-ui";
+import { AreaCustom } from "@vicons/carbon";
+import { ChevronDown12Regular } from "@vicons/fluent";
 
 import PDFSelection from "./PDFSelection.vue";
 
