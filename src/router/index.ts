@@ -13,6 +13,12 @@ const router = createRouter({
       name: "scan",
       component: () => import("../views/ScanView.vue"),
     },
+    // catch all redirect to /
+    {
+      path: "/:pathMatch(.*)*",
+      name: "catch-all",
+      redirect: { name: "index" },
+    },
   ],
 });
 
