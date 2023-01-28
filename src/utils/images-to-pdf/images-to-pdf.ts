@@ -5,7 +5,10 @@ export type ImageInfo = {
   dpi: number;
 };
 
-export async function imagesToPDF(images: ImageInfo[]): Promise<Blob> {
+export async function imagesToPDF(
+  images: ImageInfo[],
+  signal?: AbortSignal
+): Promise<Blob> {
   const jsPDF = (await import("jspdf")).default;
 
   const doc = new jsPDF({
@@ -14,6 +17,10 @@ export async function imagesToPDF(images: ImageInfo[]): Promise<Blob> {
   doc.deletePage(1); // delete the default page
 
   for (const image of images) {
+    if (signal?.aborted) {
+      throw new DOMException("Aborted", "AbortError");
+    }
+
     const { blob, width, height, dpi } = image;
     const buffer = new Uint8Array(await blob.arrayBuffer());
     const physicalWidth = width / dpi;
