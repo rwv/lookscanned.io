@@ -1,1 +1,1 @@
-export { imagesToPDFWithWorker as imagesToPDF } from "./images-to-pdf-with-worker";
+export { imagesToPDF as imagesToPDF } from "./images-to-pdf";
