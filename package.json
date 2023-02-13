@@ -43,7 +43,7 @@
     "@vue/tsconfig": "^0.1.3",
     "@vueuse/core": "^9.6.0",
     "@vueuse/head": "^0.7.9",
-    "eslint": "^8.16.0",
+    "eslint": "^8.34.0",
     "eslint-plugin-vue": "^8.7.1",
     "jsdom": "^19.0.0",
     "naive-ui": "^2.32.1",
