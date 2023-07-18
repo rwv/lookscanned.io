@@ -16,12 +16,6 @@
       <n-grid-item>
         <NavigateToGitHub />
       </n-grid-item>
-      <n-grid-item>
-        <NavigateToHomePage />
-      </n-grid-item>
-      <n-grid-item>
-        <NavigateToSupportMe />
-      </n-grid-item>
     </n-grid>
   </n-space>
 </template>
@@ -30,8 +24,6 @@
 import { NH1, NP, NSpace, NGrid, NGridItem } from "naive-ui";
 import NavigateToScan from "@/components/buttons/NavigateToScan.vue";
 import NavigateToGitHub from "@/components/buttons/NavigateToGitHub.vue";
-import NavigateToHomePage from "@/components/buttons/NavigateToHomePage.vue";
-import NavigateToSupportMe from "@/components/buttons/NavigateToSupportMe.vue";
 
 import { useI18n } from "vue-i18n";
 
