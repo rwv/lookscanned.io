@@ -6,7 +6,7 @@
     #="{ navigate, href }"
     custom
   >
-    <n-button text tag="a" :href="href" @click="navigate">
+    <n-button round tag="a" :href="href" @click="navigate">
       <template #icon>
         <n-icon>
           <AdfScannerOutlined />

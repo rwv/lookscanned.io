@@ -1,5 +1,5 @@
 export const actions = {
-  navigateToScan: "Scan",
+  navigateToScan: "Start Scan",
   navigateToHomePage: "About Me",
   navigateToSupportMe: "Support Me",
   backToIndex: "Back",
