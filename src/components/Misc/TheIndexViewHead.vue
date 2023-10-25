@@ -9,12 +9,14 @@
       {{ t("base.description") }}
     </n-p>
 
+    <NavigateToScan />
+
     <n-grid :x-gap="20" :y-gap="0" :cols="2">
       <n-grid-item>
-        <NavigateToScan />
+        <NavigateToGitHub />
       </n-grid-item>
       <n-grid-item>
-        <NavigateToGitHub />
+        <NavigateToInBrowserApp />
       </n-grid-item>
     </n-grid>
   </n-space>
@@ -24,6 +26,7 @@
 import { NH1, NP, NSpace, NGrid, NGridItem } from "naive-ui";
 import NavigateToScan from "@/components/buttons/NavigateToScan.vue";
 import NavigateToGitHub from "@/components/buttons/NavigateToGitHub.vue";
+import NavigateToInBrowserApp from "@/components/buttons/NavigateToInBrowserApp.vue";
 
 import { useI18n } from "vue-i18n";
 
