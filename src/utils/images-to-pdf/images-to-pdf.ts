@@ -26,8 +26,9 @@ export async function imagesToPDF(
     const physicalWidth = width / dpi;
     const physicalHeight = height / dpi;
     const format = getImageFormat(blob);
+    const orientation = physicalWidth > physicalHeight ? "l" : "p";
 
-    doc.addPage([physicalWidth, physicalHeight]);
+    doc.addPage([physicalWidth, physicalHeight], orientation);
     doc.addImage(buffer, format, 0, 0, physicalWidth, physicalHeight);
   }
 
