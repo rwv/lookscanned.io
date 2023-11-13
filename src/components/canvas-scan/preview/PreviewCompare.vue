@@ -3,6 +3,9 @@
     <template #pdf>
       <ImagePreview :image="image.blob" v-if="image" />
     </template>
+    <template #scan>
+      <ImagePreview :image="scanImage.blob" v-if="scanImage" />
+    </template>
   </SideBySidePreview>
 </template>
 
@@ -26,8 +29,17 @@ interface PDFRenderer {
   getNumPages(): Promise<number>;
 }
 
+interface ScanRenderer {
+  renderPage(image: Blob): Promise<{
+    blob: Blob;
+    height: number;
+    width: number;
+  }>;
+}
+
 const props = defineProps<{
   pdfRenderer?: PDFRenderer;
+  scanRenderer?: ScanRenderer;
   scale: number;
 }>();
 
@@ -42,6 +54,19 @@ const image = computedAsync(async () => {
   const { blob, height, width } = await props.pdfRenderer.renderPage(
     page.value,
     props.scale
+  );
+  return {
+    blob,
+    height,
+    width,
+  };
+});
+
+const scanImage = computedAsync(async () => {
+  if (!props.scanRenderer || !image.value.blob) return;
+
+  const { blob, height, width } = await props.scanRenderer.renderPage(
+    image.value.blob
   );
   return {
     blob,

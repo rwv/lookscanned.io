@@ -11,20 +11,17 @@
       responsive="screen"
     >
       <n-grid-item span="12 s:5 m:4 l:3">
-        <ScanSettingsCard
-          @update:pdfInfo="(info) => (pdfInfo = info)"
-          @update:page="(page) => (previewPage = page)"
-          @action:preview="preview"
-          v-model:config="config"
-          :pdfInstance="pdfInstance"
-          :scanInstance="scanInstance"
-        />
+        <n-space vertical>
+          <PDFUpload v-model:pdf="pdf" />
+
+          <ScanSettingsCard v-model:config="config" />
+        </n-space>
       </n-grid-item>
       <n-grid-item span="12 s:7 m:8 l:9">
-        <SideBySidePreview
-          :page="previewPage"
-          :pdfInstance="pdfInstance"
-          :scanInstance="scanInstance"
+        <PreviewCompare
+          :pdfRenderer="pdfRenderer"
+          :scanRenderer="scanRenderer"
+          :scale="config.scale"
         />
       </n-grid-item>
     </n-grid>
@@ -32,20 +29,21 @@
 </template>
 
 <script lang="ts" setup>
-import { NGrid, NGridItem } from "naive-ui";
+import { NGrid, NGridItem, NSpace } from "naive-ui";
 import MainContainer from "@/components/MainContainer.vue";
-import type { ScanConfig } from "@/utils/scan";
-import { defaultConfig } from "@/utils/scan";
-import SideBySidePreview from "@/components/preview/SideBySidePreview.vue";
-import ScanSettingsCard from "@/components/ScanSettings/ScanSettingsCard.vue";
-import { ref, computed } from "vue";
+import { type ScanConfig, defaultConfig } from "@/utils/canvas-scan";
+import ScanSettingsCard from "@/components/canvas-scan/canvas-scan-settings/ScanSettingsCard.vue";
+import PDFUpload from "@/components/pdf-upload/PDFUpload.vue";
+import { ref, computed, onMounted } from "vue";
 import PDFURL from "@/assets/examples/pdfs/test.pdf";
-import { PDF } from "@/utils/pdf";
-import { Scan } from "@/utils/scan";
 import type { PDFInfoType } from "@/utils/pdf";
 import BackToIndex from "@/components/buttons/BackToIndex.vue";
 import { useHead } from "@vueuse/head";
 import { useI18n } from "vue-i18n";
+import { PDF } from "@/utils/pdf-new";
+import PreviewCompare from "@/components/canvas-scan/preview/PreviewCompare.vue";
+import { CanvasScanner } from "@/utils/canvas-scan";
+
 const { t } = useI18n();
 
 useHead({
@@ -53,32 +51,20 @@ useHead({
   meta: [{ name: "description", content: t("base.description") }],
 });
 
-const pdfInfo = ref({
-  source: PDFURL,
-  filename: "test.pdf",
-} as PDFInfoType);
+const pdf = ref<File | undefined>(undefined);
 
-const config = ref(defaultConfig);
-const previewConfig = ref(
-  JSON.parse(JSON.stringify(config.value)) as ScanConfig
-);
-const previewPage = ref(1);
-const pdfInstance = computed(() => {
-  return new PDF(pdfInfo.value, previewConfig.value.scale);
+onMounted(async () => {
+  const response = await fetch(PDFURL);
+  const blob = await response.blob();
+  pdf.value = new File([blob], "test.pdf");
 });
 
-let controller = new AbortController();
+const config = ref<ScanConfig>(defaultConfig);
+const pdfRenderer = computed(() => {
+  if (!pdf.value) return;
 
-const scanInstance = computed(() => {
-  controller.abort();
-  controller = new AbortController();
-  const signal = controller.signal;
-
-  return new Scan(pdfInstance.value, previewConfig.value, signal);
+  return new PDF(pdf.value);
 });
 
-function preview() {
-  // Otherwise the previewConfig and config will be the same Object
-  previewConfig.value = JSON.parse(JSON.stringify(config.value)) as ScanConfig;
-}
+const scanRenderer = computed(() => new CanvasScanner(config.value));
 </script>
