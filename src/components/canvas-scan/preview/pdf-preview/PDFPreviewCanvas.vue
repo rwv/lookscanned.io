@@ -1,5 +1,5 @@
 <template>
-  <canvas ref="canvas"></canvas>
+  <canvas ref="canvas" class="canvas"></canvas>
 </template>
 
 <script lang="ts" setup>
@@ -53,3 +53,10 @@ watch(page, draw);
 watch(scale, draw);
 watch(pdfDocument, draw);
 </script>
+
+<style scoped>
+.canvas {
+  width: 100%;
+  height: 100%;
+}
+</style>
