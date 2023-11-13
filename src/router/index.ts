@@ -14,6 +14,11 @@ const router = createRouter({
       name: "scan",
       component: () => import("@/views/ScanView.vue"),
     },
+    {
+      path: "/canvas-scan",
+      name: "canvas-scan",
+      component: () => import("@/views/CanvasScanView.vue"),
+    },
     // catch all redirect to /
     {
       path: "/:pathMatch(.*)*",
