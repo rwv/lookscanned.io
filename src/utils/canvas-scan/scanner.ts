@@ -2,7 +2,12 @@ import { scanCanvas } from "./scan";
 import type { ScanConfig } from "./types";
 
 interface ScanRenderer {
-  renderPage(image: Blob): Promise<{
+  renderPage(
+    image: Blob,
+    options?: {
+      signal?: AbortSignal;
+    }
+  ): Promise<{
     blob: Blob;
     height: number;
     width: number;
@@ -16,13 +21,26 @@ export class CanvasScanner implements ScanRenderer {
     this.config = config;
   }
 
-  async renderPage(image: Blob): Promise<{
+  async renderPage(
+    image: Blob,
+    options?: {
+      signal?: AbortSignal;
+    }
+  ): Promise<{
     blob: Blob;
     height: number;
     width: number;
   }> {
+    if (options?.signal?.aborted) {
+      throw new Error("Aborted");
+    }
+
     const canvas = document.createElement("canvas");
     await scanCanvas(canvas, image, this.config);
+    if (options?.signal?.aborted) {
+      throw new Error("Aborted");
+    }
+
     const blob = await new Promise<Blob>((resolve, reject) =>
       canvas.toBlob((blob) => {
         if (blob) {

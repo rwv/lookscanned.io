@@ -4,8 +4,13 @@ import noiseSVG from "./noise.svg?url";
 export async function scanCanvas(
   canvas: HTMLCanvasElement,
   page: Blob,
-  config: ScanConfig
+  config: ScanConfig,
+  signal?: AbortSignal
 ): Promise<void> {
+  if (signal?.aborted) {
+    throw new Error("Aborted");
+  }
+
   const ctx = canvas.getContext("2d");
   if (!ctx) {
     throw new Error("Canvas not supported");
@@ -18,6 +23,10 @@ export async function scanCanvas(
     img.onload = resolve;
     img.onerror = reject;
   });
+  if (signal?.aborted) {
+    throw new Error("Aborted");
+  }
+
   canvas.width = img.width;
   canvas.height = img.height;
 
@@ -43,6 +52,9 @@ export async function scanCanvas(
   const noiseImg = new Image();
   noiseImg.src = noiseSVG;
   await new Promise((resolve) => (noiseImg.onload = resolve));
+  if (signal?.aborted) {
+    throw new Error("Aborted");
+  }
 
   // add noise
   ctx.drawImage(

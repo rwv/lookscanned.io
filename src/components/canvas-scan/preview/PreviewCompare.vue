@@ -30,7 +30,12 @@ interface PDFRenderer {
 }
 
 interface ScanRenderer {
-  renderPage(image: Blob): Promise<{
+  renderPage(
+    image: Blob,
+    options?: {
+      signal?: AbortSignal;
+    }
+  ): Promise<{
     blob: Blob;
     height: number;
     width: number;
@@ -62,11 +67,18 @@ const image = computedAsync(async () => {
   };
 });
 
+let controller = new AbortController();
+
 const scanImage = computedAsync(async () => {
+  controller.abort();
+  controller = new AbortController();
   if (!props.scanRenderer || !image.value.blob) return;
 
   const { blob, height, width } = await props.scanRenderer.renderPage(
-    image.value.blob
+    image.value.blob,
+    {
+      signal: controller.signal,
+    }
   );
   return {
     blob,
