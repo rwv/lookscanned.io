@@ -34,9 +34,8 @@ import MainContainer from "@/components/MainContainer.vue";
 import { type ScanConfig, defaultConfig } from "@/utils/canvas-scan";
 import ScanSettingsCard from "@/components/canvas-scan/canvas-scan-settings/ScanSettingsCard.vue";
 import PDFUpload from "@/components/pdf-upload/PDFUpload.vue";
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, watch } from "vue";
 import PDFURL from "@/assets/examples/pdfs/test.pdf";
-import type { PDFInfoType } from "@/utils/pdf";
 import BackToIndex from "@/components/buttons/BackToIndex.vue";
 import { useHead } from "@vueuse/head";
 import { useI18n } from "vue-i18n";
@@ -66,5 +65,12 @@ const pdfRenderer = computed(() => {
   return new PDF(pdf.value);
 });
 
-const scanRenderer = computed(() => new CanvasScanner(config.value));
+const scanRenderer = ref(new CanvasScanner(config.value));
+watch(
+  config,
+  (newConfig) => {
+    scanRenderer.value = new CanvasScanner(newConfig);
+  },
+  { deep: true }
+);
 </script>
