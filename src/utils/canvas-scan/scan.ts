@@ -1,5 +1,5 @@
 import type { ScanConfig } from "./types";
-import noiseSVG from "./noise.svg?url";
+import { getNoiseSVG } from "./noise-svg";
 
 export async function scanCanvas(
   canvas: HTMLCanvasElement,
@@ -49,21 +49,27 @@ export async function scanCanvas(
 
   ctx.drawImage(img, 0, 0);
 
-  const noiseImg = new Image();
-  noiseImg.src = noiseSVG;
-  await new Promise((resolve) => (noiseImg.onload = resolve));
-  if (signal?.aborted) {
-    throw new Error("Aborted");
-  }
+  if (config.noise !== 0) {
+    const noiseSVG = getNoiseSVG(config.noise);
+    const noiseSVGBlob = new Blob([noiseSVG], { type: "image/svg+xml" });
+    const noiseSVGURL = URL.createObjectURL(noiseSVGBlob);
 
-  // add noise
-  ctx.drawImage(
-    noiseImg,
-    -canvas.width,
-    -canvas.height,
-    canvas.width * 2,
-    canvas.height * 2
-  );
+    const noiseImg = new Image();
+    noiseImg.src = noiseSVGURL;
+    await new Promise((resolve) => (noiseImg.onload = resolve));
+    if (signal?.aborted) {
+      throw new Error("Aborted");
+    }
+
+    // add noise
+    ctx.drawImage(
+      noiseImg,
+      -canvas.width,
+      -canvas.height,
+      canvas.width * 2,
+      canvas.height * 2
+    );
+  }
 
   if (config.border) {
     ctx.strokeStyle = "black";
