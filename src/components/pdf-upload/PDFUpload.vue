@@ -25,11 +25,9 @@
 import { NButton, NIcon, NText, NEllipsis, NCard } from "naive-ui";
 import { Attach16Regular } from "@vicons/fluent";
 import { fileOpen } from "browser-fs-access";
-
+import { useVModel } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
-
-import { useVModel } from "@vueuse/core";
 
 const props = defineProps<{
   pdf: File | undefined;

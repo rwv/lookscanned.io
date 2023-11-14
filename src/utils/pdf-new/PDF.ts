@@ -52,6 +52,10 @@ export class PDF implements PDFRenderer {
 
   async getNumPages(): Promise<number> {
     await this.initPromise;
+    if (!this.pdfDocument) {
+      throw new Error("PDF document is not initialized");
+    }
+
     return this.pdfDocument.numPages;
   }
 
