@@ -63,7 +63,7 @@ const pdf = ref<File | undefined>(undefined);
 onMounted(async () => {
   const response = await fetch(PDFURL);
   const blob = await response.blob();
-  pdf.value = new File([blob], "test.pdf");
+  pdf.value = new File([blob], "example.pdf");
 });
 
 const config = ref<ScanConfig>(defaultConfig);
