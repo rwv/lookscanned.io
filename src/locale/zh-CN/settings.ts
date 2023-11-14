@@ -1,6 +1,7 @@
 export const settings = {
   settings: "扫描设置",
   attenuate: "噪点",
+  noise: "噪点",
   blur: "模糊",
   border: {
     label: "边框",

@@ -1,6 +1,7 @@
 export const settings = {
   settings: "Customization",
   attenuate: "Noise",
+  noise: "Noise",
   blur: "Blur",
   border: {
     label: "Border",
