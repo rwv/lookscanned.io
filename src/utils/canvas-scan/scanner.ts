@@ -37,6 +37,8 @@ export class CanvasScanner implements ScanRenderer {
 
     if ("OffscreenCanvas" in window) {
       // TODO: use web worker
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       const canvas = new OffscreenCanvas(10, 10);
       await scanCanvas(canvas, image, this.config);
       const blob = await canvas.convertToBlob();
