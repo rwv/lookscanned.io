@@ -1,6 +1,8 @@
 {
   "name": "lookscanned.io",
+  "type": "module",
   "version": "0.0.0",
+  "packageManager": "pnpm@8.10.3",
   "scripts": {
     "serve": "vite preview",
     "build": "vite build",
