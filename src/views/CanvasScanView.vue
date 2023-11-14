@@ -93,8 +93,11 @@ const downloadSave = async () => {
   const pdfBlob = await save();
   const url = URL.createObjectURL(pdfBlob);
   const link = document.createElement("a");
+  const originalFilename = pdf.value?.name ?? "doc.pdf";
+  const filename = `${originalFilename.replace(/\.[^/.]+$/, "")}-scan.pdf`;
+
   link.href = url;
-  link.download = "scanned.pdf";
+  link.download = filename;
   link.click();
   URL.revokeObjectURL(url);
 };
