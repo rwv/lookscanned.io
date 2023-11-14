@@ -41,7 +41,9 @@ export class CanvasScanner implements ScanRenderer {
       // @ts-ignore
       const canvas = new OffscreenCanvas(10, 10);
       await scanCanvas(canvas, image, this.config);
-      const blob = await canvas.convertToBlob();
+      const blob = await canvas.convertToBlob({
+        type: this.config.output_format,
+      });
       const height = canvas.height;
       const width = canvas.width;
       return { blob, height, width };
