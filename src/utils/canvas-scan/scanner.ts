@@ -1,4 +1,4 @@
-import { scanCanvas } from "./scan";
+import { scanCanvas } from "./scan-canvas";
 import type { ScanConfig } from "./types";
 
 interface ScanRenderer {
