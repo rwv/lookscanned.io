@@ -12,7 +12,8 @@
     >
       <n-grid-item span="12 s:5 m:4 l:3">
         <n-space vertical>
-          <PDFUpload v-model:pdf="pdf" />
+          <PDFUpload @update:pdf="pdf = $event" />
+          <PDFInfo :pdf="pdf" v-if="pdf" />
 
           <ScanSettingsCard v-model:config="config" />
 
@@ -50,6 +51,7 @@ import PreviewCompare from "@/components/canvas-scan/preview/PreviewCompare.vue"
 import { CanvasScanner } from "@/utils/canvas-scan";
 import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
 import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
+import PDFInfo from "@/components/pdf-upload/PDFInfo.vue";
 
 const { t } = useI18n();
 
