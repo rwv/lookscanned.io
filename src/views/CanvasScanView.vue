@@ -15,6 +15,8 @@
           <PDFUpload v-model:pdf="pdf" />
 
           <ScanSettingsCard v-model:config="config" />
+
+          <ScanActionsCard />
         </n-space>
       </n-grid-item>
       <n-grid-item span="12 s:7 m:8 l:9">
@@ -42,6 +44,7 @@ import { useI18n } from "vue-i18n";
 import { PDF } from "@/utils/pdf-new";
 import PreviewCompare from "@/components/canvas-scan/preview/PreviewCompare.vue";
 import { CanvasScanner } from "@/utils/canvas-scan";
+import ScanActionsCard from "@/components/scan-actions/ScanActionsCard.vue";
 
 const { t } = useI18n();
 
