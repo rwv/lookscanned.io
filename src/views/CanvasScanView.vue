@@ -16,7 +16,11 @@
 
           <ScanSettingsCard v-model:config="config" />
 
-          <ScanActionsCard @action:generate="downloadSave" />
+          <SaveButtonCard
+            @save="downloadSave"
+            :progress="progress"
+            :saving="saving"
+          />
         </n-space>
       </n-grid-item>
       <n-grid-item span="12 s:7 m:8 l:9">
@@ -44,7 +48,7 @@ import { useI18n } from "vue-i18n";
 import { PDF } from "@/utils/pdf-new";
 import PreviewCompare from "@/components/canvas-scan/preview/PreviewCompare.vue";
 import { CanvasScanner } from "@/utils/canvas-scan";
-import ScanActionsCard from "@/components/scan-actions/ScanActionsCard.vue";
+import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
 import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
 
 const { t } = useI18n();
@@ -80,7 +84,11 @@ watch(
 
 const scale = computed(() => config.value.scale);
 
-const { save } = useSaveScannedPDF(pdfRenderer, scanRenderer, scale);
+const { save, progress, saving } = useSaveScannedPDF(
+  pdfRenderer,
+  scanRenderer,
+  scale
+);
 const downloadSave = async () => {
   const pdfBlob = await save();
   const url = URL.createObjectURL(pdfBlob);

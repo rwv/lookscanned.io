@@ -1,13 +1,13 @@
 <template>
-  <n-card size="small">
+  <n-card size="small" class="animated-border">
     <n-space justify="space-around" size="large">
-      <n-button text @click="emit('action:generate')">
+      <n-button text @click="emit('save')" :disabled="saving">
         <template #icon>
           <n-icon>
             <DocumentDownload />
           </n-icon>
         </template>
-        {{ t("actions.save") }}
+        {{ t("actions.save") }} ({{ progress }})
       </n-button>
     </n-space>
   </n-card>
@@ -17,8 +17,13 @@
 import { NCard, NSpace, NIcon, NButton } from "naive-ui";
 import { DocumentDownload } from "@vicons/carbon";
 
+defineProps<{
+  progress?: number;
+  saving?: boolean;
+}>();
+
 const emit = defineEmits<{
-  (e: "action:generate"): void;
+  (e: "save"): void;
 }>();
 
 import { useI18n } from "vue-i18n";
