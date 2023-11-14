@@ -1,6 +1,8 @@
 <template>
   <n-image :src="imageURL" v-if="imageURL" />
-  <n-skeleton v-else height="70vh" />
+  <div v-else class="image-placeholder">
+    <n-skeleton width="100%" height="100%" />
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -21,5 +23,10 @@ const imageURL = useObjectUrl(image);
 .preview {
   width: 100%;
   height: 100%;
+}
+
+.image-placeholder {
+  width: 100%;
+  aspect-ratio: 409.88 / 530.42;
 }
 </style>

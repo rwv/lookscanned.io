@@ -2,10 +2,10 @@
   <n-space vertical>
     <SideBySidePreview>
       <template #pdf>
-        <ImagePreview :image="image.blob" v-if="image" />
+        <ImagePreview :image="image?.blob" />
       </template>
       <template #scan>
-        <ImagePreview :image="scanImage.blob" v-if="scanImage" />
+        <ImagePreview :image="scanImage?.blob" />
       </template>
     </SideBySidePreview>
     <PreviewPagination
