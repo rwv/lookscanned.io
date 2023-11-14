@@ -1,0 +1,27 @@
+export const colorspaces = ["gray", "sRGB"] as const;
+
+export interface ScanConfig {
+  rotate: number;
+  rotate_var: number;
+  colorspace: typeof colorspaces[number];
+  blur: number;
+  noise: number;
+  border: boolean;
+  scale: number;
+  brightness: number;
+  contrast: number;
+  output_format: "image/png" | "image/jpeg";
+}
+
+export const defaultConfig: ScanConfig = {
+  rotate: 1,
+  rotate_var: 0.5,
+  colorspace: "gray",
+  blur: 0.3,
+  noise: 0.1,
+  border: false,
+  scale: 2,
+  brightness: 1,
+  contrast: 1,
+  output_format: "image/jpeg",
+};

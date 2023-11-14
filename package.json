@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "browser-fs-access": "^0.29.5",
+    "filesize": "^10.1.0",
     "jspdf": "^2.5.1",
     "magica": "^0.2.17",
     "magica-re-export": "^1.0.9",

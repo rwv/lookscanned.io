@@ -1,6 +1,7 @@
 export const settings = {
   settings: "扫描设置",
   attenuate: "噪点",
+  noise: "噪点",
   blur: "模糊",
   border: {
     label: "边框",
@@ -17,4 +18,6 @@ export const settings = {
   pdfSelectLabel: "选择 PDF 文件",
   pdfNoSelectMessage: "尚未选择 PDF 文件",
   scale: "分辨率",
+  brightness: "亮度",
+  contrast: "对比度",
 };

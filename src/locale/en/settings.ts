@@ -1,6 +1,7 @@
 export const settings = {
   settings: "Customization",
   attenuate: "Noise",
+  noise: "Noise",
   blur: "Blur",
   border: {
     label: "Border",
@@ -17,4 +18,6 @@ export const settings = {
   pdfSelectLabel: "Select PDF",
   pdfNoSelectMessage: "No PDF selected",
   scale: "Resolution",
+  brightness: "Brightness",
+  contrast: "Contrast",
 };
