@@ -1,5 +1,5 @@
 <template>
-  <n-image :src="imageURL" v-if="imageURL" />
+  <n-image :src="imageURL" v-if="imageURL" style="display: block" />
   <div v-else class="image-placeholder">
     <n-skeleton width="100%" height="100%" />
   </div>
