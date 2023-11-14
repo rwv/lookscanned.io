@@ -2,7 +2,7 @@ import type { ScanConfig } from "./types";
 import { getNoiseSVG } from "./noise-svg";
 
 export async function scanCanvas(
-  canvas: HTMLCanvasElement,
+  canvas_: HTMLCanvasElement | OffscreenCanvas,
   page: Blob,
   config: ScanConfig,
   signal?: AbortSignal
@@ -11,28 +11,28 @@ export async function scanCanvas(
     throw new Error("Aborted");
   }
 
-  const ctx = canvas.getContext("2d");
+  // Note: Hack to get around TS error
+  const canvas = canvas_ as HTMLCanvasElement;
+  const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
   if (!ctx) {
     throw new Error("Canvas not supported");
   }
 
   // load blob into image
-  const img = new Image();
-  img.src = URL.createObjectURL(page);
-  await new Promise((resolve, reject) => {
-    img.onload = resolve;
-    img.onerror = reject;
-  });
+  const img = await createImageBitmap(page);
   if (signal?.aborted) {
     throw new Error("Aborted");
   }
 
-  canvas.width = img.width;
-  canvas.height = img.height;
+  const width = img.width;
+  const height = img.height;
+
+  canvas.width = width;
+  canvas.height = height;
 
   // fill white
   ctx.fillStyle = "white";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.fillRect(0, 0, width, height);
 
   // add blur
   ctx.filter = `blur(${config.blur}px)`;
@@ -41,11 +41,11 @@ export async function scanCanvas(
   }
 
   // rotate
-  ctx.translate(canvas.width / 2, canvas.height / 2);
+  ctx.translate(width / 2, height / 2);
   ctx.rotate(
     ((config.rotate + config.rotate_var * Math.random()) * Math.PI) / 180
   );
-  ctx.translate(-canvas.width / 2, -canvas.height / 2);
+  ctx.translate(-width / 2, -height / 2);
 
   ctx.drawImage(img, 0, 0);
 
@@ -62,18 +62,12 @@ export async function scanCanvas(
     }
 
     // add noise
-    ctx.drawImage(
-      noiseImg,
-      -canvas.width,
-      -canvas.height,
-      canvas.width * 2,
-      canvas.height * 2
-    );
+    ctx.drawImage(noiseImg, -width, -height, width * 2, height * 2);
   }
 
   if (config.border) {
     ctx.strokeStyle = "black";
     ctx.lineWidth = 1;
-    ctx.strokeRect(0, 0, canvas.width, canvas.height);
+    ctx.strokeRect(0, 0, width, height);
   }
 }
