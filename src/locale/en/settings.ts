@@ -18,4 +18,6 @@ export const settings = {
   pdfSelectLabel: "Select PDF",
   pdfNoSelectMessage: "No PDF selected",
   scale: "Resolution",
+  brightness: "Brightness",
+  contrast: "Contrast",
 };

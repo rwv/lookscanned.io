@@ -18,4 +18,6 @@ export const settings = {
   pdfSelectLabel: "选择 PDF 文件",
   pdfNoSelectMessage: "尚未选择 PDF 文件",
   scale: "分辨率",
+  brightness: "亮度",
+  contrast: "对比度",
 };

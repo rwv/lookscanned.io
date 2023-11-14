@@ -8,6 +8,8 @@ export interface ScanConfig {
   noise: number;
   border: boolean;
   scale: number;
+  brightness: number;
+  contrast: number;
   output_format: "image/png" | "image/jpeg";
 }
 
@@ -19,5 +21,7 @@ export const defaultConfig: ScanConfig = {
   noise: 0.1,
   border: false,
   scale: 2,
+  brightness: 1,
+  contrast: 1,
   output_format: "image/jpeg",
 };

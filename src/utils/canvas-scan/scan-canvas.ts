@@ -40,6 +40,12 @@ export async function scanCanvas(
     ctx.filter += " grayscale(1)";
   }
 
+  // add brightness
+  ctx.filter += ` brightness(${config.brightness})`;
+
+  // add contrast
+  ctx.filter += ` contrast(${config.contrast})`;
+
   // rotate
   ctx.translate(width / 2, height / 2);
   ctx.rotate(
