@@ -51,7 +51,7 @@ import BackToIndex from "@/components/buttons/BackToIndex.vue";
 import { useHead } from "@vueuse/head";
 import { useI18n } from "vue-i18n";
 import { PDF } from "@/utils/pdf-new";
-import PreviewCompare from "@/components/canvas-scan/preview/PreviewCompare.vue";
+import PreviewCompare from "@/components/page-preview/PreviewCompare.vue";
 import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
 import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
 import PDFInfo from "@/components/pdf-upload/PDFInfo.vue";
