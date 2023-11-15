@@ -15,16 +15,27 @@ export class ScanCacher implements ScanRenderer {
     image: RenderPageParams[0],
     options?: RenderPageParams[1]
   ): Promise<RenderPageResult> {
-    try {
-      const result = await this.cache.get(image);
-      if (!result) {
-        throw new Error("Cache miss");
+    const cached = this.cache.get(image);
+    if (cached) {
+      try {
+        const result = await cached;
+        return result;
+      } catch (e) {
+        if (
+          (e as Error).name === "AbortError" ||
+          (e as Error).message === "Aborted"
+        ) {
+          this.cache.delete(image);
+          const resultPromise = this.renderer.renderPage(image, options);
+          this.cache.set(image, resultPromise);
+          return await resultPromise;
+        }
+        throw e;
       }
-      return result;
-    } catch (e) {
-      const resultPromise = this.renderer.renderPage(image, options);
-      this.cache.set(image, resultPromise);
-      return resultPromise;
     }
+
+    const resultPromise = this.renderer.renderPage(image, options);
+    this.cache.set(image, resultPromise);
+    return await resultPromise;
   }
 }
