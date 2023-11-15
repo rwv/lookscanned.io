@@ -48,7 +48,7 @@ import ScaleSetting from "./settings/ScaleSetting.vue";
 import BrightnessSetting from "./settings/BrightnessSetting.vue";
 import ContrastSetting from "./settings/ContrastSetting.vue";
 
-import type { ScanConfig } from "@/utils/canvas-scan";
+import type { ScanConfig } from "@/utils/scanner/canvas-scan";
 import { useI18n } from "vue-i18n";
 import { useVModel } from "@vueuse/core";
 
