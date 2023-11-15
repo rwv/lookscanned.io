@@ -8,6 +8,9 @@ interface PDFRenderer {
     scale: number
   ): Promise<{
     blob: Blob;
+    height: number;
+    width: number;
+    dpi: number;
   }>;
   getNumPages(): Promise<number>;
 }
@@ -15,8 +18,6 @@ interface PDFRenderer {
 interface ScanRenderer {
   renderPage(image: Blob): Promise<{
     blob: Blob;
-    height: number;
-    width: number;
   }>;
 }
 
@@ -58,11 +59,17 @@ export function useSaveScannedPDF(
       const pages = Array.from({ length: numPages }, (_, i) => i + 1);
       const scanPages = await Promise.all(
         pages.map(async (page) => {
-          const pdfPage = (await pdf.renderPage(page, scale_)).blob;
-          const scanPage = await scan.renderPage(pdfPage);
+          const {
+            blob: pdfPage,
+            height,
+            width,
+          } = await pdf.renderPage(page, scale_);
+          const { blob: scanPage } = await scan.renderPage(pdfPage);
           finishedPages.value += 1;
           return {
-            ...scanPage,
+            blob: scanPage,
+            width,
+            height,
             dpi: scale_ * 72,
           };
         })

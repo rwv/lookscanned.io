@@ -9,8 +9,6 @@ interface ScanRenderer {
     }
   ): Promise<{
     blob: Blob;
-    height: number;
-    width: number;
   }>;
 }
 

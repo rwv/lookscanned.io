@@ -32,8 +32,6 @@ interface PDFRenderer {
     scale: number
   ): Promise<{
     blob: Blob;
-    height: number;
-    width: number;
   }>;
   getNumPages(): Promise<number>;
 }
@@ -46,8 +44,6 @@ interface ScanRenderer {
     }
   ): Promise<{
     blob: Blob;
-    height: number;
-    width: number;
   }>;
 }
 
@@ -65,14 +61,9 @@ const image = computedAsync(async () => {
       width: undefined,
     };
 
-  const { blob, height, width } = await props.pdfRenderer.renderPage(
-    page.value,
-    props.scale
-  );
+  const { blob } = await props.pdfRenderer.renderPage(page.value, props.scale);
   return {
     blob,
-    height,
-    width,
   };
 });
 
@@ -83,16 +74,11 @@ const scanImage = computedAsync(async () => {
   controller = new AbortController();
   if (!props.scanRenderer || !image.value.blob) return;
 
-  const { blob, height, width } = await props.scanRenderer.renderPage(
-    image.value.blob,
-    {
-      signal: controller.signal,
-    }
-  );
+  const { blob } = await props.scanRenderer.renderPage(image.value.blob, {
+    signal: controller.signal,
+  });
   return {
     blob,
-    height,
-    width,
   };
 });
 
