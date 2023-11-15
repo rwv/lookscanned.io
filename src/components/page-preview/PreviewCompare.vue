@@ -5,7 +5,11 @@
         <ImagePreview :image="image?.blob" />
       </template>
       <template #scan>
-        <ImagePreview :image="scanImage?.blob" />
+        <ImagePreview
+          :image="scanning ? undefined : scanImage?.blob"
+          :height="image?.height"
+          :width="image?.width"
+        />
       </template>
     </SideBySidePreview>
     <PreviewPagination
@@ -25,6 +29,7 @@ import PreviewPagination from "./PreviewPagination.vue";
 import { NSpace } from "naive-ui";
 
 const page = ref(1);
+const scanning = ref(false);
 
 interface PDFRenderer {
   renderPage(
@@ -32,6 +37,8 @@ interface PDFRenderer {
     scale: number
   ): Promise<{
     blob: Blob;
+    width: number;
+    height: number;
   }>;
   getNumPages(): Promise<number>;
 }
@@ -61,26 +68,35 @@ const image = computedAsync(async () => {
       width: undefined,
     };
 
-  const { blob } = await props.pdfRenderer.renderPage(page.value, props.scale);
+  const { blob, width, height } = await props.pdfRenderer.renderPage(
+    page.value,
+    props.scale
+  );
   return {
     blob,
+    width,
+    height,
   };
 });
 
 let controller = new AbortController();
 
-const scanImage = computedAsync(async () => {
-  controller.abort();
-  controller = new AbortController();
-  if (!props.scanRenderer || !image.value.blob) return;
+const scanImage = computedAsync(
+  async () => {
+    controller.abort();
+    controller = new AbortController();
+    if (!props.scanRenderer || !image.value.blob) return;
 
-  const { blob } = await props.scanRenderer.renderPage(image.value.blob, {
-    signal: controller.signal,
-  });
-  return {
-    blob,
-  };
-});
+    const { blob } = await props.scanRenderer.renderPage(image.value.blob, {
+      signal: controller.signal,
+    });
+    return {
+      blob,
+    };
+  },
+  undefined,
+  scanning
+);
 
 const numPages = computedAsync(async () => {
   page.value = 1;
