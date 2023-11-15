@@ -1,16 +1,6 @@
 import { scanCanvas } from "./scan-canvas";
 import type { ScanConfig } from "./types";
-
-interface ScanRenderer {
-  renderPage(
-    image: Blob,
-    options?: {
-      signal?: AbortSignal;
-    }
-  ): Promise<{
-    blob: Blob;
-  }>;
-}
+import type { ScanRenderer } from "../types";
 
 export class CanvasScanner implements ScanRenderer {
   config: ScanConfig;
