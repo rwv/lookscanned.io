@@ -45,8 +45,8 @@ export function getProcessCommand(
   args.push(`+noise Gaussian`);
 
   // map brightness and contrast from css filter to -100 to 100
-  const brightness_ = (config.brightness - 1) * 100;
-  const contrast_ = (config.contrast - 1) * 100;
+  const brightness_ = (brightness - 1) * 100;
+  const contrast_ = (contrast - 1) * 100;
 
   args.push(
     `-brightness-contrast ${brightness_.toFixed(2)}x${contrast_.toFixed(2)}`
