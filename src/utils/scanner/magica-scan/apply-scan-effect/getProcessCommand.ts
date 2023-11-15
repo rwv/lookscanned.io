@@ -5,7 +5,16 @@ export function getProcessCommand(
   inputFilename: string,
   outputFilename: string
 ): string {
-  const { rotate, rotate_var, colorspace, blur, noise, border } = config;
+  const {
+    rotate,
+    rotate_var,
+    colorspace,
+    blur,
+    noise,
+    border,
+    brightness,
+    contrast,
+  } = config;
   const thresholdFunc = (value: number) => !(value > -0.05 && value < 0.05);
   const args: string[] = [];
   args.push("convert");
@@ -34,6 +43,14 @@ export function getProcessCommand(
   }
 
   args.push(`+noise Gaussian`);
+
+  // map brightness and contrast from css filter to -100 to 100
+  const brightness_ = (config.brightness - 1) * 100;
+  const contrast_ = (config.contrast - 1) * 100;
+
+  args.push(
+    `-brightness-contrast ${brightness_.toFixed(2)}x${contrast_.toFixed(2)}`
+  );
 
   args.push(outputFilename);
 
