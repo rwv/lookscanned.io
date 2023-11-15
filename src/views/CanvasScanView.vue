@@ -52,6 +52,7 @@ import { CanvasScanner } from "@/utils/scanner/canvas-scan";
 import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
 import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
 import PDFInfo from "@/components/pdf-upload/PDFInfo.vue";
+import { ScanCacher } from "@/utils/scanner/scan-cacher";
 
 const { t } = useI18n();
 
@@ -75,11 +76,11 @@ const pdfRenderer = computed(() => {
   return new PDF(pdf.value);
 });
 
-const scanRenderer = ref(new CanvasScanner(config.value));
+const scanRenderer = ref(new ScanCacher(new CanvasScanner(config.value)));
 watch(
   config,
   (newConfig) => {
-    scanRenderer.value = new CanvasScanner(newConfig);
+    scanRenderer.value = new ScanCacher(new CanvasScanner(newConfig));
   },
   { deep: true }
 );
