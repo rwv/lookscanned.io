@@ -18,9 +18,10 @@
           <ScanSettingsCard v-model:config="config" />
 
           <SaveButtonCard
-            @save="downloadSave"
+            @generate="save"
             :progress="progress"
             :saving="saving"
+            :pdf="scannedPDF"
           />
         </n-space>
       </n-grid-item>
@@ -87,21 +88,10 @@ watch(
 
 const scale = computed(() => config.value.scale);
 
-const { save, progress, saving } = useSaveScannedPDF(
+const { save, progress, saving, scannedPDF } = useSaveScannedPDF(
+  pdf,
   pdfRenderer,
   scanRenderer,
   scale
 );
-const downloadSave = async () => {
-  const pdfBlob = await save();
-  const url = URL.createObjectURL(pdfBlob);
-  const link = document.createElement("a");
-  const originalFilename = pdf.value?.name ?? "doc.pdf";
-  const filename = `${originalFilename.replace(/\.[^/.]+$/, "")}-scan.pdf`;
-
-  link.href = url;
-  link.download = filename;
-  link.click();
-  URL.revokeObjectURL(url);
-};
 </script>

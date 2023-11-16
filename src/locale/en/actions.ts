@@ -5,4 +5,7 @@ export const actions = {
   backToIndex: "Back",
   preview: "Preview",
   save: "Save",
+  generateScannedPDF: "Generate Scanned PDF",
+  generating: "Generating...",
+  downloadScannedPDF: "Download Scanned PDF",
 };

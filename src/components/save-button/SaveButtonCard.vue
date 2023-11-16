@@ -5,13 +5,22 @@
     :style="{ '--progress': (progress ?? 0) * 100 + '%' }"
   >
     <n-space justify="space-around" size="large">
-      <n-button text @click="emit('save')" :disabled="saving">
+      <n-button text @click="download" v-if="pdf">
         <template #icon>
           <n-icon>
             <DocumentDownload />
           </n-icon>
         </template>
-        {{ t("actions.save") }}
+        {{ t("actions.downloadScannedPDF") }}
+      </n-button>
+      <n-button text @click="emit('generate')" :disabled="saving" v-else>
+        <template #icon>
+          <n-icon>
+            <AdfScannerOutlined />
+          </n-icon>
+        </template>
+        <span v-if="saving">{{ t("actions.generating") }}</span>
+        <span v-else>{{ t("actions.generateScannedPDF") }}</span>
       </n-button>
     </n-space>
   </n-card>
@@ -20,17 +29,31 @@
 <script lang="ts" setup>
 import { NCard, NSpace, NIcon, NButton } from "naive-ui";
 import { DocumentDownload } from "@vicons/carbon";
+import { AdfScannerOutlined } from "@vicons/material";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
-defineProps<{
+const props = defineProps<{
   progress?: number;
   saving?: boolean;
+  pdf?: File;
 }>();
 
 const emit = defineEmits<{
-  (e: "save"): void;
+  (e: "generate"): void;
 }>();
+
+const download = () => {
+  if (!props.pdf) return;
+
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(props.pdf);
+  link.href = url;
+  link.download = props.pdf.name;
+  link.click();
+  URL.revokeObjectURL(url);
+  link.remove();
+};
 </script>
 
 <style scoped>

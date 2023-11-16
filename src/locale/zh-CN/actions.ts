@@ -5,4 +5,7 @@ export const actions = {
   backToIndex: "返回",
   preview: "预览",
   save: "保存",
+  generateScannedPDF: "生成扫描版 PDF",
+  generating: "生成中...",
+  downloadScannedPDF: "下载扫描版 PDF",
 };

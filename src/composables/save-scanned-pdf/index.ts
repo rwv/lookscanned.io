@@ -1,6 +1,6 @@
 import type { Ref } from "vue";
 import { get } from "@vueuse/core";
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 
 interface PDFRenderer {
   renderPage(
@@ -22,9 +22,10 @@ interface ScanRenderer {
 }
 
 export function useSaveScannedPDF(
-  pdfRenderer: PDFRenderer | undefined | Ref<PDFRenderer | undefined>,
-  scanRenderer: ScanRenderer | undefined | Ref<ScanRenderer | undefined>,
-  scale: Ref<number> | number
+  pdf: Ref<File | undefined>,
+  pdfRenderer: Ref<PDFRenderer | undefined>,
+  scanRenderer: Ref<ScanRenderer | undefined>,
+  scale: Ref<number>
 ) {
   const finishedPages = ref(0);
   const totalPages = ref(0);
@@ -36,6 +37,23 @@ export function useSaveScannedPDF(
   });
 
   const saving = ref(false);
+  const scannedPDF = ref<File | undefined>(undefined);
+  const outputFilename = computed(() => {
+    const originalFilename = pdf.value?.name ?? "doc.pdf";
+    const filename = `${originalFilename.replace(/\.[^/.]+$/, "")}-scan.pdf`;
+    return filename;
+  });
+
+  const reset = () => {
+    finishedPages.value = 0;
+    totalPages.value = 0;
+    scannedPDF.value = undefined;
+    saving.value = false;
+  };
+
+  watch(pdfRenderer, reset);
+  watch(scanRenderer, reset);
+  watch(scale, reset);
 
   const save = async () => {
     try {
@@ -79,6 +97,10 @@ export function useSaveScannedPDF(
       const { imagesToPDF } = await import("@/utils/images-to-pdf");
       const pdfDocument = await imagesToPDF(scanPages);
 
+      scannedPDF.value = new File([pdfDocument], outputFilename.value, {
+        type: "application/pdf",
+      });
+
       return pdfDocument;
     } catch (e) {
       console.error(e);
@@ -88,5 +110,5 @@ export function useSaveScannedPDF(
     }
   };
 
-  return { save, progress, saving };
+  return { save, progress, saving, scannedPDF };
 }
