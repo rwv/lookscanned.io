@@ -43,7 +43,7 @@ import {
   type ScanConfig,
   defaultConfig,
   MagicaScanner,
-} from "@/utils/scanner/magica-scan";
+} from "@/utils/scan-renderer/magica-scan";
 import ScanSettingsCard from "@/components/canvas-scan/canvas-scan-settings/ScanSettingsCard.vue";
 import PDFUpload from "@/components/pdf-upload/PDFUpload.vue";
 import { ref, computed, onMounted, watch } from "vue";
@@ -56,7 +56,7 @@ import PreviewCompare from "@/components/page-preview/PreviewCompare.vue";
 import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
 import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
 import PDFInfo from "@/components/pdf-upload/PDFInfo.vue";
-import { ScanCacher } from "@/utils/scanner/scan-cacher";
+import { ScanCacher } from "@/utils/scan-renderer/scan-cacher";
 import { useMessage } from "naive-ui";
 
 const { t } = useI18n();

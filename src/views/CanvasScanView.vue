@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { NGrid, NGridItem, NSpace } from "naive-ui";
 import MainContainer from "@/components/MainContainer.vue";
-import { type ScanConfig, defaultConfig } from "@/utils/scanner/canvas-scan";
+import { type ScanConfig, defaultConfig } from "@/utils/scan-renderer/canvas-scan";
 import ScanSettingsCard from "@/components/canvas-scan/canvas-scan-settings/ScanSettingsCard.vue";
 import PDFUpload from "@/components/pdf-upload/PDFUpload.vue";
 import { ref, computed, onMounted, watch } from "vue";
@@ -49,11 +49,11 @@ import { useHead } from "@vueuse/head";
 import { useI18n } from "vue-i18n";
 import { PDF } from "@/utils/pdf-renderer/pdfjs";
 import PreviewCompare from "@/components/page-preview/PreviewCompare.vue";
-import { CanvasScanner } from "@/utils/scanner/canvas-scan";
+import { CanvasScanner } from "@/utils/scan-renderer/canvas-scan";
 import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
 import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
 import PDFInfo from "@/components/pdf-upload/PDFInfo.vue";
-import { ScanCacher } from "@/utils/scanner/scan-cacher";
+import { ScanCacher } from "@/utils/scan-renderer/scan-cacher";
 import { useMessage } from "naive-ui";
 
 const { t } = useI18n();
