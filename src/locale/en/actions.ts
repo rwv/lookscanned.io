@@ -8,4 +8,6 @@ export const actions = {
   generateScannedPDF: "Generate Scanned PDF",
   generating: "Generating...",
   downloadScannedPDF: "Download Scanned PDF",
+  generateSuccess: "Successfully Generated! ",
+  generateError: "Failed to Generate! ",
 };

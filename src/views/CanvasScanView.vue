@@ -18,7 +18,7 @@
           <ScanSettingsCard v-model:config="config" />
 
           <SaveButtonCard
-            @generate="save"
+            @generate="generate"
             :progress="progress"
             :saving="saving"
             :pdf="scannedPDF"
@@ -54,8 +54,10 @@ import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
 import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
 import PDFInfo from "@/components/pdf-upload/PDFInfo.vue";
 import { ScanCacher } from "@/utils/scanner/scan-cacher";
+import { useMessage } from "naive-ui";
 
 const { t } = useI18n();
+const message = useMessage();
 
 useHead({
   title: t("base.scanTitle") + " - " + t("base.title"),
@@ -94,4 +96,13 @@ const { save, progress, saving, scannedPDF } = useSaveScannedPDF(
   scanRenderer,
   scale
 );
+
+const generate = async () => {
+  try {
+    await save();
+    message.success(t("actions.generateSuccess"));
+  } catch (e) {
+    message.error(t("actions.generateError") + (e as Error).message);
+  }
+};
 </script>

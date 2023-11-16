@@ -8,4 +8,6 @@ export const actions = {
   generateScannedPDF: "生成扫描版 PDF",
   generating: "生成中...",
   downloadScannedPDF: "下载扫描版 PDF",
+  generateSuccess: "生成成功！",
+  generateError: "生成失败！",
 };
