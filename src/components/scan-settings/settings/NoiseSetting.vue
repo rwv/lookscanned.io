@@ -1,9 +1,9 @@
 <template>
   <n-form-item :show-feedback="false">
     <template #label>
-      <span :style="style" class="noise">
+      <div :style="style" class="noise">
         {{ t("settings.noise") }}
-      </span>
+      </div>
     </template>
     <n-slider v-model:value="noise_computed" :max="1" :min="0" :step="0.01" />
   </n-form-item>
