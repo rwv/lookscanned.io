@@ -20,6 +20,7 @@
     "magica": "^0.2.17",
     "magica-re-export": "^1.0.9",
     "p-map": "^4.0.0",
+    "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^2.14.305",
     "vue": "^3.2.36",
     "vue-gtag": "^2.0.1",

@@ -94,8 +94,8 @@ export function useSaveScannedPDF(
       );
 
       // generate pdf from scan pages
-      const { imagesToPDF } = await import("@/utils/images-to-pdf");
-      const pdfDocument = await imagesToPDF(scanPages);
+      const { buildPDF } = await import("@/utils/pdf-builder/pdf-lib");
+      const pdfDocument = await buildPDF(scanPages);
 
       scannedPDF.value = new File([pdfDocument], outputFilename.value, {
         type: "application/pdf",
