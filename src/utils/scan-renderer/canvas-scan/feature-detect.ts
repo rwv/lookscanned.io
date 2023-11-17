@@ -19,5 +19,20 @@ export function featureDetect(): boolean {
     }
   }
 
+  // check OffscreenCanvas.prototype
+  const offscreenCanvasProto = OffscreenCanvasRenderingContext2D.prototype;
+  for (const method of canvasMethods) {
+    if (!(method in offscreenCanvasProto)) {
+      return false;
+    }
+  }
+
+  const windowObjects = ["OffscreenCanvas", "createImageBitmap", "Worker"];
+  for (const object of windowObjects) {
+    if (!(object in window)) {
+      return false;
+    }
+  }
+
   return true;
 }
