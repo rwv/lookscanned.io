@@ -1,4 +1,7 @@
-import type { IFile } from "magica";
+interface IFile {
+  name: string;
+  content: ArrayBufferView;
+}
 
 export function ABVToIFile(abv: ArrayBufferView, filename: string): IFile {
   const file: IFile = {

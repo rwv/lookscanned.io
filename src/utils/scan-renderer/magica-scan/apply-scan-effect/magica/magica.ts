@@ -2,7 +2,7 @@ declare let self: {
   MAGICA_WASM_LOCATION: string;
 };
 
-import wasmURL from "magica/dist/src/imageMagick/compiled/magick.wasm?url";
+import wasmURL from "magica-re-export/lib/magick.wasm?url";
 
 self.MAGICA_WASM_LOCATION = wasmURL;
 
