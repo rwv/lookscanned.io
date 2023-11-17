@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: "/scan",
       name: "scan",
-      component: () => import("@/views/MagicaScanView.vue"),
+      component: () => import("@/views/ScanViewFeatureDetectView.vue"),
     },
     {
       path: "/scan-canvas",
