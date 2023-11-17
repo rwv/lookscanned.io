@@ -33,8 +33,6 @@ export function featureDetect(): boolean {
   }
 
   // check OffscreenCanvas.prototype
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const offscreenCanvasProto = OffscreenCanvasRenderingContext2D.prototype
   for (const method of canvasMethods) {
     if (!(method in offscreenCanvasProto)) {

@@ -1,7 +1,7 @@
 import type { ScanConfig } from './types'
 
 export async function scanCanvas(
-  canvas_: HTMLCanvasElement | OffscreenCanvas,
+  canvas: HTMLCanvasElement | OffscreenCanvas,
   page: Blob,
   config: ScanConfig,
   noise: Blob,
@@ -12,8 +12,7 @@ export async function scanCanvas(
   }
 
   // Note: Hack to get around TS error
-  const canvas = canvas_ as HTMLCanvasElement
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
   if (!ctx) {
     throw new Error('Canvas not supported')
   }

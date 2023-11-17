@@ -1,8 +1,6 @@
 import { getNoiseSVG } from './noise-svg'
 
 export async function createNoiseBlob(noise: number, height: number, width: number): Promise<Blob> {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const canvas = new OffscreenCanvas(width, height)
   const ctx = canvas.getContext('2d')
   if (!ctx) {
