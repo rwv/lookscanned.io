@@ -5,6 +5,7 @@
         v-for="(character, i) in characters"
         :key="i"
         :style="characterStyle[i]"
+        class="rotate-label-character"
       >
         {{ character }}
       </span>
@@ -60,3 +61,9 @@ const characterStyle = computed(() => {
   });
 });
 </script>
+
+<style scoped>
+.rotate-label-character {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>

@@ -1,7 +1,7 @@
 <template>
   <n-form-item :label="t('settings.contrast')" :show-feedback="false">
     <template #label>
-      <span :style="style">
+      <span :style="style" class="contrast-label">
         {{ t("settings.contrast") }}
       </span>
     </template>
@@ -41,3 +41,9 @@ const style = computed(() => {
   };
 });
 </script>
+
+<style scoped>
+.contrast-label {
+  transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>

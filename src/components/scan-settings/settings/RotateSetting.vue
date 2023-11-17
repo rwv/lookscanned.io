@@ -1,7 +1,9 @@
 <template>
   <n-form-item :show-feedback="false">
     <template #label>
-      <span :style="style">{{ t("settings.rotate") }}</span>
+      <span :style="style" class="rotate-label">{{
+        t("settings.rotate")
+      }}</span>
     </template>
     <n-slider
       v-model:value="rotate_computed"
@@ -42,3 +44,9 @@ const style = computed(() => {
   };
 });
 </script>
+
+<style scoped>
+.rotate-label {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>

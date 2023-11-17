@@ -1,7 +1,7 @@
 <template>
   <n-form-item :label="t('settings.brightness')" :show-feedback="false">
     <template #label>
-      <span :style="style">
+      <span :style="style" class="brightness-label">
         {{ t("settings.brightness") }}
       </span>
     </template>
@@ -41,3 +41,9 @@ const style = computed(() => {
   };
 });
 </script>
+
+<style scoped>
+.brightness-label {
+  transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>

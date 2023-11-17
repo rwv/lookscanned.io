@@ -1,7 +1,7 @@
 <template>
   <n-form-item :label="t('settings.blur')" :show-feedback="false">
     <template #label>
-      <span :style="style">
+      <span :style="style" class="blur-label">
         {{ t("settings.blur") }}
       </span>
     </template>
@@ -36,3 +36,9 @@ const style = computed(() => {
   };
 });
 </script>
+
+<style scoped>
+.blur-label {
+  transition: filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+</style>

@@ -50,6 +50,7 @@ const style = computed(() => {
   top: 0;
   content: url("./noise.svg");
   opacity: var(--noise-opacity);
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 @media (prefers-color-scheme: dark) {
