@@ -4,16 +4,16 @@ interface ImageInfo {
   blob: Blob;
   width: number;
   height: number;
-  dpi: number;
+  ppi: number;
 }
 
 export async function buildPDF(images: ImageInfo[]): Promise<Blob> {
   const pdfDoc = await PDFDocument.create();
 
   for (const image of images) {
-    const { blob, width, height, dpi } = image;
-    const physicalWidthDots = (width / dpi) * 72;
-    const physicalHeightDots = (height / dpi) * 72;
+    const { blob, width, height, ppi } = image;
+    const physicalWidthDots = (width / ppi) * 72;
+    const physicalHeightDots = (height / ppi) * 72;
     const page = pdfDoc.addPage([physicalWidthDots, physicalHeightDots]);
 
     const imageBytes = await blob.arrayBuffer();

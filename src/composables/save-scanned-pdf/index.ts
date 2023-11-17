@@ -10,7 +10,7 @@ interface PDFRenderer {
     blob: Blob;
     height: number;
     width: number;
-    dpi: number;
+    ppi: number;
   }>;
   getNumPages(): Promise<number>;
 }
@@ -88,7 +88,7 @@ export function useSaveScannedPDF(
             blob: scanPage,
             width,
             height,
-            dpi: scale_ * 72,
+            ppi: scale_ * 72,
           };
         })
       );

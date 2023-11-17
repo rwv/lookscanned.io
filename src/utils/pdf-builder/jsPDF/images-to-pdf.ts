@@ -2,7 +2,7 @@ export type ImageInfo = {
   blob: Blob;
   width: number;
   height: number;
-  dpi: number;
+  ppi: number;
 };
 
 export async function imagesToPDF(
@@ -21,10 +21,10 @@ export async function imagesToPDF(
       throw new DOMException("Aborted", "AbortError");
     }
 
-    const { blob, width, height, dpi } = image;
+    const { blob, width, height, ppi } = image;
     const buffer = new Uint8Array(await blob.arrayBuffer());
-    const physicalWidth = width / dpi;
-    const physicalHeight = height / dpi;
+    const physicalWidth = width / ppi;
+    const physicalHeight = height / ppi;
     const format = getImageFormat(blob);
     const orientation = physicalWidth > physicalHeight ? "l" : "p";
 

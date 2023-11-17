@@ -7,7 +7,7 @@ export interface PDFPageInfo {
   height: number;
   width: number;
   scale: number;
-  dpi: number;
+  ppi: number;
 }
 
 export interface PDFInfoType {
@@ -77,7 +77,7 @@ export class PDF implements PDFRenderer {
   ): Promise<PDFPageInfo> {
     await this.initPromise;
 
-    const dpi = scale * 72;
+    const ppi = scale * 72;
     const pdfDocument = await this.getDocument();
     const pdfPage = await pdfDocument.getPage(page);
     const viewport = pdfPage.getViewport({ scale });
@@ -112,7 +112,7 @@ export class PDF implements PDFRenderer {
       height,
       width,
       scale,
-      dpi,
+      ppi,
     };
 
     pdfPage.cleanup();
