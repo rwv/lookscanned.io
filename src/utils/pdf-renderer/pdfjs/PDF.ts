@@ -85,8 +85,12 @@ export class PDF implements PDFRenderer {
     canvas.width = width
     canvas.height = height
     const ctx = canvas.getContext('2d')
+    if (!ctx) {
+      throw new Error('Canvas context is null')
+    }
+
     const renderTask = pdfPage.render({
-      canvasContext: ctx as object,
+      canvasContext: ctx,
       viewport
     })
     await renderTask.promise
