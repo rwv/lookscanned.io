@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@unhead/vue": "^1.8.4",
     "@vicons/antd": "^0.12.0",
     "@vicons/carbon": "^0.12.0",
     "@vicons/fa": "^0.12.0",
@@ -42,7 +43,6 @@
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.4.0",
     "@vueuse/core": "^10.6.1",
-    "@vueuse/head": "^0.7.13",
     "eslint": "^8.53.0",
     "eslint-plugin-vue": "^9.18.1",
     "npm-run-all2": "^6.1.1",

@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import i18n from './locale'
 import VueGtag from 'vue-gtag'
-import { createHead } from '@vueuse/head'
+import { createHead } from '@unhead/vue'
 
 const app = createApp(App)
 const head = createHead()

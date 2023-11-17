@@ -17,7 +17,7 @@ import { NGrid, NGridItem } from 'naive-ui'
 import TheIndexViewHead from '@/components/Misc/TheIndexViewHead.vue'
 import TheFeatures from '@/components/Features/TheFeatures.vue'
 import MainContainer from '@/components/MainContainer.vue'
-import { useHead } from '@vueuse/head'
+import { useHead } from '@unhead/vue'
 import { useI18n } from 'vue-i18n'
 const { t } = useI18n()
 
