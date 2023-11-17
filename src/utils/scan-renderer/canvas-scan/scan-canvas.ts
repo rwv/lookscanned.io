@@ -55,21 +55,21 @@ export async function scanCanvas(
 
   ctx.drawImage(img, 0, 0);
 
-  if (config.noise !== 0) {
-    const noiseSVG = getNoiseSVG(config.noise);
-    const noiseSVGBlob = new Blob([noiseSVG], { type: "image/svg+xml" });
-    const noiseSVGURL = URL.createObjectURL(noiseSVGBlob);
+  // if (config.noise !== 0) {
+  //   const noiseSVG = getNoiseSVG(config.noise);
+  //   const noiseSVGBlob = new Blob([noiseSVG], { type: "image/svg+xml" });
+  //   const noiseSVGURL = URL.createObjectURL(noiseSVGBlob);
 
-    const noiseImg = new Image();
-    noiseImg.src = noiseSVGURL;
-    await new Promise((resolve) => (noiseImg.onload = resolve));
-    if (signal?.aborted) {
-      throw new Error("Aborted");
-    }
+  //   const noiseImg = new Image();
+  //   noiseImg.src = noiseSVGURL;
+  //   await new Promise((resolve) => (noiseImg.onload = resolve));
+  //   if (signal?.aborted) {
+  //     throw new Error("Aborted");
+  //   }
 
-    // add noise
-    ctx.drawImage(noiseImg, -width, -height, width * 2, height * 2);
-  }
+  //   // add noise
+  //   ctx.drawImage(noiseImg, -width, -height, width * 2, height * 2);
+  // }
 
   if (config.border) {
     ctx.strokeStyle = "black";
