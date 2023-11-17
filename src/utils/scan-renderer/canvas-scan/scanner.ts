@@ -1,6 +1,7 @@
 import type { ScanConfig } from "./types";
 import type { ScanRenderer } from "../types";
 import ScanWorker from "./scan.worker?worker";
+import { createNoiseBlob } from "./create-noise-blob";
 
 // to avoid web worker cold start
 const workers = [
@@ -10,6 +11,8 @@ const workers = [
   new ScanWorker(),
   new ScanWorker(),
 ];
+
+const noiseBlobCache = new Map<string, Blob>();
 
 export class CanvasScanner implements ScanRenderer {
   config: ScanConfig;
@@ -35,6 +38,8 @@ export class CanvasScanner implements ScanRenderer {
 
     options?.signal?.addEventListener("abort", () => worker.terminate());
 
+    const noiseBlob = await getNoiseBlob(this.config.noise);
+
     const blob = await new Promise<Blob>((resolve, reject) => {
       worker.onmessage = (e) => {
         resolve(e.data);
@@ -48,9 +53,21 @@ export class CanvasScanner implements ScanRenderer {
       worker.postMessage({
         page: image,
         config: JSON.parse(JSON.stringify(this.config)),
+        noise: noiseBlob,
       });
     });
 
     return { blob };
   }
+}
+
+async function getNoiseBlob(noise: number) {
+  const noiseCacheKey = noise.toFixed(2);
+  const cachedNoiseBlob = noiseBlobCache.get(noiseCacheKey);
+  if (cachedNoiseBlob) {
+    return cachedNoiseBlob;
+  }
+  const noiseBlob = await createNoiseBlob(noise, 1000, 1000);
+  noiseBlobCache.set(noiseCacheKey, noiseBlob);
+  return noiseBlob;
 }
