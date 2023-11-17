@@ -1,5 +1,5 @@
-import type { ImageInfo } from "./images-to-pdf";
-import ImagesToPDFWorker from "./images-to-pdf.worker.ts?worker";
+import type { ImageInfo } from './images-to-pdf'
+import ImagesToPDFWorker from './images-to-pdf.worker.ts?worker'
 
 export async function imagesToPDFWithWorker(
   images: ImageInfo[],
@@ -7,30 +7,30 @@ export async function imagesToPDFWithWorker(
 ): Promise<Blob> {
   if (window.Worker) {
     return await new Promise<Blob>((resolve, reject) => {
-      const worker = new ImagesToPDFWorker();
+      const worker = new ImagesToPDFWorker()
 
       if (signal) {
-        signal.addEventListener("abort", () => {
-          worker.terminate();
-          reject(new Error("Aborted"));
-        });
+        signal.addEventListener('abort', () => {
+          worker.terminate()
+          reject(new Error('Aborted'))
+        })
       }
 
       worker.onmessage = (e: MessageEvent<Blob>) => {
-        const blob = e.data;
-        worker.terminate();
-        resolve(blob);
-      };
+        const blob = e.data
+        worker.terminate()
+        resolve(blob)
+      }
 
       worker.onerror = (e) => {
-        worker.terminate();
-        reject(e);
-      };
+        worker.terminate()
+        reject(e)
+      }
 
-      worker.postMessage(images);
-    });
+      worker.postMessage(images)
+    })
   } else {
     // https://caniuse.com/webworkers
-    throw new Error("Web Workers are not supported in this browser");
+    throw new Error('Web Workers are not supported in this browser')
   }
 }

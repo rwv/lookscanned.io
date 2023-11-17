@@ -1,1 +1,1 @@
-export { imagesToPDF as buildPDF } from "./images-to-pdf";
+export { imagesToPDF as buildPDF } from './images-to-pdf'

@@ -6,26 +6,26 @@
 </template>
 
 <script lang="ts" setup>
-import { NImage, NSkeleton } from "naive-ui";
-import { toRef, computed } from "vue";
-import { useObjectUrl } from "@vueuse/core";
+import { NImage, NSkeleton } from 'naive-ui'
+import { toRef, computed } from 'vue'
+import { useObjectUrl } from '@vueuse/core'
 
 const props = defineProps<{
-  image?: Blob;
-  width?: number;
-  height?: number;
-}>();
+  image?: Blob
+  width?: number
+  height?: number
+}>()
 
-const image = toRef(props, "image");
+const image = toRef(props, 'image')
 
-const imageURL = useObjectUrl(image);
+const imageURL = useObjectUrl(image)
 
 const skeletonStyle = computed(() => {
-  if (!props.width || !props.height) return {};
+  if (!props.width || !props.height) return {}
   return {
-    "aspect-ratio": `${props.width} / ${props.height}`,
-  };
-});
+    'aspect-ratio': `${props.width} / ${props.height}`
+  }
+})
 </script>
 
 <style scoped>

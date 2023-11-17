@@ -22,12 +22,12 @@
 </template>
 
 <script setup lang="ts">
-import { NGrid, NGridItem } from "naive-ui";
+import { NGrid, NGridItem } from 'naive-ui'
 
-import FeaturePrivacy from "@/components/Features/FeaturePrivacy.vue";
-import FeatureSpeed from "@/components/Features/FeatureSpeed.vue";
-import FeatureCustomization from "@/components/Features/FeatureCustomization.vue";
-import FeatureOpenSource from "@/components/Features/FeatureOpenSource.vue";
-import FeatureMobileFriendly from "@/components/Features/FeatureMobileFriendly.vue";
-import FeatureOfflineUse from "@/components/Features/FeatureOfflineUse.vue";
+import FeaturePrivacy from '@/components/Features/FeaturePrivacy.vue'
+import FeatureSpeed from '@/components/Features/FeatureSpeed.vue'
+import FeatureCustomization from '@/components/Features/FeatureCustomization.vue'
+import FeatureOpenSource from '@/components/Features/FeatureOpenSource.vue'
+import FeatureMobileFriendly from '@/components/Features/FeatureMobileFriendly.vue'
+import FeatureOfflineUse from '@/components/Features/FeatureOfflineUse.vue'
 </script>

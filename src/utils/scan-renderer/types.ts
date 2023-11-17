@@ -2,9 +2,9 @@ export interface ScanRenderer {
   renderPage(
     image: Blob,
     options?: {
-      signal?: AbortSignal;
+      signal?: AbortSignal
     }
   ): Promise<{
-    blob: Blob;
-  }>;
+    blob: Blob
+  }>
 }

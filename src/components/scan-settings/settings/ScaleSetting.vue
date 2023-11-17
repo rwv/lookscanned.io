@@ -1,38 +1,32 @@
 <template>
   <n-form-item :show-feedback="false">
     <template #label>
-      <span>{{ t("settings.scale") }}</span>
+      <span>{{ t('settings.scale') }}</span>
     </template>
-    <n-slider
-      v-model:value="scale"
-      :max="3"
-      :min="1"
-      :step="0.5"
-      :format-tooltip="formatTooltip"
-    />
+    <n-slider v-model:value="scale" :max="3" :min="1" :step="0.5" :format-tooltip="formatTooltip" />
   </n-form-item>
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { NFormItem, NSlider } from "naive-ui";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+import { computed } from 'vue'
+import { NFormItem, NSlider } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
-type scaleType = number;
+type scaleType = number
 
 const props = defineProps<{
-  scale: scaleType;
-}>();
+  scale: scaleType
+}>()
 
 const emit = defineEmits<{
-  (e: "update:scale", value: scaleType): void;
-}>();
+  (e: 'update:scale', value: scaleType): void
+}>()
 
 const scale = computed({
   get: () => props.scale,
-  set: (value) => emit("update:scale", value),
-});
+  set: (value) => emit('update:scale', value)
+})
 
-const formatTooltip = (value: number) => `${value}x`;
+const formatTooltip = (value: number) => `${value}x`
 </script>

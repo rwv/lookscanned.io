@@ -9,20 +9,14 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  useOsTheme,
-  darkTheme,
-  NConfigProvider,
-  NGlobalStyle,
-  NMessageProvider,
-} from "naive-ui";
-import { RouterView } from "vue-router";
-import { computed } from "vue";
-import { useRoute } from "vue-router";
-import ServieWorkerReloadPrompt from "@/components/Misc/ServiceWorkerReloadPrompt.vue";
+import { useOsTheme, darkTheme, NConfigProvider, NGlobalStyle, NMessageProvider } from 'naive-ui'
+import { RouterView } from 'vue-router'
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import ServieWorkerReloadPrompt from '@/components/Misc/ServiceWorkerReloadPrompt.vue'
 
-const route = useRoute();
+const route = useRoute()
 
-const osThemeRef = useOsTheme();
-const theme = computed(() => (osThemeRef.value === "dark" ? darkTheme : null));
+const osThemeRef = useOsTheme()
+const theme = computed(() => (osThemeRef.value === 'dark' ? darkTheme : null))
 </script>

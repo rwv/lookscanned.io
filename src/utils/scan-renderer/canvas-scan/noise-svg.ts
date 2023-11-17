@@ -20,5 +20,5 @@ export function getNoiseSVG(noise: number): string {
   </defs>
   <rect width="700" height="700" fill="transparent"></rect>
   <rect width="700" height="700" fill="#7957a8" filter="url(#nnnoise-filter)"></rect>
-</svg>`;
+</svg>`
 }
