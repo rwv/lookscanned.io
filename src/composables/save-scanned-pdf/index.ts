@@ -1,6 +1,7 @@
 import type { Ref } from "vue";
 import { get } from "@vueuse/core";
 import { ref, computed, watch } from "vue";
+import { buildPDF } from "@/utils/pdf-builder/pdf-lib";
 
 interface PDFRenderer {
   renderPage(
@@ -94,7 +95,6 @@ export function useSaveScannedPDF(
       );
 
       // generate pdf from scan pages
-      const { buildPDF } = await import("@/utils/pdf-builder/pdf-lib");
       const pdfDocument = await buildPDF(scanPages);
 
       scannedPDF.value = new File([pdfDocument], outputFilename.value, {

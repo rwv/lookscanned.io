@@ -1,5 +1,3 @@
-import { PDFDocument } from "pdf-lib";
-
 interface ImageInfo {
   blob: Blob;
   width: number;
@@ -8,6 +6,7 @@ interface ImageInfo {
 }
 
 export async function buildPDF(images: ImageInfo[]): Promise<Blob> {
+  const { PDFDocument } = await import("pdf-lib");
   const pdfDoc = await PDFDocument.create();
 
   for (const image of images) {
