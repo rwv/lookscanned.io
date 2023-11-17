@@ -1,7 +1,15 @@
-import { scanCanvas } from "./scan-canvas";
 import type { ScanConfig } from "./types";
 import type { ScanRenderer } from "../types";
 import ScanWorker from "./scan.worker?worker";
+
+// to avoid web worker cold start
+const workers = [
+  new ScanWorker(),
+  new ScanWorker(),
+  new ScanWorker(),
+  new ScanWorker(),
+  new ScanWorker(),
+];
 
 export class CanvasScanner implements ScanRenderer {
   config: ScanConfig;
@@ -22,10 +30,11 @@ export class CanvasScanner implements ScanRenderer {
       throw new Error("Aborted");
     }
 
-    const uuid = Math.random().toString(36).substring(2, 15);
+    const worker = workers.shift() ?? new ScanWorker();
+    workers.push(new ScanWorker());
 
-    console.time(`scanCanvas ${uuid}`);
-    const worker = new ScanWorker();
+    options?.signal?.addEventListener("abort", () => worker.terminate());
+
     const blob = await new Promise<Blob>((resolve, reject) => {
       worker.onmessage = (e) => {
         resolve(e.data);
@@ -41,7 +50,6 @@ export class CanvasScanner implements ScanRenderer {
         config: JSON.parse(JSON.stringify(this.config)),
       });
     });
-    console.timeEnd(`scanCanvas ${uuid}`);
 
     return { blob };
   }
