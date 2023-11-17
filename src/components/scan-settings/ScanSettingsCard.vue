@@ -2,7 +2,7 @@
   <n-card
     :segmented="{
       content: true,
-      footer: 'soft',
+      footer: 'soft'
     }"
   >
     <n-collapse :default-expanded-names="['Settings']">
@@ -34,33 +34,33 @@
 </template>
 
 <script lang="ts" setup>
-import { NCard, NSpace, NCollapse, NCollapseItem, NIcon } from "naive-ui";
-import { AreaCustom } from "@vicons/carbon";
-import { ChevronDown12Regular } from "@vicons/fluent";
+import { NCard, NSpace, NCollapse, NCollapseItem, NIcon } from 'naive-ui'
+import { AreaCustom } from '@vicons/carbon'
+import { ChevronDown12Regular } from '@vicons/fluent'
 
-import BorderSetting from "./settings/BorderSetting.vue";
-import RotateSetting from "./settings/RotateSetting.vue";
-import RotateVarianceSetting from "./settings/RotateVarianceSetting.vue";
-import ColorspaceSetting from "./settings/ColorspaceSetting.vue";
-import BlurSetting from "./settings/BlurSetting.vue";
-import NoiseSetting from "./settings/NoiseSetting.vue";
-import ScaleSetting from "./settings/ScaleSetting.vue";
-import BrightnessSetting from "./settings/BrightnessSetting.vue";
-import ContrastSetting from "./settings/ContrastSetting.vue";
+import BorderSetting from './settings/BorderSetting.vue'
+import RotateSetting from './settings/RotateSetting.vue'
+import RotateVarianceSetting from './settings/RotateVarianceSetting.vue'
+import ColorspaceSetting from './settings/ColorspaceSetting.vue'
+import BlurSetting from './settings/BlurSetting.vue'
+import NoiseSetting from './settings/NoiseSetting.vue'
+import ScaleSetting from './settings/ScaleSetting.vue'
+import BrightnessSetting from './settings/BrightnessSetting.vue'
+import ContrastSetting from './settings/ContrastSetting.vue'
 
-import type { ScanConfig } from "@/utils/scan-renderer";
-import { useI18n } from "vue-i18n";
-import { useVModel } from "@vueuse/core";
+import type { ScanConfig } from '@/utils/scan-renderer'
+import { useI18n } from 'vue-i18n'
+import { useVModel } from '@vueuse/core'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const props = defineProps<{
-  config: ScanConfig;
-}>();
+  config: ScanConfig
+}>()
 
 const emit = defineEmits<{
-  (e: "update:config", config: ScanConfig): void;
-}>();
+  (e: 'update:config', config: ScanConfig): void
+}>()
 
-const config = useVModel(props, "config", emit);
+const config = useVModel(props, 'config', emit)
 </script>

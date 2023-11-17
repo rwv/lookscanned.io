@@ -1,14 +1,14 @@
-import type { ScanRenderer } from "../types";
+import type { ScanRenderer } from '../types'
 
-type RenderPageResult = Awaited<ReturnType<ScanRenderer["renderPage"]>>;
-type RenderPageParams = Parameters<ScanRenderer["renderPage"]>;
+type RenderPageResult = Awaited<ReturnType<ScanRenderer['renderPage']>>
+type RenderPageParams = Parameters<ScanRenderer['renderPage']>
 
 export class ScanCacher implements ScanRenderer {
-  private readonly cache = new Map<Blob, RenderPageResult>();
-  private readonly renderer: ScanRenderer;
+  private readonly cache = new Map<Blob, RenderPageResult>()
+  private readonly renderer: ScanRenderer
 
   constructor(renderer: ScanRenderer) {
-    this.renderer = renderer;
+    this.renderer = renderer
   }
 
   async renderPage(
@@ -20,13 +20,13 @@ export class ScanCacher implements ScanRenderer {
     // otherwise, the cache will be stuck with a rejected Promise
     // some mysterious error happens when we try to cache Promise<Blob>
 
-    const cached = this.cache.get(image);
+    const cached = this.cache.get(image)
     if (cached) {
-      return cached;
+      return cached
     }
 
-    const result = await this.renderer.renderPage(image, options);
-    this.cache.set(image, result);
-    return result;
+    const result = await this.renderer.renderPage(image, options)
+    this.cache.set(image, result)
+    return result
   }
 }

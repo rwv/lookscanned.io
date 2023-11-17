@@ -1,9 +1,7 @@
 <template>
   <n-form-item :show-feedback="false">
     <template #label>
-      <span :style="style" class="rotate-label">{{
-        t("settings.rotate")
-      }}</span>
+      <span :style="style" class="rotate-label">{{ t('settings.rotate') }}</span>
     </template>
     <n-slider
       v-model:value="rotate_computed"
@@ -16,33 +14,33 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { NFormItem, NSlider } from "naive-ui";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+import { computed } from 'vue'
+import { NFormItem, NSlider } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
-type rotateType = number;
+type rotateType = number
 
 const props = defineProps<{
-  rotate: rotateType;
-}>();
+  rotate: rotateType
+}>()
 
 const emit = defineEmits<{
-  (e: "update:rotate", value: rotateType): void;
-}>();
+  (e: 'update:rotate', value: rotateType): void
+}>()
 
 const rotate_computed = computed({
   get: () => props.rotate,
-  set: (value) => emit("update:rotate", value),
-});
+  set: (value) => emit('update:rotate', value)
+})
 
-const formatTooltip = (value: number) => `${value}°`;
+const formatTooltip = (value: number) => `${value}°`
 
 const style = computed(() => {
   return {
-    transform: `rotate(${rotate_computed.value}deg)`,
-  };
-});
+    transform: `rotate(${rotate_computed.value}deg)`
+  }
+})
 </script>
 
 <style scoped>

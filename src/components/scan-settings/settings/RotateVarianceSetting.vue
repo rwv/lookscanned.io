@@ -21,45 +21,45 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { NFormItem, NSlider } from "naive-ui";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+import { computed } from 'vue'
+import { NFormItem, NSlider } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
-type rotate_varType = number;
+type rotate_varType = number
 
 const props = defineProps<{
-  rotate_var: rotate_varType;
-}>();
+  rotate_var: rotate_varType
+}>()
 
 const emit = defineEmits<{
-  (e: "update:rotate_var", value: rotate_varType): void;
-}>();
+  (e: 'update:rotate_var', value: rotate_varType): void
+}>()
 
 const rotate_var_computed = computed({
   get: () => props.rotate_var,
-  set: (value) => emit("update:rotate_var", value),
-});
+  set: (value) => emit('update:rotate_var', value)
+})
 
-const formatTooltip = (value: number) => `±${value}°`;
+const formatTooltip = (value: number) => `±${value}°`
 
-const label = t("settings.rotateVariance");
+const label = t('settings.rotateVariance')
 // split label into characters
-const characters = label.split("");
-const amplifier = 2;
+const characters = label.split('')
+const amplifier = 2
 const degrees = computed(() => {
   return characters.map(() => {
-    return (Math.random() * 2 - 1) * rotate_var_computed.value * amplifier;
-  });
-});
+    return (Math.random() * 2 - 1) * rotate_var_computed.value * amplifier
+  })
+})
 
 const characterStyle = computed(() => {
   return degrees.value.map((degree) => {
     return {
-      transform: `rotate(${degree}deg)`,
-    };
-  });
-});
+      transform: `rotate(${degree}deg)`
+    }
+  })
+})
 </script>
 
 <style scoped>

@@ -11,17 +11,17 @@
 </template>
 
 <script lang="ts" setup>
-import { NPagination, NSpace } from "naive-ui";
-import { useVModel } from "@vueuse/core";
+import { NPagination, NSpace } from 'naive-ui'
+import { useVModel } from '@vueuse/core'
 
 const props = defineProps<{
-  page: number;
-  numPages: number;
-}>();
+  page: number
+  numPages: number
+}>()
 
 const emit = defineEmits<{
-  (e: "update:page", page: number): void;
-}>();
+  (e: 'update:page', page: number): void
+}>()
 
-const page = useVModel(props, "page", emit);
+const page = useVModel(props, 'page', emit)
 </script>

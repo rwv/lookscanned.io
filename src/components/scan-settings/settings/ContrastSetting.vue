@@ -2,44 +2,39 @@
   <n-form-item :label="t('settings.contrast')" :show-feedback="false">
     <template #label>
       <span :style="style" class="contrast-label">
-        {{ t("settings.contrast") }}
+        {{ t('settings.contrast') }}
       </span>
     </template>
-    <n-slider
-      v-model:value="contrast_computed"
-      :max="2"
-      :min="0"
-      :step="0.01"
-    />
+    <n-slider v-model:value="contrast_computed" :max="2" :min="0" :step="0.01" />
   </n-form-item>
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
-import { NFormItem, NSlider } from "naive-ui";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+import { computed } from 'vue'
+import { NFormItem, NSlider } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
-type contrastType = number;
+type contrastType = number
 
 const props = defineProps<{
-  contrast: contrastType;
-}>();
+  contrast: contrastType
+}>()
 
 const emit = defineEmits<{
-  (e: "update:contrast", value: contrastType): void;
-}>();
+  (e: 'update:contrast', value: contrastType): void
+}>()
 
 const contrast_computed = computed({
   get: () => props.contrast,
-  set: (value) => emit("update:contrast", value),
-});
+  set: (value) => emit('update:contrast', value)
+})
 
 const style = computed(() => {
   return {
-    filter: `contrast(${contrast_computed.value})`,
-  };
-});
+    filter: `contrast(${contrast_computed.value})`
+  }
+})
 </script>
 
 <style scoped>

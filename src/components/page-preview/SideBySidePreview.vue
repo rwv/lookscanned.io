@@ -18,5 +18,5 @@
 </template>
 
 <script lang="ts" setup>
-import { NGrid, NGridItem, NCard } from "naive-ui";
+import { NGrid, NGridItem, NCard } from 'naive-ui'
 </script>

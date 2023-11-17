@@ -1,30 +1,30 @@
-import { applyScanEffect } from "./apply-scan-effect";
-import type { ScanConfig } from "./types";
-import type { ScanRenderer } from "../types";
+import { applyScanEffect } from './apply-scan-effect'
+import type { ScanConfig } from './types'
+import type { ScanRenderer } from '../types'
 
 export class MagicaScanner implements ScanRenderer {
-  config: ScanConfig;
+  config: ScanConfig
 
   constructor(config: ScanConfig) {
-    this.config = config;
+    this.config = config
   }
 
   async renderPage(
     image: Blob,
     options?: {
-      signal?: AbortSignal;
+      signal?: AbortSignal
     }
   ): Promise<{
-    blob: Blob;
+    blob: Blob
   }> {
     const scannedBlob = await applyScanEffect(
       {
         image: image,
-        config: JSON.parse(JSON.stringify(this.config)),
+        config: JSON.parse(JSON.stringify(this.config))
       },
       options?.signal
-    );
+    )
 
-    return { blob: scannedBlob };
+    return { blob: scannedBlob }
   }
 }

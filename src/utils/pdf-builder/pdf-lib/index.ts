@@ -1,1 +1,1 @@
-export { buildPDF } from "./build-pdf";
+export { buildPDF } from './build-pdf'

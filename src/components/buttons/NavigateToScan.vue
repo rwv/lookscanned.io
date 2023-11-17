@@ -1,7 +1,7 @@
 <template>
   <router-link
     :to="{
-      name: 'scan',
+      name: 'scan'
     }"
     #="{ navigate, href }"
     custom
@@ -12,18 +12,18 @@
           <AdfScannerOutlined />
         </n-icon>
       </template>
-      {{ t("actions.navigateToScan") }}
+      {{ t('actions.navigateToScan') }}
     </n-button>
   </router-link>
 </template>
 
 <script setup lang="ts">
-import { NButton, NIcon } from "naive-ui";
-import { AdfScannerOutlined } from "@vicons/material";
+import { NButton, NIcon } from 'naive-ui'
+import { AdfScannerOutlined } from '@vicons/material'
 
-import { RouterLink } from "vue-router";
+import { RouterLink } from 'vue-router'
 
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 </script>

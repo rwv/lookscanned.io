@@ -11,7 +11,7 @@
             <DocumentDownload />
           </n-icon>
         </template>
-        {{ t("actions.downloadScannedPDF") }}
+        {{ t('actions.downloadScannedPDF') }}
       </n-button>
       <n-button text @click="emit('generate')" :disabled="saving" v-else>
         <template #icon>
@@ -19,46 +19,46 @@
             <AdfScannerOutlined />
           </n-icon>
         </template>
-        <span v-if="saving">{{ t("actions.generating") }}</span>
-        <span v-else>{{ t("actions.generateScannedPDF") }}</span>
+        <span v-if="saving">{{ t('actions.generating') }}</span>
+        <span v-else>{{ t('actions.generateScannedPDF') }}</span>
       </n-button>
     </n-space>
   </n-card>
 </template>
 
 <script lang="ts" setup>
-import { NCard, NSpace, NIcon, NButton } from "naive-ui";
-import { DocumentDownload } from "@vicons/carbon";
-import { AdfScannerOutlined } from "@vicons/material";
-import { useI18n } from "vue-i18n";
-const { t } = useI18n();
+import { NCard, NSpace, NIcon, NButton } from 'naive-ui'
+import { DocumentDownload } from '@vicons/carbon'
+import { AdfScannerOutlined } from '@vicons/material'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
 const props = defineProps<{
-  progress?: number;
-  saving?: boolean;
-  pdf?: File;
-}>();
+  progress?: number
+  saving?: boolean
+  pdf?: File
+}>()
 
 const emit = defineEmits<{
-  (e: "generate"): void;
-}>();
+  (e: 'generate'): void
+}>()
 
 const download = () => {
-  if (!props.pdf) return;
+  if (!props.pdf) return
 
-  const link = document.createElement("a");
-  const url = URL.createObjectURL(props.pdf);
-  link.href = url;
-  link.download = props.pdf.name;
-  link.click();
-  URL.revokeObjectURL(url);
-  link.remove();
-};
+  const link = document.createElement('a')
+  const url = URL.createObjectURL(props.pdf)
+  link.href = url
+  link.download = props.pdf.name
+  link.click()
+  URL.revokeObjectURL(url)
+  link.remove()
+}
 </script>
 
 <style scoped>
 .animated-progress::before {
-  content: "";
+  content: '';
   width: var(--progress);
   height: 3px;
   background-color: var(--n-color-target);

@@ -10,6 +10,6 @@
 </template>
 
 <script setup lang="ts">
-import { NButton, NIcon } from "naive-ui";
-import { Box16Regular } from "@vicons/fluent";
+import { NButton, NIcon } from 'naive-ui'
+import { Box16Regular } from '@vicons/fluent'
 </script>

@@ -3,13 +3,7 @@
     <div style="margin-bottom: 25px">
       <BackToIndex />
     </div>
-    <n-grid
-      x-gap="25"
-      y-gap="25"
-      :cols="12"
-      item-responsive
-      responsive="screen"
-    >
+    <n-grid x-gap="25" y-gap="25" :cols="12" item-responsive responsive="screen">
       <n-grid-item span="12 s:5 m:4 l:3">
         <n-space vertical>
           <PDFUpload @update:pdf="pdf = $event" />
@@ -37,75 +31,71 @@
 </template>
 
 <script lang="ts" setup>
-import { NGrid, NGridItem, NSpace } from "naive-ui";
-import MainContainer from "@/components/MainContainer.vue";
-import {
-  type ScanConfig,
-  defaultConfig,
-  MagicaScanner,
-} from "@/utils/scan-renderer/magica-scan";
-import ScanSettingsCard from "@/components/scan-settings/ScanSettingsCard.vue";
-import PDFUpload from "@/components/pdf-upload/PDFUpload.vue";
-import { ref, computed, onMounted, watch } from "vue";
-import PDFURL from "@/assets/examples/pdfs/test.pdf";
-import BackToIndex from "@/components/buttons/BackToIndex.vue";
-import { useHead } from "@vueuse/head";
-import { useI18n } from "vue-i18n";
-import { PDF } from "@/utils/pdf-renderer/pdfjs";
-import PreviewCompare from "@/components/page-preview/PreviewCompare.vue";
-import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
-import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
-import PDFInfo from "@/components/pdf-upload/PDFInfo.vue";
-import { ScanCacher } from "@/utils/scan-renderer/scan-cacher";
-import { useMessage } from "naive-ui";
+import { NGrid, NGridItem, NSpace } from 'naive-ui'
+import MainContainer from '@/components/MainContainer.vue'
+import { type ScanConfig, defaultConfig, MagicaScanner } from '@/utils/scan-renderer/magica-scan'
+import ScanSettingsCard from '@/components/scan-settings/ScanSettingsCard.vue'
+import PDFUpload from '@/components/pdf-upload/PDFUpload.vue'
+import { ref, computed, onMounted, watch } from 'vue'
+import PDFURL from '@/assets/examples/pdfs/test.pdf'
+import BackToIndex from '@/components/buttons/BackToIndex.vue'
+import { useHead } from '@vueuse/head'
+import { useI18n } from 'vue-i18n'
+import { PDF } from '@/utils/pdf-renderer/pdfjs'
+import PreviewCompare from '@/components/page-preview/PreviewCompare.vue'
+import SaveButtonCard from '@/components/save-button/SaveButtonCard.vue'
+import { useSaveScannedPDF } from '@/composables/save-scanned-pdf'
+import PDFInfo from '@/components/pdf-upload/PDFInfo.vue'
+import { ScanCacher } from '@/utils/scan-renderer/scan-cacher'
+import { useMessage } from 'naive-ui'
 
-const { t } = useI18n();
-const message = useMessage();
+const { t } = useI18n()
+const message = useMessage()
 
 useHead({
-  title: t("base.scanTitle") + " - " + t("base.title"),
-  meta: [{ name: "description", content: t("base.description") }],
-});
+  title: t('base.scanTitle') + ' - ' + t('base.title'),
+  meta: [{ name: 'description', content: t('base.description') }]
+})
 
-const pdf = ref<File | undefined>(undefined);
+const pdf = ref<File | undefined>(undefined)
 
 onMounted(async () => {
-  const response = await fetch(PDFURL);
-  const blob = await response.blob();
-  pdf.value = new File([blob], "example.pdf");
-});
+  const response = await fetch(PDFURL)
+  const blob = await response.blob()
+  pdf.value = new File([blob], 'example.pdf')
+})
 
-const config = ref<ScanConfig>(defaultConfig);
+const config = ref<ScanConfig>(defaultConfig)
 const pdfRenderer = computed(() => {
-  if (!pdf.value) return;
+  if (!pdf.value) return
 
-  return new PDF(pdf.value);
-});
+  return new PDF(pdf.value)
+})
 
-const scanRenderer = ref(new ScanCacher(new MagicaScanner(config.value)));
+const scanRenderer = ref(new ScanCacher(new MagicaScanner(config.value)))
 watch(
   config,
   (newConfig) => {
-    scanRenderer.value = new ScanCacher(new MagicaScanner(newConfig));
+    scanRenderer.value = new ScanCacher(new MagicaScanner(newConfig))
   },
   { deep: true }
-);
+)
 
-const scale = computed(() => config.value.scale);
+const scale = computed(() => config.value.scale)
 
 const { save, progress, saving, scannedPDF } = useSaveScannedPDF(
   pdf,
   pdfRenderer,
   scanRenderer,
   scale
-);
+)
 
 const generate = async () => {
   try {
-    await save();
-    message.success(t("actions.generateSuccess"));
+    await save()
+    message.success(t('actions.generateSuccess'))
   } catch (e) {
-    message.error(t("actions.generateError") + (e as Error).message);
+    message.error(t('actions.generateError') + (e as Error).message)
   }
-};
+}
 </script>

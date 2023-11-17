@@ -1,46 +1,46 @@
 export function featureDetect(): boolean {
   const windowObjects = [
-    "OffscreenCanvas",
-    "createImageBitmap",
-    "Worker",
-    "CanvasRenderingContext2D",
-    "OffscreenCanvasRenderingContext2D",
-  ];
+    'OffscreenCanvas',
+    'createImageBitmap',
+    'Worker',
+    'CanvasRenderingContext2D',
+    'OffscreenCanvasRenderingContext2D'
+  ]
   for (const object of windowObjects) {
     if (!(object in window)) {
-      return false;
+      return false
     }
   }
 
   const canvasMethods = [
-    "fillStyle",
-    "fillRect",
-    "filter",
-    "translate",
-    "rotate",
-    "drawImage",
-    "strokeStyle",
-    "lineWidth",
-    "strokeRect",
-  ];
+    'fillStyle',
+    'fillRect',
+    'filter',
+    'translate',
+    'rotate',
+    'drawImage',
+    'strokeStyle',
+    'lineWidth',
+    'strokeRect'
+  ]
 
   // check CanvasRenderingContext2D.prototype
-  const canvasProto = CanvasRenderingContext2D.prototype;
+  const canvasProto = CanvasRenderingContext2D.prototype
   for (const method of canvasMethods) {
     if (!(method in canvasProto)) {
-      return false;
+      return false
     }
   }
 
   // check OffscreenCanvas.prototype
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  const offscreenCanvasProto = OffscreenCanvasRenderingContext2D.prototype;
+  const offscreenCanvasProto = OffscreenCanvasRenderingContext2D.prototype
   for (const method of canvasMethods) {
     if (!(method in offscreenCanvasProto)) {
-      return false;
+      return false
     }
   }
 
-  return true;
+  return true
 }

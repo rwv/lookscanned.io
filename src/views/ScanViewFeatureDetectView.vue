@@ -4,9 +4,9 @@
 </template>
 
 <script lang="ts" setup>
-import { featureDetect } from "@/utils/scan-renderer/canvas-scan";
-import CanvasScanView from "./CanvasScanView.vue";
-import MagicaScanView from "./MagicaScanView.vue";
+import { featureDetect } from '@/utils/scan-renderer/canvas-scan'
+import CanvasScanView from './CanvasScanView.vue'
+import MagicaScanView from './MagicaScanView.vue'
 
-const supportCanvasScan = featureDetect();
+const supportCanvasScan = featureDetect()
 </script>
