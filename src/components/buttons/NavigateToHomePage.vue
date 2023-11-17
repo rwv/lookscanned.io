@@ -1,10 +1,5 @@
 <template>
-  <n-button
-    text
-    tag="a"
-    href="https://zczc.cz"
-    target="_blank"
-  >
+  <n-button text tag="a" href="https://zczc.cz" target="_blank">
     <template #icon>
       <n-icon>
         <Home12Regular />
