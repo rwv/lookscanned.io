@@ -1,4 +1,17 @@
 export function featureDetect(): boolean {
+  const windowObjects = [
+    "OffscreenCanvas",
+    "createImageBitmap",
+    "Worker",
+    "CanvasRenderingContext2D",
+    "OffscreenCanvasRenderingContext2D",
+  ];
+  for (const object of windowObjects) {
+    if (!(object in window)) {
+      return false;
+    }
+  }
+
   const canvasMethods = [
     "fillStyle",
     "fillRect",
@@ -20,16 +33,11 @@ export function featureDetect(): boolean {
   }
 
   // check OffscreenCanvas.prototype
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const offscreenCanvasProto = OffscreenCanvasRenderingContext2D.prototype;
   for (const method of canvasMethods) {
     if (!(method in offscreenCanvasProto)) {
-      return false;
-    }
-  }
-
-  const windowObjects = ["OffscreenCanvas", "createImageBitmap", "Worker"];
-  for (const object of windowObjects) {
-    if (!(object in window)) {
       return false;
     }
   }
