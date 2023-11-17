@@ -13,6 +13,10 @@ export async function createNoiseBlob(
     throw new Error("Canvas context is null");
   }
 
+  if (noise === 0) {
+    return canvas.convertToBlob({ type: "image/png" });
+  }
+
   const noiseSVG = getNoiseSVG(noise);
   const noiseSVGBlob = new Blob([noiseSVG], { type: "image/svg+xml" });
   const noiseSVGURL = URL.createObjectURL(noiseSVGBlob);
