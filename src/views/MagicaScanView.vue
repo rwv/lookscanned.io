@@ -44,7 +44,7 @@ import {
   defaultConfig,
   MagicaScanner,
 } from "@/utils/scan-renderer/magica-scan";
-import ScanSettingsCard from "@/components/canvas-scan/canvas-scan-settings/ScanSettingsCard.vue";
+import ScanSettingsCard from "@/components/scan-settings/ScanSettingsCard.vue";
 import PDFUpload from "@/components/pdf-upload/PDFUpload.vue";
 import { ref, computed, onMounted, watch } from "vue";
 import PDFURL from "@/assets/examples/pdfs/test.pdf";

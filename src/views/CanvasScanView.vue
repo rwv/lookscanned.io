@@ -39,8 +39,12 @@
 <script lang="ts" setup>
 import { NGrid, NGridItem, NSpace } from "naive-ui";
 import MainContainer from "@/components/MainContainer.vue";
-import { type ScanConfig, defaultConfig } from "@/utils/scan-renderer/canvas-scan";
-import ScanSettingsCard from "@/components/canvas-scan/canvas-scan-settings/ScanSettingsCard.vue";
+import {
+  type ScanConfig,
+  defaultConfig,
+  CanvasScanner,
+} from "@/utils/scan-renderer/canvas-scan";
+import ScanSettingsCard from "@/components/scan-settings/ScanSettingsCard.vue";
 import PDFUpload from "@/components/pdf-upload/PDFUpload.vue";
 import { ref, computed, onMounted, watch } from "vue";
 import PDFURL from "@/assets/examples/pdfs/test.pdf";
@@ -49,7 +53,6 @@ import { useHead } from "@vueuse/head";
 import { useI18n } from "vue-i18n";
 import { PDF } from "@/utils/pdf-renderer/pdfjs";
 import PreviewCompare from "@/components/page-preview/PreviewCompare.vue";
-import { CanvasScanner } from "@/utils/scan-renderer/canvas-scan";
 import SaveButtonCard from "@/components/save-button/SaveButtonCard.vue";
 import { useSaveScannedPDF } from "@/composables/save-scanned-pdf";
 import PDFInfo from "@/components/pdf-upload/PDFInfo.vue";
