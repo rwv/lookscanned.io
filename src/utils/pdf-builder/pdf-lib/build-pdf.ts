@@ -34,6 +34,15 @@ export async function buildPDF(images: ImageInfo[]): Promise<Blob> {
     });
   }
 
+  // TODO: use custom metadata
+  pdfDoc.setProducer(metadata.producer);
+  pdfDoc.setCreator(metadata.creator);
+
   const pdfBytes = await pdfDoc.save();
   return new Blob([pdfBytes], { type: "application/pdf" });
 }
+
+const metadata = {
+  producer: "SECnvtToPDF V1.0",
+  creator: "TOSHIBA e-STUDIO2010AC",
+};
