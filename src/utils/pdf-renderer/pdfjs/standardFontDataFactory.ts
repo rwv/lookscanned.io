@@ -20,7 +20,7 @@ function getFontURL(filename: string) {
     const base = filename.slice(0, -4);
 
     return new URL(
-      `../../../node_modules/pdfjs-dist/standard_fonts/${base}.pfb`,
+      `../../../../node_modules/pdfjs-dist/standard_fonts/${base}.pfb`,
       import.meta.url
     ).href;
   }
