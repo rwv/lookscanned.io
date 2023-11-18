@@ -3,7 +3,7 @@
     <template #label>
       <span :style="style">{{ t('settings.border.label') }}</span>
     </template>
-    <NSwitch v-model:value="borderSwitch"></NSwitch>
+    <NSwitch v-model:value="border"></NSwitch>
   </n-form-item>
 </template>
 
@@ -11,6 +11,8 @@
 import { computed } from 'vue'
 import { NFormItem, NSwitch } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useVModel } from '@vueuse/core'
+
 const { t } = useI18n()
 
 type borderType = boolean
@@ -23,13 +25,10 @@ const emit = defineEmits<{
   (e: 'update:border', value: borderType): void
 }>()
 
-const borderSwitch = computed({
-  get: () => props.border == true,
-  set: (border) => emit('update:border', border ? true : false)
-})
+const border = useVModel(props, 'border', emit)
 
 const style = computed(() => {
-  if (borderSwitch.value) {
+  if (border.value) {
     return {
       outline: '1px solid var(--n-label-text-color)'
     }

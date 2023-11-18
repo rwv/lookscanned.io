@@ -5,7 +5,7 @@
         {{ t('settings.contrast') }}
       </span>
     </template>
-    <n-slider v-model:value="contrast_computed" :max="2" :min="0" :step="0.01" />
+    <n-slider v-model:value="contrast" :max="2" :min="0" :step="0.01" />
   </n-form-item>
 </template>
 
@@ -13,6 +13,8 @@
 import { computed } from 'vue'
 import { NFormItem, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useVModel } from '@vueuse/core'
+
 const { t } = useI18n()
 
 type contrastType = number
@@ -25,14 +27,11 @@ const emit = defineEmits<{
   (e: 'update:contrast', value: contrastType): void
 }>()
 
-const contrast_computed = computed({
-  get: () => props.contrast,
-  set: (value) => emit('update:contrast', value)
-})
+const contrast = useVModel(props, 'contrast', emit)
 
 const style = computed(() => {
   return {
-    filter: `contrast(${contrast_computed.value})`
+    filter: `contrast(${contrast.value})`
   }
 })
 </script>

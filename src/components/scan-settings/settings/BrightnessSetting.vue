@@ -5,7 +5,7 @@
         {{ t('settings.brightness') }}
       </span>
     </template>
-    <n-slider v-model:value="brightness_computed" :max="2" :min="0" :step="0.01" />
+    <n-slider v-model:value="brightness" :max="2" :min="0" :step="0.01" />
   </n-form-item>
 </template>
 
@@ -13,6 +13,8 @@
 import { computed } from 'vue'
 import { NFormItem, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useVModel } from '@vueuse/core'
+
 const { t } = useI18n()
 
 type brightnessType = number
@@ -25,14 +27,11 @@ const emit = defineEmits<{
   (e: 'update:brightness', value: brightnessType): void
 }>()
 
-const brightness_computed = computed({
-  get: () => props.brightness,
-  set: (value) => emit('update:brightness', value)
-})
+const brightness = useVModel(props, 'brightness', emit)
 
 const style = computed(() => {
   return {
-    filter: `brightness(${brightness_computed.value})`
+    filter: `brightness(${brightness.value})`
   }
 })
 </script>

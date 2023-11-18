@@ -8,9 +8,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { NFormItem, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useVModel } from '@vueuse/core'
+
 const { t } = useI18n()
 
 type scaleType = number
@@ -23,10 +24,7 @@ const emit = defineEmits<{
   (e: 'update:scale', value: scaleType): void
 }>()
 
-const scale = computed({
-  get: () => props.scale,
-  set: (value) => emit('update:scale', value)
-})
+const scale = useVModel(props, 'scale', emit)
 
 const formatTooltip = (value: number) => `${value}x`
 </script>

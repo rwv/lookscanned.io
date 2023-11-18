@@ -5,7 +5,7 @@
         {{ t('settings.noise') }}
       </div>
     </template>
-    <n-slider v-model:value="noise_computed" :max="1" :min="0" :step="0.01" />
+    <n-slider v-model:value="noise" :max="1" :min="0" :step="0.01" />
   </n-form-item>
 </template>
 
@@ -13,6 +13,7 @@
 import { computed } from 'vue'
 import { NFormItem, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useVModel } from '@vueuse/core'
 const { t } = useI18n()
 
 type noiseType = number
@@ -25,14 +26,11 @@ const emit = defineEmits<{
   (e: 'update:noise', value: noiseType): void
 }>()
 
-const noise_computed = computed({
-  get: () => props.noise,
-  set: (value) => emit('update:noise', value)
-})
+const noise = useVModel(props, 'noise', emit)
 
 const style = computed(() => {
   return {
-    '--noise-opacity': noise_computed.value
+    '--noise-opacity': noise.value
   }
 })
 </script>

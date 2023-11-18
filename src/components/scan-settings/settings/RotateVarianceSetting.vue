@@ -11,7 +11,7 @@
       </span>
     </template>
     <n-slider
-      v-model:value="rotate_var_computed"
+      v-model:value="rotate_var"
       :max="10"
       :min="0"
       :step="0.1"
@@ -24,6 +24,8 @@
 import { computed } from 'vue'
 import { NFormItem, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useVModel } from '@vueuse/core'
+
 const { t } = useI18n()
 
 type rotate_varType = number
@@ -36,10 +38,7 @@ const emit = defineEmits<{
   (e: 'update:rotate_var', value: rotate_varType): void
 }>()
 
-const rotate_var_computed = computed({
-  get: () => props.rotate_var,
-  set: (value) => emit('update:rotate_var', value)
-})
+const rotate_var = useVModel(props, 'rotate_var', emit)
 
 const formatTooltip = (value: number) => `±${value}°`
 
@@ -49,7 +48,7 @@ const characters = label.split('')
 const amplifier = 2
 const degrees = computed(() => {
   return characters.map(() => {
-    return (Math.random() * 2 - 1) * rotate_var_computed.value * amplifier
+    return (Math.random() * 2 - 1) * rotate_var.value * amplifier
   })
 })
 

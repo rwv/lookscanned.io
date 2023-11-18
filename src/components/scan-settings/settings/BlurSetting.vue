@@ -5,7 +5,7 @@
         {{ t('settings.blur') }}
       </span>
     </template>
-    <n-slider v-model:value="blur_computed" :max="1" :min="0" :step="0.01" />
+    <n-slider v-model:value="blur" :max="1" :min="0" :step="0.01" />
   </n-form-item>
 </template>
 
@@ -13,6 +13,8 @@
 import { computed } from 'vue'
 import { NFormItem, NSlider } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
+import { useVModel } from '@vueuse/core'
+
 const { t } = useI18n()
 
 type blurType = number
@@ -25,14 +27,11 @@ const emit = defineEmits<{
   (e: 'update:blur', value: blurType): void
 }>()
 
-const blur_computed = computed({
-  get: () => props.blur,
-  set: (value) => emit('update:blur', value)
-})
+const blur = useVModel(props, 'blur', emit)
 
 const style = computed(() => {
   return {
-    filter: `blur(${blur_computed.value}px)`
+    filter: `blur(${blur.value}px)`
   }
 })
 </script>
