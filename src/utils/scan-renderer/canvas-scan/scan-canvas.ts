@@ -12,7 +12,9 @@ export async function scanCanvas(
   }
 
   // Note: Hack to get around TS error
-  const ctx = canvas.getContext('2d') as CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D
+  const ctx = canvas.getContext('2d') as
+    | CanvasRenderingContext2D
+    | OffscreenCanvasRenderingContext2D
   if (!ctx) {
     throw new Error('Canvas not supported')
   }
