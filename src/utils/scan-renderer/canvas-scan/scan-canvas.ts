@@ -11,6 +11,9 @@ export async function scanCanvas(
     throw new Error('Aborted')
   }
 
+  const imgPromise = createImageBitmap(page)
+  const noiseImagePromise = createImageBitmap(noise)
+
   // Note: Hack to get around TS error
   const ctx = canvas.getContext('2d') as
     | CanvasRenderingContext2D
@@ -20,7 +23,7 @@ export async function scanCanvas(
   }
 
   // load blob into image
-  const img = await createImageBitmap(page)
+  const img = await imgPromise
   if (signal?.aborted) {
     throw new Error('Aborted')
   }
@@ -54,7 +57,7 @@ export async function scanCanvas(
 
   ctx.drawImage(img, 0, 0)
 
-  const noiseImage = await createImageBitmap(noise)
+  const noiseImage = await noiseImagePromise
   ctx.drawImage(noiseImage, 0, 0, width, height)
 
   if (config.border) {
