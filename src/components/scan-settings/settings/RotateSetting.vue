@@ -46,5 +46,6 @@ const style = computed(() => {
 <style scoped>
 .rotate-label {
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
 }
 </style>
