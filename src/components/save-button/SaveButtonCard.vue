@@ -31,6 +31,8 @@ import { NCard, NSpace, NIcon, NButton } from 'naive-ui'
 import { DocumentDownload } from '@vicons/carbon'
 import { AdfScannerOutlined } from '@vicons/material'
 import { useI18n } from 'vue-i18n'
+import { fileSave } from 'browser-fs-access'
+
 const { t } = useI18n()
 
 const props = defineProps<{
@@ -43,16 +45,17 @@ const emit = defineEmits<{
   (e: 'generate'): void
 }>()
 
-const download = () => {
+const download = async () => {
   if (!props.pdf) return
 
-  const link = document.createElement('a')
-  const url = URL.createObjectURL(props.pdf)
-  link.href = url
-  link.download = props.pdf.name
-  link.click()
-  URL.revokeObjectURL(url)
-  link.remove()
+  await fileSave(props.pdf, {
+    fileName: props.pdf.name,
+    extensions: ['.pdf'],
+    mimeTypes: ['application/pdf'],
+    startIn: 'downloads',
+    description: 'PDF File',
+    id: 'lookscanned'
+  })
 }
 </script>
 
