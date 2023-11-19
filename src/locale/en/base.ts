@@ -5,6 +5,6 @@ export const base = {
   scanTitle: 'Scan',
   serviceWorker: {
     offlineReady: 'App ready to work offline',
-    needRefresh: 'New content available, reload to update.'
+    needRefresh: 'New version available, click to refresh.'
   }
 }

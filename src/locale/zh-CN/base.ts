@@ -5,6 +5,6 @@ export const base = {
   scanTitle: '扫描',
   serviceWorker: {
     offlineReady: '离线缓存已准备就绪',
-    needRefresh: '网站代码已更新，刷新界面可享受新版本。不刷新也可继续使用'
+    needRefresh: '网站代码已更新，点此可享受新版本。'
   }
 }

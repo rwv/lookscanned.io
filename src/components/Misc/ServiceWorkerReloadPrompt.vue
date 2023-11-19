@@ -8,7 +8,7 @@ import { useI18n } from 'vue-i18n'
 
 const { t } = useI18n()
 
-const { offlineReady, needRefresh } = useRegisterSW()
+const { offlineReady, needRefresh, updateServiceWorker } = useRegisterSW()
 
 const message = useMessage()
 
@@ -22,12 +22,27 @@ watch(offlineReady, (ready) => {
 watch(needRefresh, (refresh) => {
   if (refresh) {
     console.log('Service Worker need to refresh')
-    message.info(t('base.serviceWorker.needRefresh'), {
-      icon: () => h(NIcon, null, { default: () => h(Refresh) }),
-      closable: true,
-      keepAliveOnHover: true,
-      duration: 5000
-    })
+    message.info(
+      () =>
+        h(
+          'span',
+          {
+            onClick: () => {
+              message.destroyAll()
+              console.log('updateServiceWorker')
+              updateServiceWorker(true)
+            },
+            style: 'cursor: pointer'
+          },
+          t('base.serviceWorker.needRefresh')
+        ),
+      {
+        icon: () => h(NIcon, null, { default: () => h(Refresh) }),
+        closable: true,
+        keepAliveOnHover: true,
+        duration: 5000
+      }
+    )
   }
 })
 </script>
