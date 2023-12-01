@@ -36,7 +36,7 @@ import MainContainer from '@/components/MainContainer.vue'
 import { type ScanConfig, defaultConfig, CanvasScanner } from '@/utils/scan-renderer/canvas-scan'
 import ScanSettingsCard from '@/components/scan-settings/ScanSettingsCard.vue'
 import PDFUpload from '@/components/pdf-upload/PDFUpload.vue'
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import PDFURL from '@/assets/examples/pdfs/test.pdf'
 import BackToIndex from '@/components/buttons/BackToIndex.vue'
 import { useHead } from '@unhead/vue'
@@ -59,11 +59,16 @@ useHead({
 
 const pdf = ref<File | undefined>(undefined)
 
-onMounted(async () => {
+const initExamplePDF = async () => {
   const response = await fetch(PDFURL)
   const blob = await response.blob()
-  pdf.value = new File([blob], 'example.pdf')
-})
+  const file = new File([blob], 'example.pdf')
+  if (!pdf.value) {
+    pdf.value = file
+  }
+}
+
+initExamplePDF()
 
 const config = ref<ScanConfig>(defaultConfig)
 const pdfRenderer = computed(() => {
