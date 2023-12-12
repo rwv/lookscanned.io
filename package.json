@@ -28,7 +28,7 @@
     "magica-re-export": "^1.0.9",
     "naive-ui": "^2.35.0",
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^3.11.174",
+    "pdfjs-dist": "^4.0.269",
     "vue": "^3.3.8",
     "vue-gtag": "^2.0.1",
     "vue-i18n": "^9.8.0",
