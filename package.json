@@ -51,7 +51,7 @@
     "sass-loader": "^13.3.2",
     "typescript": "~5.3.3",
     "vite": "^5.0.7",
-    "vite-plugin-pwa": "^0.17.0",
+    "vite-plugin-pwa": "^0.17.4",
     "vue-tsc": "^1.8.22",
     "workbox-window": "^7.0.0"
   }
