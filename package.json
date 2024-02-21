@@ -42,7 +42,7 @@
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.4.0",
-    "@vueuse/core": "^10.6.1",
+    "@vueuse/core": "^10.8.0",
     "eslint": "^8.55.0",
     "eslint-plugin-vue": "^9.18.1",
     "npm-run-all2": "^6.1.1",
