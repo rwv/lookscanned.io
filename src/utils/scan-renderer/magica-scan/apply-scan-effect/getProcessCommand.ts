@@ -5,7 +5,8 @@ export function getProcessCommand(
   inputFilename: string,
   outputFilename: string
 ): string {
-  const { rotate, rotate_var, colorspace, blur, noise, border, brightness, contrast } = config
+  const { rotate, rotate_var, colorspace, blur, noise, border, brightness, yellowish, contrast } =
+    config
   const thresholdFunc = (value: number) => !(value > -0.05 && value < 0.05)
   const args: string[] = []
   args.push('convert')
@@ -40,6 +41,9 @@ export function getProcessCommand(
   const contrast_ = (contrast - 1) * 100
 
   args.push(`-brightness-contrast ${brightness_.toFixed(2)}x${contrast_.toFixed(2)}`)
+
+  const yellowish_ = (yellowish * 20) / 1
+  args.push(`-fill 'rgb(252,242,199)' -colorize ${yellowish_}%`)
 
   args.push(outputFilename)
 

@@ -9,6 +9,7 @@ export interface ScanConfig {
   border: boolean
   scale: number
   brightness: number
+  yellowish: number
   contrast: number
   output_format: 'image/png' | 'image/jpeg'
 }
