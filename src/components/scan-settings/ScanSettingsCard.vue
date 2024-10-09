@@ -24,6 +24,7 @@
         <RotateSetting v-model:rotate="config.rotate" />
         <RotateVarianceSetting v-model:rotate_var="config.rotate_var" />
         <BrightnessSetting v-model:brightness="config.brightness" />
+        <YellowishSetting v-model:yellowish="config.yellowish" />
         <ContrastSetting v-model:contrast="config.contrast" />
         <BlurSetting v-model:blur="config.blur" />
         <NoiseSetting v-model:noise="config.noise" />
@@ -46,6 +47,7 @@ import BlurSetting from './settings/BlurSetting.vue'
 import NoiseSetting from './settings/NoiseSetting.vue'
 import ScaleSetting from './settings/ScaleSetting.vue'
 import BrightnessSetting from './settings/BrightnessSetting.vue'
+import YellowishSetting from './settings/YellowishSetting.vue'
 import ContrastSetting from './settings/ContrastSetting.vue'
 
 import type { ScanConfig } from '@/utils/scan-renderer'
