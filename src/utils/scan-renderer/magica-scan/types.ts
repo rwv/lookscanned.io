@@ -9,6 +9,7 @@ export interface ScanConfig {
   border: boolean
   scale: number
   brightness: number
+  yellowish: number
   contrast: number
   output_format: 'image/png' | 'image/jpeg'
 }
@@ -22,6 +23,7 @@ export const defaultConfig: ScanConfig = {
   border: false,
   scale: 2,
   brightness: 1,
+  yellowish: 0,
   contrast: 1,
   output_format: 'image/jpeg'
 }

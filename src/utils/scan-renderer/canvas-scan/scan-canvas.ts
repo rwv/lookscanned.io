@@ -47,6 +47,9 @@ export async function scanCanvas(
   // add brightness
   ctx.filter += ` brightness(${config.brightness})`
 
+  // modify yellowish
+  ctx.filter += ` sepia(${config.yellowish})`
+
   // add contrast
   ctx.filter += ` contrast(${config.contrast})`
 

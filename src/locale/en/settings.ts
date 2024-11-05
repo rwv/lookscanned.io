@@ -18,6 +18,7 @@ export const settings = {
   pdfSelectLabel: 'Select PDF',
   pdfNoSelectMessage: 'No PDF selected',
   scale: 'Resolution',
+  yellowish: 'Yellowish',
   brightness: 'Brightness',
   contrast: 'Contrast'
 }
