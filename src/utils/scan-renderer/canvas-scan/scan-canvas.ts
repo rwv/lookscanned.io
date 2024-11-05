@@ -48,15 +48,7 @@ export async function scanCanvas(
   ctx.filter += ` brightness(${config.brightness})`
 
   // modify yellowish
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-  const data = imageData.data
-
-  for (let i = 0; i < data.length; i += 4) {
-    data[i] = data[i] * 0.8 + 240 * 0.2 // Red
-    data[i + 1] = data[i + 1] * 0.8 + 234 * 0.2 // Green
-    data[i + 2] = data[i + 2] * 0.8 + 214 * 0.2 // Blue
-  }
-  ctx.putImageData(imageData, 0, 0)
+  ctx.filter += ` sepia(${config.yellowish})`
 
   // add contrast
   ctx.filter += ` contrast(${config.contrast})`
