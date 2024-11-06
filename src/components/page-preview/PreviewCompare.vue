@@ -78,9 +78,9 @@ const scanImage = computedAsync(
   async () => {
     controller.abort()
     controller = new AbortController()
-    if (!props.scanRenderer || !image.value.blob) return
+    if (!props.scanRenderer || !image.value?.blob) return
 
-    const { blob } = await props.scanRenderer.renderPage(image.value.blob, {
+    const { blob } = await props.scanRenderer.renderPage(image.value?.blob, {
       signal: controller.signal
     })
     return {
