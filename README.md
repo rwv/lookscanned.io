@@ -1,9 +1,9 @@
-# [📚 Look Scanned](https://lookscanned.io)
+# 📚 Look Scanned Community Edition
 
 ![GitHub Workflow Status (main)](https://img.shields.io/github/actions/workflow/status/rwv/lookscanned.io/ci.yml?branch=main)
 ![License](https://img.shields.io/github/license/rwv/lookscanned.io)
 
-https://lookscanned.io
+[lookscanned.io](https://lookscanned.io)
 
 Look Scanned is a pure frontend site that makes your PDFs look scanned! No need for printers and scanners anymore - everything you need to do is just a few clicks. Inspired by [baicunko/scanyourpdf](https://github.com/baicunko/scanyourpdf).
 
